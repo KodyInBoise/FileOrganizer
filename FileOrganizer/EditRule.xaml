@@ -1,0 +1,36 @@
+﻿<Window x:Class="FileOrganizer.EditRule"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:FileOrganizer"
+        mc:Ignorable="d"
+        Title="EditRule" Height="400" Width="615" WindowStartupLocation="CenterOwner">
+    <Grid>
+        <TextBox x:Name="keywordTB" HorizontalAlignment="Left" Height="23" Margin="171,110,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="329" VerticalContentAlignment="Center"/>
+        <Label x:Name="keywordLBL" Content="Keyword" FontFamily="Tahoma" FontSize="16" HorizontalAlignment="Left" Margin="95,106,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="sourceTB" HorizontalAlignment="Left" Height="23" Margin="171,70,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="329" VerticalContentAlignment="Center"/>
+        <Label x:Name="sourceLBL" Content="Source Directory" FontFamily="Tahoma" FontSize="16" HorizontalAlignment="Left" Margin="39,64,0,0" VerticalAlignment="Top"/>
+        <Button x:Name="browseBTN" Content="Browse" HorizontalAlignment="Left" Margin="505,68,0,0" VerticalAlignment="Top" Width="53" Height="23" Click="browseBTN_Click_1"/>
+        <ComboBox x:Name="actionCB" HorizontalAlignment="Left" Margin="171,150,0,0" VerticalAlignment="Top" Width="329" Height="23" FontFamily="Tahoma" FontSize="14" VerticalContentAlignment="Center" DropDownClosed="actionCB_DropDownClosed">
+            <ComboBoxItem Content="Delete" FontSize="14" FontFamily="Tahoma"/>
+            <ComboBoxItem Content="Move" FontSize="14" FontFamily="Tahoma"/>
+        </ComboBox>
+        <Label x:Name="actionLBL" Content="Action" FontFamily="Tahoma" FontSize="16" HorizontalAlignment="Left" Margin="112,146,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="destTB" HorizontalAlignment="Left" Height="23" Margin="171,230,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="329" VerticalContentAlignment="Center"/>
+        <Label x:Name="destDirLBL" Content="Destination" FontFamily="Tahoma" FontSize="16" HorizontalAlignment="Left" Margin="77,227,0,0" VerticalAlignment="Top"/>
+        <Button x:Name="destBrowseBTN" Content="Browse" HorizontalAlignment="Left" Margin="505,229,0,0" VerticalAlignment="Top" Width="53" Height="23" Click="browseBTN_Copy_Click"/>
+        <Label x:Name="titleLBL" Content="New Rule" FontSize="32" FontFamily="Tahoma" FontWeight="Bold" HorizontalAlignment="Left" Margin="218,-5,0,0" VerticalAlignment="Top"/>
+        <Button x:Name="testSearchBTN" Content="Test" HorizontalAlignment="Left" Margin="505,109,0,0" VerticalAlignment="Top" Width="53" Height="23" Click="testSearchBTN_Click"/>
+        <ComboBox x:Name="frequencyCB" FontFamily="Tahoma" FontSize="14" HorizontalAlignment="Left" Margin="171,190,0,0" VerticalAlignment="Top" Width="329">
+            <ComboBoxItem Content="Manual" FontSize="14" FontFamily="Tahoma" IsSelected="True"/>
+            <ComboBoxItem Content="Hourly" FontSize="14" FontFamily="Tahoma"/>
+            <ComboBoxItem Content="Daily" FontSize="14" FontFamily="Tahoma"/>
+            <ComboBoxItem Content="Custom" FontSize="14" FontFamily="Tahoma"/>
+        </ComboBox>
+        <Label x:Name="frequencyLBL" Content="Frequency" FontFamily="Tahoma" FontSize="16" HorizontalAlignment="Left" Margin="83,186,0,0" VerticalAlignment="Top"/>
+        <Image x:Name="saveIMG" HorizontalAlignment="Left" Height="60" Margin="505,285,0,0" VerticalAlignment="Top" Width="60" Source="Images/save.png" PreviewMouseLeftButtonDown="saveIMG_PreviewMouseLeftButtonDown"/>
+        <Image x:Name="deleteIMG" HorizontalAlignment="Left" Height="60" Margin="425,286,0,0" VerticalAlignment="Top" Width="60" Source="Images/delete.png" PreviewMouseLeftButtonDown="deleteIMG_PreviewMouseLeftButtonDown"/>
+
+    </Grid>
+</Window>

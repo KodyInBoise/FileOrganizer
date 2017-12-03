@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27004.2006
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FileOrganizer", "FileOrganizer\FileOrganizer.csproj", "{57D35639-55E5-4EF7-853C-7E5A88564759}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{57D35639-55E5-4EF7-853C-7E5A88564759}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{57D35639-55E5-4EF7-853C-7E5A88564759}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{57D35639-55E5-4EF7-853C-7E5A88564759}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{57D35639-55E5-4EF7-853C-7E5A88564759}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A5D708E9-5095-4F6D-BD46-B45127F78385}
+	EndGlobalSection
+EndGlobal

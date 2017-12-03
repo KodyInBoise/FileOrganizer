@@ -1,0 +1,29 @@
+﻿<Window x:Class="FileOrganizer.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:FileOrganizer"
+        mc:Ignorable="d" Height="555" Width="700" Closing="Window_Closing" Icon="Images/filecabinet.png">
+    <Window.Resources>
+        <CollectionViewSource x:Key="ItemCollectionViewSource" CollectionViewType="ListCollectionView"/>
+    </Window.Resources>
+    <Grid>
+        <DataGrid x:Name="rulesDG"  HorizontalAlignment="Left" Width="575" DataContext="{StaticResource ItemCollectionViewSource}" ItemsSource="{Binding}" AutoGenerateColumns="False" Margin="0,47,0,0">
+            <DataGrid.Columns>
+                <DataGridTextColumn Width="100" Header="Modified" Binding="{Binding ModifiedTimestamp}"/>
+                <DataGridTextColumn Width="75" Header="Source" Binding="{Binding SourceDir}"/>
+                <DataGridTextColumn Width="75" Header="Destination" Binding="{Binding DestDir}"/>
+                <DataGridTextColumn Width="75" Header="Action" Binding="{Binding Action}"/>
+                <DataGridTextColumn Width="75" Header="Keyword" Binding="{Binding Keyword}"/>
+                <DataGridTextColumn Width="75" Header="Frequency" Binding="{Binding Frequency}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <Button x:Name="newRuleBTN" Content="New Rule" HorizontalAlignment="Left" Height="43" Margin="587,49,0,0" VerticalAlignment="Top" Width="86" Click="newRuleBTN_Click"/>
+        <Button x:Name="editBTN" Content="Edit" HorizontalAlignment="Left" Height="43" Margin="587,97,0,0" VerticalAlignment="Top" Width="86" Click="editBTN_Click"/>
+        <Button x:Name="viewFilesBTN" Content="View Files" HorizontalAlignment="Left" Height="43" Margin="587,193,0,0" VerticalAlignment="Top" Width="86" Click="viewFilesBTN_Click"/>
+        <Button x:Name="runBTN" Content="Run Now" HorizontalAlignment="Left" Height="43" Margin="587,145,0,0" VerticalAlignment="Top" Width="86" Click="runBTN_Click"/>
+        <Label x:Name="titleLBL" Content="File Organizer" FontFamily="Tahoma" FontSize="28" FontWeight="SemiBold" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+        <Button x:Name="quitBTN" Content="Quit" HorizontalAlignment="Left" Height="43" Margin="587,466,0,0" VerticalAlignment="Top" Width="86" Click="quitBTN_Click"/>
+    </Grid>
+</Window>
