@@ -50,3 +50,5 @@
 \\Mac\Home\Documents\Projects\FileOrganizer\FileOrganizer\obj\Debug\FileOrganizer.csproj.CoreCompileInputs.cache
 \\Mac\Home\Documents\Projects\FileOrganizer\FileOrganizer\obj\Debug\FileOrganizer.exe
 \\Mac\Home\Documents\Projects\FileOrganizer\FileOrganizer\obj\Debug\FileOrganizer.pdb
+\\Mac\Home\Documents\Projects\FileOrganizer\FileOrganizer\bin\Debug\LiteDB.dll
+\\Mac\Home\Documents\Projects\FileOrganizer\FileOrganizer\bin\Debug\LiteDB.xml

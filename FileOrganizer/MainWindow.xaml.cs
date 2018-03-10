@@ -18,6 +18,7 @@ using System.Windows.Threading;
 using System.Drawing;
 using System.Net;
 using System.Threading;
+using FileOrganizer.Utilities;
 
 namespace FileOrganizer
 {
@@ -30,17 +31,19 @@ namespace FileOrganizer
         private int tmpCounter = 1;
         private List<Rule> ExistingRules;
 
+        public DataHelper AppData { get; set; }
+
         public MainWindow()
         {
             InitializeComponent();
             Storage.Initialize();
 
-            DisplayExistingRules();
             Startup();
         }
 
         private async void DisplayExistingRules()
         {
+            //var rules = await AppData.GetAllRules();
             await Task.Run(LoadExistingRules);
             StartTimers();
 
@@ -149,6 +152,7 @@ namespace FileOrganizer
 
         private void Startup()
         {
+            AppData = new DataHelper();
             var trayIconPath = $"{Directory.GetCurrentDirectory()}\\main.ico";
             ProgramIcon = new NotifyIcon
             {
@@ -156,6 +160,8 @@ namespace FileOrganizer
                 Visible = true
             };
             ProgramIcon.Click += new EventHandler(trayIcon_Clicked);
+
+            DisplayExistingRules();
         }
 
         private void trayIcon_Clicked(object sender, EventArgs e)

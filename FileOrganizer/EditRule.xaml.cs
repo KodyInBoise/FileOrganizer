@@ -25,12 +25,14 @@ namespace FileOrganizer
         string ActiveDir;
         string Keyword;
         List<FileInfo> FileList;
+        DataHelper AppData;
 
         private Rule ActiveRule;
 
         public EditRule()
         {
             InitializeComponent();
+            AppData = new DataHelper();
             titleLBL.Content = "New Rule";
             actionCB.SelectedIndex = 0;
             deleteIMG.Visibility = Visibility.Collapsed;
@@ -42,6 +44,7 @@ namespace FileOrganizer
         public EditRule(Rule r)
         {
             InitializeComponent();
+            AppData = new DataHelper();
             titleLBL.Content = "Edit Rule";
             ActiveRule = r;
             sourceTB.Text = r.SourceDir;
@@ -90,7 +93,7 @@ namespace FileOrganizer
             }
         }
 
-        private async Task CreateNewRule()
+        private async void CreateNewRule()
         {
             Rule tmpRule = new Rule
             {
@@ -107,7 +110,8 @@ namespace FileOrganizer
                 tmpRule.DestDir = "Trash";
             }
 
-            Storage.SaveRule(tmpRule);
+            await AppData.CreateRule(tmpRule);
+            //Storage.SaveRule(tmpRule);
         }
 
         private void FindSourceDir()
@@ -136,24 +140,15 @@ namespace FileOrganizer
 
         private async void testSearchBTN_Click(object sender, RoutedEventArgs e)
         {
-            var tmpRule = new Rule
-            {
-                ModifiedTimestamp = DateTime.Now.ToString(),
-                SourceDir = sourceTB.Text,
-                DestDir = destTB.Text,
-                Action = actionCB.Text,
-                Keyword = keywordTB.Text,
-                Frequency = frequencyCB.Text
-            };
-
-            var files = FileHelper.GetFiles(tmpRule.SourceDir);
+            var d = new DataHelper();
+            var f = d.GetAllRules();
         }
 
         private async void saveIMG_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             if (ActiveRule == null)
             {
-                await CreateNewRule();
+                CreateNewRule();
                 this.Close();
             }
             else
