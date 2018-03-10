@@ -156,9 +156,6 @@ namespace FileOrganizer
                 Visible = true
             };
             ProgramIcon.Click += new EventHandler(trayIcon_Clicked);
-
-            //This is for overnight testing, need to delete this
-            //StartTesting();
         }
 
         private void trayIcon_Clicked(object sender, EventArgs e)
@@ -175,19 +172,6 @@ namespace FileOrganizer
         {
             ProgramIcon.Dispose();     
             Environment.Exit(0);
-        }
-
-        private async Task DownloadImages()
-        {
-            var client = new WebClient();
-            var url = "http://www.fbschedules.com/images/logos/fbs/boise-state-broncos.png";
-            var downloads = @"\\Mac\Home\\Downloads\";
-
-            using (client)
-            {
-                client.DownloadFile(url, $"{downloads}testimage{tmpCounter}.png");
-            }
-            tmpCounter++;
         }
     }
 }

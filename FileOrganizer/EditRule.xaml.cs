@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.IO;
 using System.Windows.Forms;
+using FileOrganizer.Utilities;
 
 namespace FileOrganizer
 {
@@ -135,13 +136,17 @@ namespace FileOrganizer
 
         private async void testSearchBTN_Click(object sender, RoutedEventArgs e)
         {
-            testSearchBTN.Visibility = Visibility.Collapsed;
-            ActiveDir = sourceTB.Text;
-            Keyword = keywordTB.Text;
-            await Task.Run(ScanDirFiles);
-            System.Windows.MessageBox.Show(FileList.Count.ToString());
+            var tmpRule = new Rule
+            {
+                ModifiedTimestamp = DateTime.Now.ToString(),
+                SourceDir = sourceTB.Text,
+                DestDir = destTB.Text,
+                Action = actionCB.Text,
+                Keyword = keywordTB.Text,
+                Frequency = frequencyCB.Text
+            };
 
-            testSearchBTN.Visibility = Visibility.Visible;
+            var files = FileHelper.GetFiles(tmpRule.SourceDir);
         }
 
         private async void saveIMG_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -185,6 +190,17 @@ namespace FileOrganizer
                     destBrowseBTN.Visibility = Visibility.Visible;
                     break;
             }
+        }
+
+        private async Task<Rule> CreateRule(Rule tmpRule)
+        {
+            if (tmpRule.Action == "Delete")
+            {
+                tmpRule.DestDir = "Trash";
+            }
+
+            Storage.SaveRule(tmpRule);
+            return tmpRule;
         }
     }
 }

@@ -24,3 +24,29 @@
 \\mac\home\Documents\Visual Studio 2017\Projects\FileOrganizer\FileOrganizer\obj\Debug\FileOrganizer.exe
 \\mac\home\Documents\Visual Studio 2017\Projects\FileOrganizer\FileOrganizer\obj\Debug\FileOrganizer.pdb
 \\Mac\Home\Documents\Visual Studio 2017\Projects\FileOrganizer\FileOrganizer\obj\Debug\FileOrganizer.csprojResolveAssemblyReference.cache
+\\Mac\Home\Documents\Projects\FileOrganizer\FileOrganizer\bin\Debug\FileOrganizer.exe.config
+\\Mac\Home\Documents\Projects\FileOrganizer\FileOrganizer\bin\Debug\FileOrganizer.exe
+\\Mac\Home\Documents\Projects\FileOrganizer\FileOrganizer\bin\Debug\FileOrganizer.pdb
+\\Mac\Home\Documents\Projects\FileOrganizer\FileOrganizer\bin\Debug\EntityFramework.dll
+\\Mac\Home\Documents\Projects\FileOrganizer\FileOrganizer\bin\Debug\EntityFramework.SqlServer.dll
+\\Mac\Home\Documents\Projects\FileOrganizer\FileOrganizer\bin\Debug\System.Data.SQLite.dll
+\\Mac\Home\Documents\Projects\FileOrganizer\FileOrganizer\bin\Debug\System.Data.SQLite.EF6.dll
+\\Mac\Home\Documents\Projects\FileOrganizer\FileOrganizer\bin\Debug\System.Data.SQLite.Linq.dll
+\\Mac\Home\Documents\Projects\FileOrganizer\FileOrganizer\bin\Debug\EntityFramework.xml
+\\Mac\Home\Documents\Projects\FileOrganizer\FileOrganizer\bin\Debug\EntityFramework.SqlServer.xml
+\\Mac\Home\Documents\Projects\FileOrganizer\FileOrganizer\bin\Debug\System.Data.SQLite.xml
+\\Mac\Home\Documents\Projects\FileOrganizer\FileOrganizer\bin\Debug\System.Data.SQLite.dll.config
+\\Mac\Home\Documents\Projects\FileOrganizer\FileOrganizer\obj\Debug\FileOrganizer.csprojResolveAssemblyReference.cache
+\\Mac\Home\Documents\Projects\FileOrganizer\FileOrganizer\obj\Debug\EditRule.g.cs
+\\Mac\Home\Documents\Projects\FileOrganizer\FileOrganizer\obj\Debug\MainWindow.g.cs
+\\Mac\Home\Documents\Projects\FileOrganizer\FileOrganizer\obj\Debug\App.g.cs
+\\Mac\Home\Documents\Projects\FileOrganizer\FileOrganizer\obj\Debug\FileOrganizer_MarkupCompile.cache
+\\Mac\Home\Documents\Projects\FileOrganizer\FileOrganizer\obj\Debug\FileOrganizer_MarkupCompile.lref
+\\Mac\Home\Documents\Projects\FileOrganizer\FileOrganizer\obj\Debug\EditRule.baml
+\\Mac\Home\Documents\Projects\FileOrganizer\FileOrganizer\obj\Debug\MainWindow.baml
+\\Mac\Home\Documents\Projects\FileOrganizer\FileOrganizer\obj\Debug\FileOrganizer.g.resources
+\\Mac\Home\Documents\Projects\FileOrganizer\FileOrganizer\obj\Debug\FileOrganizer.Properties.Resources.resources
+\\Mac\Home\Documents\Projects\FileOrganizer\FileOrganizer\obj\Debug\FileOrganizer.csproj.GenerateResource.Cache
+\\Mac\Home\Documents\Projects\FileOrganizer\FileOrganizer\obj\Debug\FileOrganizer.csproj.CoreCompileInputs.cache
+\\Mac\Home\Documents\Projects\FileOrganizer\FileOrganizer\obj\Debug\FileOrganizer.exe
+\\Mac\Home\Documents\Projects\FileOrganizer\FileOrganizer\obj\Debug\FileOrganizer.pdb

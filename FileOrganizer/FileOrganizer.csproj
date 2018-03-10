@@ -81,6 +81,7 @@
     <Compile Include="Rule.cs" />
     <Compile Include="Storage.cs" />
     <Compile Include="TimerHelper.cs" />
+    <Compile Include="Utilities\FileHelper.cs" />
     <Page Include="EditRule.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
