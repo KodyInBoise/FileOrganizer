@@ -205,3 +205,6 @@ project.lock.json
 *.pdb
 *.pdb
 *.exe
+
+#Custom
+ListAbsolute.txt
