@@ -98,12 +98,10 @@ namespace FileOrganizer
                         await Task.Run(MoveFiles);
                         break;
                 }
-
-                Storage.LogAction(this);
             }
             catch (Exception ex)
             {
-                Storage.LogAction(this, ex);
+                throw ex;
             }
         }
 

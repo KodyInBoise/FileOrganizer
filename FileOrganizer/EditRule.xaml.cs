@@ -96,9 +96,9 @@ namespace FileOrganizer
             }
         }
 
-        private async void CreateNewRule()
+        private void CreateNewRule()
         {
-            Rule tmpRule = new Rule
+            Rule newRule = new Rule
             {
                 ModifiedTimestamp = DateTime.Now.ToString(), 
                 SourceDir = sourceTB.Text, 
@@ -108,13 +108,30 @@ namespace FileOrganizer
                 Frequency = frequencyCB.Text
             };
 
-            if (tmpRule.Action == "Delete")
+            if (newRule.Action == "Delete")
             {
-                tmpRule.DestDir = "Trash";
+                newRule.DestDir = "Trash";
             }
 
-            await AppData.CreateRule(tmpRule);
-            MainWin.ExistingRules.Add(tmpRule);
+            AppData.CreateRule(newRule);
+            MainWin.ExistingRules.Add(newRule);
+            MainWin.rulesDG.Items.Refresh();
+            this.Close();
+        }
+
+        private void UpdateRule()
+        {
+            AppData.UpdateRule(ActiveRule);
+            MainWin.rulesDG.Items.Refresh();
+            this.Close();
+        }
+
+        private void DeleteRule()
+        {
+            AppData.DeleteRule(ActiveRule);
+            MainWin.ExistingRules.Remove(ActiveRule);
+            MainWin.rulesDG.Items.Refresh();
+            this.Close();
         }
 
         private void FindSourceDir()
@@ -150,10 +167,8 @@ namespace FileOrganizer
         private async void saveIMG_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             if (ActiveRule == null)
-            {
-                ;
+            {              
                 CreateNewRule();
-                this.Close();
             }
             else
             {
@@ -162,16 +177,14 @@ namespace FileOrganizer
                 ActiveRule.DestDir = destTB.Text;
                 ActiveRule.Keyword = keywordTB.Text;
                 ActiveRule.Frequency = frequencyCB.Text;
-                
-                Storage.UpdateRule(ActiveRule);
-                this.Close();
+
+                UpdateRule();
             }
         }
 
         private void deleteIMG_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            Storage.DeleteRule(ActiveRule);
-            this.Close();
+            DeleteRule();
         }
 
         private void actionCB_DropDownClosed(object sender, EventArgs e)
@@ -190,16 +203,6 @@ namespace FileOrganizer
                     break;
             }
         }
-
-        private async Task<Rule> CreateRule(Rule tmpRule)
-        {
-            if (tmpRule.Action == "Delete")
-            {
-                tmpRule.DestDir = "Trash";
-            }
-
-            Storage.SaveRule(tmpRule);
-            return tmpRule;
-        }
+        
     }
 }

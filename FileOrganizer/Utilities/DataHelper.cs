@@ -31,7 +31,7 @@ namespace FileOrganizer.Utilities
             }
         }
 
-        public async Task CreateRule(Rule rule)
+        public void CreateRule(Rule rule)
         {
             try
             {
@@ -42,6 +42,39 @@ namespace FileOrganizer.Utilities
                 }
             }
             catch(Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public void UpdateRule(Rule rule)
+        {
+            try
+            {
+                using (_data)
+                {
+                    var rules = _data.GetCollection<Rule>("rules");
+                    rules.Update(rule);
+                }
+            }
+            catch (Exception ex) 
+            {
+                throw ex;
+            }
+
+        }
+
+        public void DeleteRule(Rule rule)
+        {
+            try
+            {
+                using (_data)
+                {
+                    var rules = _data.GetCollection<Rule>("rules");
+                    rules.Delete(rule.ID);
+                }
+            }
+            catch (Exception ex)
             {
                 throw ex;
             }

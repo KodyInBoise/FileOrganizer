@@ -28,33 +28,25 @@ namespace FileOrganizer
     public partial class MainWindow : Window
     {
         private NotifyIcon ProgramIcon;
-        private int tmpCounter = 1;
+        public ScanHelper FileScanner;
         public List<Rule> ExistingRules;
+
         CollectionViewSource itemCollectionViewSource;
+
 
         public DataHelper AppData { get; set; }
 
         public MainWindow()
         {
             InitializeComponent();
-            Storage.Initialize();
-
             Startup();
         }
 
-        private async void DisplayExistingRules()
+        private async void CreateRuleGrid()
         {
-            ExistingRules = await AppData.GetAllRules();
-            rulesDG.Items.Refresh();
-            StartTimers();
-
             itemCollectionViewSource = (CollectionViewSource)(FindResource("ItemCollectionViewSource"));
             itemCollectionViewSource.Source = ExistingRules;
-        }
-
-        private async Task LoadExistingRules()
-        {
-            ExistingRules = Storage.LoadRuleList();
+            StartTimers();
         }
 
         private void editBTN_Click(object sender, RoutedEventArgs e)
@@ -65,7 +57,7 @@ namespace FileOrganizer
 
                 EditRule editRuleWin = new EditRule(this, selectedRule) { Owner = this };
                 editRuleWin.ShowDialog();
-                DisplayExistingRules();
+                CreateRuleGrid();
             }
             catch
             {
@@ -100,7 +92,7 @@ namespace FileOrganizer
         {
             EditRule newRuleWin = new EditRule(this) { Owner = this };
             newRuleWin.ShowDialog();
-            DisplayExistingRules();
+            CreateRuleGrid();
         }
 
         private void viewFilesBTN_Click(object sender, RoutedEventArgs e)
@@ -150,9 +142,11 @@ namespace FileOrganizer
             this.Visibility = Visibility.Collapsed;
         }
 
-        private void Startup()
+        private async void Startup()
         {
             AppData = new DataHelper();
+            ExistingRules = await AppData.GetAllRules();
+
             var trayIconPath = $"{Directory.GetCurrentDirectory()}\\main.ico";
             ProgramIcon = new NotifyIcon
             {
@@ -161,7 +155,7 @@ namespace FileOrganizer
             };
             ProgramIcon.Click += new EventHandler(trayIcon_Clicked);
 
-            DisplayExistingRules();
+            CreateRuleGrid();
         }
 
         private void trayIcon_Clicked(object sender, EventArgs e)
