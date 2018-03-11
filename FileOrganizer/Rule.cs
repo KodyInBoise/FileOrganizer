@@ -77,6 +77,7 @@ namespace FileOrganizer
 
         public List<FileInfo> GetAllFiles()
         {
+            //
             var baseDir = new DirectoryInfo(SourceDir);
             var allFiles = new List<FileInfo>();
             var subDirs = baseDir.GetDirectories();
