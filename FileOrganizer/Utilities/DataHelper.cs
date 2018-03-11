@@ -15,7 +15,13 @@ namespace FileOrganizer.Utilities
 
         private static string GetDataPath()
         {
-            return Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "File Organizer\\data.fo");
+            var dataDir = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "File Organizer");
+            if (!Directory.Exists(dataDir))
+            {
+                Directory.CreateDirectory(dataDir);
+            }
+
+            return Path.Combine(dataDir, "data.fo");
         }
 
         public DataHelper()
