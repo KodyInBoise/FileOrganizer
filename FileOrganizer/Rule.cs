@@ -59,7 +59,7 @@ namespace FileOrganizer
                     threshold = 60;
                     break;
                 case "Daily":
-                    threshold = 1440;
+                    threshold = 5;
                     break;
                 case "Weekly":
                     threshold = 10080;
@@ -127,6 +127,7 @@ namespace FileOrganizer
                         break;
                 }
 
+                LastRan = DateTime.Now;
                 Counter = 0;
             }
             catch (Exception ex)

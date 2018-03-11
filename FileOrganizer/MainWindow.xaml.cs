@@ -147,6 +147,7 @@ namespace FileOrganizer
                 if (threshold > 0 && rule.Counter >= threshold)
                 {
                     rule.ExecuteAction();
+                    await LogHelper.LogEntrySuccess(rule.ID);
                 }
                 rule.Counter++;
                 AppData.UpdateAllRules(ExistingRules);

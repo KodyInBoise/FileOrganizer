@@ -94,5 +94,15 @@ namespace FileOrganizer.Utilities
                 }
             }
         }
+
+        public static void AddLogEntry(LogHelper.LogEntry entry)
+        {
+            var data = new LiteDatabase(GetDataPath());
+            using (data)
+            {
+                var logEntries = data.GetCollection<LogHelper.LogEntry>("activitylog");
+                logEntries.Insert(entry);
+            }
+        }
     }
 }
