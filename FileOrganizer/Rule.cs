@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LiteDB;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -17,8 +18,9 @@ namespace FileOrganizer
         public string Action { get; set; }
         public string Keyword { get; set; }
         public string Frequency { get; set; }
-        public string LastRan { get; set; }
+        public DateTime LastRan { get; set; }
 
+        [BsonIgnore]
         public List<FileInfo> FileList { get; set; }
         public DispatcherTimer Timer { get; set; }
 

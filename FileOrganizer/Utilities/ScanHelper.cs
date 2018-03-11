@@ -10,5 +10,7 @@ namespace FileOrganizer.Utilities
     {
         public bool IsActive { get; set; }
         public List<Rule> RuleList { get; set; }
+        
+
     }
 }

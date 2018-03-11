@@ -47,13 +47,15 @@ namespace FileOrganizer.Utilities
             }
         }
 
-        public void UpdateRule(Rule rule)
+        public void UpdateRule(Rule rule, bool updateLastRan = false)
         {
             try
             {
+                _data = new LiteDatabase(GetDataPath());
                 using (_data)
                 {
                     var rules = _data.GetCollection<Rule>("rules");
+                    if (updateLastRan) rule.LastRan = DateTime.Now;
                     rules.Update(rule);
                 }
             }

@@ -42,7 +42,7 @@ namespace FileOrganizer
             Startup();
         }
 
-        private async void CreateRuleGrid()
+        private void CreateRuleGrid()
         {
             itemCollectionViewSource = (CollectionViewSource)(FindResource("ItemCollectionViewSource"));
             itemCollectionViewSource.Source = ExistingRules;
@@ -109,16 +109,21 @@ namespace FileOrganizer
             System.Windows.MessageBox.Show(s);
         }
 
-        private void runBTN_Click(object sender, RoutedEventArgs e)
+        private async void runBTN_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-                var activeRule = GetSelectedRule();
-                activeRule.ExecuteAction();
+                var rule = GetSelectedRule();
+                var result = await ExecuteRule(rule);
+                if (result == "Success")
+                {
+                    AppData.UpdateRule(rule, true);
+                }
             }
-            catch (NullReferenceException)
+            catch
             {
-
+                //Need to handle silently when ready to release
+                throw;
             }
         }
 
@@ -172,6 +177,19 @@ namespace FileOrganizer
         {
             ProgramIcon.Dispose();     
             Environment.Exit(0);
+        }
+
+        private async Task<string> ExecuteRule(Rule rule)
+        {
+            try
+            {
+                rule.ExecuteAction();
+                return "Success";
+            }
+            catch
+            {
+                return "Failed";
+            }
         }
     }
 }
