@@ -19,11 +19,10 @@
                 <DataGridTextColumn Width="75" Header="Frequency" Binding="{Binding Frequency}"/>
             </DataGrid.Columns>
         </DataGrid>
-        <Button x:Name="newRuleBTN" Content="New Rule" Style="{StaticResource RoundButtonTemplate}" HorizontalAlignment="Left" Height="43" Margin="587,50,0,0" VerticalAlignment="Top" Width="86" Click="newRuleBTN_Click" Background="#FF5ED75E" FontFamily="Verdana" FontSize="15"/>
+        <Button x:Name="newRuleBTN" Content="New Rule" Style="{StaticResource RoundButtonTemplate}" HorizontalAlignment="Left" Height="43" Margin="587,50,0,0" VerticalAlignment="Top" Width="86" Click="newRuleBTN_Click" Background="#FF19B950" FontFamily="Verdana" FontSize="15"/>
         <Button x:Name="editBTN" Content="Edit Rule" Style="{StaticResource RoundButtonTemplate}" HorizontalAlignment="Left" Height="43" Margin="587,115,0,0" VerticalAlignment="Top" Width="86" Click="editBTN_Click" FontFamily="Verdana" FontSize="15" Background="#FF716C6C"/>
-        <Button x:Name="runBTN" Content="Run Now" Style="{StaticResource RoundButtonTemplate}" HorizontalAlignment="Left" Height="43" Margin="587,245,0,0" VerticalAlignment="Top" Width="86" Click="runBTN_Click" Background="#FF3992D5" FontFamily="Verdana" FontSize="15"/>
+        <Button x:Name="runBTN" Content="Run Now" Style="{StaticResource RoundButtonTemplate}" HorizontalAlignment="Left" Height="43" Margin="587,180,0,0" VerticalAlignment="Top" Width="86" Click="runBTN_Click" Background="#FF3992D5" FontFamily="Verdana" FontSize="15"/>
         <Label x:Name="titleLBL" Content="File Organizer" FontFamily="Tahoma" FontSize="28" FontWeight="SemiBold" HorizontalAlignment="Left" VerticalAlignment="Top"/>
         <Button x:Name="quitBTN" Content="Quit" Style="{StaticResource RoundButtonTemplate}" HorizontalAlignment="Left" Height="43" Margin="587,466,0,0" VerticalAlignment="Top" Width="86" Click="quitBTN_Click" FontFamily="Verdana" FontSize="15" Background="#FFC21313"/>
-        <Button x:Name="deleteBTN" Content="Delete" Style="{StaticResource ResourceKey=RoundButtonTemplate}" HorizontalAlignment="Left" Height="43" Margin="587,180,0,0" VerticalAlignment="Top" Width="86" Background="#FFD74B2D" FontFamily="Verdana" FontSize="15" Click="deleteBTN_Click"/>
     </Grid>
 </Window>

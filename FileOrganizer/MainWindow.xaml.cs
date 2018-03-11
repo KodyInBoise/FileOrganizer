@@ -47,7 +47,6 @@ namespace FileOrganizer
         {
             itemCollectionViewSource = (CollectionViewSource)(FindResource("ItemCollectionViewSource"));
             itemCollectionViewSource.Source = ExistingRules;
-            StartTimer();
         }
 
         private void editBTN_Click(object sender, RoutedEventArgs e)
@@ -115,6 +114,7 @@ namespace FileOrganizer
             try
             {
                 var rule = GetSelectedRule();
+                var t = rule.GetAllFiles();
                 var result = await ExecuteRule(rule);
                 if (result == "Success")
                 {
@@ -175,6 +175,7 @@ namespace FileOrganizer
             ProgramIcon.Click += new EventHandler(trayIcon_Clicked);
 
             CreateRuleGrid();
+            //StartTimer();
         }
 
         private void trayIcon_Clicked(object sender, EventArgs e)
@@ -218,16 +219,6 @@ namespace FileOrganizer
             catch
             {
                 throw;
-            }
-        }
-
-        private void deleteBTN_Click(object sender, RoutedEventArgs e)
-        {
-            var agentName = GetSelectedRule().Name;
-            var result = System.Windows.MessageBox.Show($"Are you sure you'd like to delete rule \"{agentName}\"?", "Are you sure?", MessageBoxButton.YesNo, MessageBoxImage.Warning);
-            if (result == MessageBoxResult.Yes)
-            {
-                DeleteRule();
             }
         }
     }

@@ -37,7 +37,7 @@ namespace FileOrganizer
             AppData = new DataHelper();
             titleLBL.Content = "New Rule";
             actionCB.SelectedIndex = 0;
-            deleteIMG.Visibility = Visibility.Collapsed;
+            deleteBTN.Visibility = Visibility.Collapsed;
             destDirLBL.Visibility = Visibility.Collapsed;
             destTB.Visibility = Visibility.Collapsed;
             destBrowseBTN.Visibility = Visibility.Collapsed;
@@ -79,22 +79,6 @@ namespace FileOrganizer
 
             ActiveDir = folderBrowser.SelectedPath;
             sourceTB.Text = ActiveDir;
-        }
-
-        private async Task ScanDirFiles()
-        {
-            FileList = new List<FileInfo>();
-            DirectoryInfo dirInfo = new DirectoryInfo(ActiveDir);
-            FileInfo[] files = dirInfo.GetFiles();
-            foreach (FileInfo f in files)
-            {
-                var name = f.ToString().ToLower();
-                Keyword = Keyword.ToLower();
-                if (name.Contains(Keyword))
-                {
-                    FileList.Add(f);
-                }
-            }
         }
 
         private void CreateNewRule()
@@ -179,7 +163,7 @@ namespace FileOrganizer
             }
         }
 
-        private void deleteIMG_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        private void deleteBTN_Clicked(object sender, RoutedEventArgs e)
         {
             DeleteRule();
         }

@@ -52,7 +52,6 @@
 \\Mac\Home\Documents\Projects\FileOrganizer\FileOrganizer\obj\Debug\FileOrganizer.pdb
 \\Mac\Home\Documents\Projects\FileOrganizer\FileOrganizer\bin\Debug\LiteDB.dll
 \\Mac\Home\Documents\Projects\FileOrganizer\FileOrganizer\bin\Debug\LiteDB.xml
-\\vmware-host\Shared Folders\Documents\Projects\FileOrganizer\FileOrganizer\obj\Debug\FileOrganizer_MarkupCompile.lref
 \\vmware-host\Shared Folders\Documents\Projects\FileOrganizer\FileOrganizer\bin\Debug\FileOrganizer.exe.config
 \\vmware-host\Shared Folders\Documents\Projects\FileOrganizer\FileOrganizer\bin\Debug\FileOrganizer.exe
 \\vmware-host\Shared Folders\Documents\Projects\FileOrganizer\FileOrganizer\bin\Debug\FileOrganizer.pdb
@@ -63,6 +62,8 @@
 \\vmware-host\Shared Folders\Documents\Projects\FileOrganizer\FileOrganizer\obj\Debug\MainWindow.g.cs
 \\vmware-host\Shared Folders\Documents\Projects\FileOrganizer\FileOrganizer\obj\Debug\App.g.cs
 \\vmware-host\Shared Folders\Documents\Projects\FileOrganizer\FileOrganizer\obj\Debug\FileOrganizer_MarkupCompile.cache
+\\vmware-host\Shared Folders\Documents\Projects\FileOrganizer\FileOrganizer\obj\Debug\FileOrganizer_MarkupCompile.lref
+\\vmware-host\Shared Folders\Documents\Projects\FileOrganizer\FileOrganizer\obj\Debug\App.baml
 \\vmware-host\Shared Folders\Documents\Projects\FileOrganizer\FileOrganizer\obj\Debug\EditRule.baml
 \\vmware-host\Shared Folders\Documents\Projects\FileOrganizer\FileOrganizer\obj\Debug\MainWindow.baml
 \\vmware-host\Shared Folders\Documents\Projects\FileOrganizer\FileOrganizer\obj\Debug\FileOrganizer.g.resources
@@ -72,4 +73,3 @@
 \\vmware-host\Shared Folders\Documents\Projects\FileOrganizer\FileOrganizer\obj\Debug\FileOrganizer.csproj.CopyComplete
 \\vmware-host\Shared Folders\Documents\Projects\FileOrganizer\FileOrganizer\obj\Debug\FileOrganizer.exe
 \\vmware-host\Shared Folders\Documents\Projects\FileOrganizer\FileOrganizer\obj\Debug\FileOrganizer.pdb
-\\vmware-host\Shared Folders\Documents\Projects\FileOrganizer\FileOrganizer\obj\Debug\App.baml

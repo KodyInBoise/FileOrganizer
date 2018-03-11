@@ -54,7 +54,14 @@ namespace FileOrganizer
         {
             List<FileInfo> tmpList = new List<FileInfo>();
             DirectoryInfo dirInfo = new DirectoryInfo(SourceDir);
-            FileInfo[] files = dirInfo.GetFiles();
+            var files = dirInfo.GetFiles().ToList();
+
+            foreach (var subDir in dirInfo.GetDirectories())
+            {
+                var subDirFiles = subDir.GetFiles().ToList();
+                files.AddRange(subDirFiles);
+            }
+
             foreach (FileInfo f in files)
             {
                 var name = f.ToString().ToLower();
@@ -66,6 +73,26 @@ namespace FileOrganizer
             }
 
             return tmpList;
+        }
+
+        public List<FileInfo> GetAllFiles()
+        {
+            var baseDir = new DirectoryInfo(SourceDir);
+            var allFiles = new List<FileInfo>();
+            var subDirs = baseDir.GetDirectories();
+
+            try
+            {
+                allFiles.AddRange(baseDir.GetFiles());
+                foreach (var dir in subDirs)
+                {
+                    var subFiles = dir.GetFiles();
+                    allFiles.AddRange(subFiles);
+                }
+            }
+            catch { }
+
+            return allFiles;
         }
 
         public async void ExecuteAction()
