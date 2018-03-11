@@ -76,11 +76,11 @@ namespace FileOrganizer
 
             FrameworkElement element = new FrameworkElement() { DataContext = cellInfo.Item };
             BindingOperations.SetBinding(element, TagProperty, column.Binding);
-            var timestamp = element.Tag.ToString();
+            var name = element.Tag.ToString();
 
             foreach (Rule r in ExistingRules)
             {
-                if (r.ModifiedTimestamp == timestamp)
+                if (r.Name == name)
                 {
                     return r;
                 }
@@ -203,6 +203,31 @@ namespace FileOrganizer
             catch
             {
                 return "Failed";
+            }
+        }
+
+        private void DeleteRule()
+        {
+            try
+            {
+                var rule = GetSelectedRule();
+                AppData.DeleteRule(rule);
+                ExistingRules.Remove(rule);
+                rulesDG.Items.Refresh();
+            }
+            catch
+            {
+                throw;
+            }
+        }
+
+        private void deleteBTN_Click(object sender, RoutedEventArgs e)
+        {
+            var agentName = GetSelectedRule().Name;
+            var result = System.Windows.MessageBox.Show($"Are you sure you'd like to delete rule \"{agentName}\"?", "Are you sure?", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+            if (result == MessageBoxResult.Yes)
+            {
+                DeleteRule();
             }
         }
     }

@@ -50,6 +50,7 @@ namespace FileOrganizer
             MainWin = mainWin;
             titleLBL.Content = "Edit Rule";
             ActiveRule = r;
+            nameTB.Text = r.Name;
             sourceTB.Text = r.SourceDir;
             destTB.Text = r.DestDir;
             keywordTB.Text = r.Keyword;
@@ -100,6 +101,7 @@ namespace FileOrganizer
         {
             Rule newRule = new Rule
             {
+                Name = nameTB.Text,
                 ModifiedTimestamp = DateTime.Now.ToString(), 
                 SourceDir = sourceTB.Text, 
                 DestDir = destTB.Text, 
@@ -158,13 +160,7 @@ namespace FileOrganizer
             FindDestDir();
         }
 
-        private async void testSearchBTN_Click(object sender, RoutedEventArgs e)
-        {
-            var d = new DataHelper();
-            var f = d.GetAllRules();
-        }
-
-        private async void saveIMG_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        private async void Finish(object sender, EventArgs e)
         {
             if (ActiveRule == null)
             {              
@@ -172,6 +168,7 @@ namespace FileOrganizer
             }
             else
             {
+                ActiveRule.Name = nameTB.Text; 
                 ActiveRule.SourceDir = sourceTB.Text;
                 ActiveRule.Action = actionCB.Text;
                 ActiveRule.DestDir = destTB.Text;
@@ -203,6 +200,5 @@ namespace FileOrganizer
                     break;
             }
         }
-        
     }
 }
