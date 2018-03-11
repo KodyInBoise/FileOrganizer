@@ -11,19 +11,18 @@
     <Grid>
         <DataGrid x:Name="rulesDG"  HorizontalAlignment="Left" Width="575" DataContext="{StaticResource ItemCollectionViewSource}" ItemsSource="{Binding}" AutoGenerateColumns="False" Margin="0,47,0,0">
             <DataGrid.Columns>
-                <DataGridTextColumn Width="100" Header="Modified" Binding="{Binding ModifiedTimestamp}"/>
-                <DataGridTextColumn Width="75" Header="Source" Binding="{Binding SourceDir}"/>
-                <DataGridTextColumn Width="75" Header="Destination" Binding="{Binding DestDir}"/>
-                <DataGridTextColumn Width="75" Header="Action" Binding="{Binding Action}"/>
+                <DataGridTextColumn Width="100" Header="Name" Binding="{Binding Name}"/>
+                <DataGridTextColumn Width="100" Header="Source" Binding="{Binding SourceDir}"/>
+                <DataGridTextColumn Width="100" Header="Destination" Binding="{Binding DestDir}"/>
+                <DataGridTextColumn Width="50" Header="Action" Binding="{Binding Action}"/>
                 <DataGridTextColumn Width="75" Header="Keyword" Binding="{Binding Keyword}"/>
                 <DataGridTextColumn Width="75" Header="Frequency" Binding="{Binding Frequency}"/>
             </DataGrid.Columns>
         </DataGrid>
-        <Button x:Name="newRuleBTN" Content="New Rule" HorizontalAlignment="Left" Height="43" Margin="587,49,0,0" VerticalAlignment="Top" Width="86" Click="newRuleBTN_Click"/>
-        <Button x:Name="editBTN" Content="Edit" HorizontalAlignment="Left" Height="43" Margin="587,97,0,0" VerticalAlignment="Top" Width="86" Click="editBTN_Click"/>
-        <Button x:Name="viewFilesBTN" Content="View Files" HorizontalAlignment="Left" Height="43" Margin="587,193,0,0" VerticalAlignment="Top" Width="86" Click="viewFilesBTN_Click"/>
-        <Button x:Name="runBTN" Content="Run Now" HorizontalAlignment="Left" Height="43" Margin="587,145,0,0" VerticalAlignment="Top" Width="86" Click="runBTN_Click"/>
+        <Button x:Name="newRuleBTN" Content="New Rule" Style="{StaticResource RoundButtonTemplate}" HorizontalAlignment="Left" Height="43" Margin="587,50,0,0" VerticalAlignment="Top" Width="86" Click="newRuleBTN_Click" Background="#FF5ED75E" FontFamily="Verdana" FontSize="15"/>
+        <Button x:Name="editBTN" Content="Edit Rule" Style="{StaticResource RoundButtonTemplate}" HorizontalAlignment="Left" Height="43" Margin="587,115,0,0" VerticalAlignment="Top" Width="86" Click="editBTN_Click" FontFamily="Verdana" FontSize="15" Background="#FF716C6C"/>
+        <Button x:Name="runBTN" Content="Run Now" Style="{StaticResource RoundButtonTemplate}" HorizontalAlignment="Left" Height="43" Margin="587,180,0,0" VerticalAlignment="Top" Width="86" Click="runBTN_Click" Background="#FF3992D5" FontFamily="Verdana" FontSize="15"/>
         <Label x:Name="titleLBL" Content="File Organizer" FontFamily="Tahoma" FontSize="28" FontWeight="SemiBold" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-        <Button x:Name="quitBTN" Content="Quit" HorizontalAlignment="Left" Height="43" Margin="587,466,0,0" VerticalAlignment="Top" Width="86" Click="quitBTN_Click"/>
+        <Button x:Name="quitBTN" Content="Quit" Style="{StaticResource RoundButtonTemplate}" HorizontalAlignment="Left" Height="43" Margin="587,466,0,0" VerticalAlignment="Top" Width="86" Click="quitBTN_Click" FontFamily="Verdana" FontSize="15" Background="#FFC21313"/>
     </Grid>
 </Window>

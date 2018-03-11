@@ -118,7 +118,7 @@ namespace FileOrganizer
                 var result = await ExecuteRule(rule);
                 if (result == "Success")
                 {
-                    AppData.UpdateRule(rule, true);
+                    AppData.UpdateRule(rule);
                 }
             }
             catch

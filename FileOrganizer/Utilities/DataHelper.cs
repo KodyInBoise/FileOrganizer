@@ -47,7 +47,7 @@ namespace FileOrganizer.Utilities
             }
         }
 
-        public void UpdateRule(Rule rule, bool updateLastRan = false)
+        public void UpdateRule(Rule rule)
         {
             try
             {
@@ -55,7 +55,6 @@ namespace FileOrganizer.Utilities
                 using (_data)
                 {
                     var rules = _data.GetCollection<Rule>("rules");
-                    if (updateLastRan) rule.LastRan = DateTime.Now;
                     rules.Update(rule);
                 }
             }

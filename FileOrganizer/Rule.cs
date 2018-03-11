@@ -12,13 +12,13 @@ namespace FileOrganizer
     public class Rule
     {
         public int ID { get; set; }
+        public string Name { get; set; }
         public string ModifiedTimestamp { get; set; }
         public string SourceDir { get; set; }
         public string DestDir { get; set; }
         public string Action { get; set; }
         public string Keyword { get; set; }
         public string Frequency { get; set; }
-        public DateTime LastRan { get; set; }
         public int Counter { get; set; }
 
         [BsonIgnore]
@@ -84,7 +84,6 @@ namespace FileOrganizer
                         break;
                 }
 
-                LastRan = DateTime.Now;
                 Counter = 0;
             }
             catch (Exception ex)

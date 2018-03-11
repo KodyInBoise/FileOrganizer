@@ -72,3 +72,4 @@
 \\vmware-host\Shared Folders\Documents\Projects\FileOrganizer\FileOrganizer\obj\Debug\FileOrganizer.csproj.CopyComplete
 \\vmware-host\Shared Folders\Documents\Projects\FileOrganizer\FileOrganizer\obj\Debug\FileOrganizer.exe
 \\vmware-host\Shared Folders\Documents\Projects\FileOrganizer\FileOrganizer\obj\Debug\FileOrganizer.pdb
+\\vmware-host\Shared Folders\Documents\Projects\FileOrganizer\FileOrganizer\obj\Debug\App.baml
