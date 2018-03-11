@@ -55,6 +55,7 @@ namespace FileOrganizer
             destTB.Text = r.DestDir;
             keywordTB.Text = r.Keyword;
             actionCB.Text = r.Action;
+            frequencyCB.Text = r.Frequency;
         }
 
         public string GetDownloadsDir()
@@ -114,10 +115,14 @@ namespace FileOrganizer
 
         private void DeleteRule()
         {
-            AppData.DeleteRule(ActiveRule);
-            MainWin.ExistingRules.Remove(ActiveRule);
-            MainWin.rulesDG.Items.Refresh();
-            this.Close();
+            var result = System.Windows.MessageBox.Show("Are you sure you want to delete this rule?", "Are you sure?", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+            if (result == MessageBoxResult.Yes)
+            {
+                AppData.DeleteRule(ActiveRule);
+                MainWin.ExistingRules.Remove(ActiveRule);
+                MainWin.rulesDG.Items.Refresh();
+                this.Close();
+            }
         }
 
         private void FindSourceDir()

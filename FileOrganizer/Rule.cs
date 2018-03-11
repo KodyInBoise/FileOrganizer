@@ -90,7 +90,7 @@ namespace FileOrganizer
                     allFiles.AddRange(subFiles);
                 }
             }
-            catch { }
+            catch { throw; }
 
             return allFiles;
         }
