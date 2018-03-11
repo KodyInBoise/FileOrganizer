@@ -81,5 +81,18 @@ namespace FileOrganizer.Utilities
                 throw ex;
             }
         }
+
+        public void UpdateAllRules(List<Rule> ruleList)
+        {
+            _data = new LiteDatabase(GetDataPath());
+            using (_data)
+            {
+                var rules = _data.GetCollection<Rule>("rules");
+                foreach (var rule in ruleList)
+                {
+                    rules.Update(rule);
+                }
+            }
+        }
     }
 }

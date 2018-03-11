@@ -19,6 +19,7 @@ namespace FileOrganizer
         public string Keyword { get; set; }
         public string Frequency { get; set; }
         public DateTime LastRan { get; set; }
+        public int Counter { get; set; }
 
         [BsonIgnore]
         public List<FileInfo> FileList { get; set; }
@@ -47,6 +48,31 @@ namespace FileOrganizer
             {
                 StartTimer();
             }
+        }
+
+        public int GetThreshold()
+        {
+            var threshold = 0;
+            switch (Frequency)
+            {
+                case "Hourly":
+                    threshold = 60;
+                    break;
+                case "Daily":
+                    threshold = 1440;
+                    break;
+                case "Weekly":
+                    threshold = 10080;
+                    break;
+                case "Monthly":
+                    threshold = 43800;
+                    break;
+                default:
+                    threshold = -1;
+                    break;
+            }
+
+            return threshold;
         }
 
         private void StartTimer()
@@ -100,6 +126,8 @@ namespace FileOrganizer
                         await Task.Run(MoveFiles);
                         break;
                 }
+
+                Counter = 0;
             }
             catch (Exception ex)
             {

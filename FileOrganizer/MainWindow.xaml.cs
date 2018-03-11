@@ -32,6 +32,7 @@ namespace FileOrganizer
         public List<Rule> ExistingRules;
 
         CollectionViewSource itemCollectionViewSource;
+        DispatcherTimer ScanTimer;
 
 
         public DataHelper AppData { get; set; }
@@ -46,7 +47,7 @@ namespace FileOrganizer
         {
             itemCollectionViewSource = (CollectionViewSource)(FindResource("ItemCollectionViewSource"));
             itemCollectionViewSource.Source = ExistingRules;
-            StartTimers();
+            StartTimer();
         }
 
         private void editBTN_Click(object sender, RoutedEventArgs e)
@@ -127,16 +128,28 @@ namespace FileOrganizer
             }
         }
 
-        private void timer_Tick(object sender, EventArgs e)
+        private void StartTimer()
         {
-            System.Windows.MessageBox.Show("Tick!");
+            ScanTimer = new DispatcherTimer();
+            ScanTimer.Interval = new TimeSpan(0, 0, 5);
+            ScanTimer.Tick += (s, e) =>
+            {
+                Task.Run(ScanRules);
+            };
+            ScanTimer.Start();
         }
 
-        private void StartTimers()
+        private async Task ScanRules()
         {
-            foreach (Rule r in ExistingRules)
+            foreach (var rule in ExistingRules)
             {
-                r.InitializeTimer();
+                var threshold = rule.GetThreshold();
+                if (threshold > 0 && rule.Counter >= threshold)
+                {
+                    rule.ExecuteAction();
+                }
+                rule.Counter++;
+                AppData.UpdateAllRules(ExistingRules);
             }
         }
 
