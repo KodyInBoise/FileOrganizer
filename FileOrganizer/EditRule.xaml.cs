@@ -22,6 +22,7 @@ namespace FileOrganizer
     /// </summary>
     public partial class EditRule : Window
     {
+        MainWindow MainWin;
         string ActiveDir;
         string Keyword;
         List<FileInfo> FileList;
@@ -29,9 +30,10 @@ namespace FileOrganizer
 
         private Rule ActiveRule;
 
-        public EditRule()
+        public EditRule(MainWindow mainWin)
         {
             InitializeComponent();
+            MainWin = mainWin;
             AppData = new DataHelper();
             titleLBL.Content = "New Rule";
             actionCB.SelectedIndex = 0;
@@ -41,10 +43,11 @@ namespace FileOrganizer
             destBrowseBTN.Visibility = Visibility.Collapsed;
         }
 
-        public EditRule(Rule r)
+        public EditRule(MainWindow mainWin, Rule r)
         {
             InitializeComponent();
             AppData = new DataHelper();
+            MainWin = mainWin;
             titleLBL.Content = "Edit Rule";
             ActiveRule = r;
             sourceTB.Text = r.SourceDir;
@@ -111,7 +114,7 @@ namespace FileOrganizer
             }
 
             await AppData.CreateRule(tmpRule);
-            //Storage.SaveRule(tmpRule);
+            MainWin.ExistingRules.Add(tmpRule);
         }
 
         private void FindSourceDir()
@@ -148,6 +151,7 @@ namespace FileOrganizer
         {
             if (ActiveRule == null)
             {
+                ;
                 CreateNewRule();
                 this.Close();
             }

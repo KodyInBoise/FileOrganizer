@@ -10,12 +10,14 @@ namespace FileOrganizer
 {
     public class Rule
     {
+        public int ID { get; set; }
         public string ModifiedTimestamp { get; set; }
         public string SourceDir { get; set; }
         public string DestDir { get; set; }
         public string Action { get; set; }
         public string Keyword { get; set; }
         public string Frequency { get; set; }
+        public string LastRan { get; set; }
 
         public List<FileInfo> FileList { get; set; }
         public DispatcherTimer Timer { get; set; }

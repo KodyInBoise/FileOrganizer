@@ -4,16 +4,16 @@
 winexe
 C#
 .cs
-\\Mac\Home\Documents\Projects\FileOrganizer\FileOrganizer\obj\Debug\
+\\vmware-host\Shared Folders\Documents\Projects\FileOrganizer\FileOrganizer\obj\Debug\
 FileOrganizer
 none
 false
 DEBUG;TRACE
-\\Mac\Home\Documents\Projects\FileOrganizer\FileOrganizer\App.xaml
+\\vmware-host\Shared Folders\Documents\Projects\FileOrganizer\FileOrganizer\App.xaml
 22044281340
 
 12-106903000
-22-1960876432
+22-107509272
 EditRule.xaml;MainWindow.xaml;
 
 False

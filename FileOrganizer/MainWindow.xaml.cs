@@ -29,7 +29,8 @@ namespace FileOrganizer
     {
         private NotifyIcon ProgramIcon;
         private int tmpCounter = 1;
-        private List<Rule> ExistingRules;
+        public List<Rule> ExistingRules;
+        CollectionViewSource itemCollectionViewSource;
 
         public DataHelper AppData { get; set; }
 
@@ -43,11 +44,10 @@ namespace FileOrganizer
 
         private async void DisplayExistingRules()
         {
-            //var rules = await AppData.GetAllRules();
-            await Task.Run(LoadExistingRules);
+            ExistingRules = await AppData.GetAllRules();
+            rulesDG.Items.Refresh();
             StartTimers();
 
-            CollectionViewSource itemCollectionViewSource;
             itemCollectionViewSource = (CollectionViewSource)(FindResource("ItemCollectionViewSource"));
             itemCollectionViewSource.Source = ExistingRules;
         }
@@ -63,7 +63,7 @@ namespace FileOrganizer
             {
                 var selectedRule = GetSelectedRule();
 
-                EditRule editRuleWin = new EditRule(selectedRule) { Owner = this };
+                EditRule editRuleWin = new EditRule(this, selectedRule) { Owner = this };
                 editRuleWin.ShowDialog();
                 DisplayExistingRules();
             }
@@ -98,7 +98,7 @@ namespace FileOrganizer
 
         private void newRuleBTN_Click(object sender, RoutedEventArgs e)
         {
-            EditRule newRuleWin = new EditRule { Owner = this };
+            EditRule newRuleWin = new EditRule(this) { Owner = this };
             newRuleWin.ShowDialog();
             DisplayExistingRules();
         }
