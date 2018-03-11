@@ -25,31 +25,6 @@ namespace FileOrganizer
         public List<FileInfo> FileList { get; set; }
         public DispatcherTimer Timer { get; set; }
 
-        public void InitializeTimer()
-        {
-            switch (Frequency)
-            {
-                case "Manually":
-                    Timer = null;
-                    break;
-                case "Hourly":
-                    Timer = TimerHelper.HourlyTimer();
-                    break;
-                case "Daily":
-                    Timer = TimerHelper.DailyTimer();
-                    break;
-                case "Custom":
-                    TimeSpan t = new TimeSpan(0, 0, 5);
-                    Timer = TimerHelper.CustomTimer(t);
-                    break;
-            }
-
-            if (Timer != null)
-            {
-                StartTimer();
-            }
-        }
-
         public int GetThreshold()
         {
             var threshold = 0;
@@ -75,17 +50,6 @@ namespace FileOrganizer
             return threshold;
         }
 
-        private void StartTimer()
-        {
-            Timer.Tick += new EventHandler(timer_Tick);
-            Timer.Start();
-        }
-
-        private void StopTimer()
-        {
-            Timer.Stop();
-        }
-
         public List<FileInfo> GetFiles()
         {
             List<FileInfo> tmpList = new List<FileInfo>();
@@ -102,13 +66,6 @@ namespace FileOrganizer
             }
 
             return tmpList;
-        }
-
-        private void timer_Tick(object sender, EventArgs e)
-        {
-            string text = ModifiedTimestamp + " timer triggered at " + DateTime.Now.ToString() + Environment.NewLine + Environment.NewLine;
-            LogHelper.SaveAction(text);
-            ExecuteAction();
         }
 
         public async void ExecuteAction()
