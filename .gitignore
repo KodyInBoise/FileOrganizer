@@ -203,3 +203,5 @@ project.lock.json
 *.Specs_*.html
 *.exe
 *.pdb
+*.pdb
+*.exe
