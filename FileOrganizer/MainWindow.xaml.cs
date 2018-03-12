@@ -175,7 +175,7 @@ namespace FileOrganizer
             ProgramIcon.Click += new EventHandler(trayIcon_Clicked);
 
             CreateRuleGrid();
-            //StartTimer();
+            StartTimer();
         }
 
         private void trayIcon_Clicked(object sender, EventArgs e)

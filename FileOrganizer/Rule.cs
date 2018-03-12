@@ -34,7 +34,7 @@ namespace FileOrganizer
                     threshold = 60;
                     break;
                 case "Daily":
-                    threshold = 5;
+                    threshold = 1440;
                     break;
                 case "Weekly":
                     threshold = 10080;
@@ -77,7 +77,6 @@ namespace FileOrganizer
 
         public List<FileInfo> GetAllFiles()
         {
-            //
             var baseDir = new DirectoryInfo(SourceDir);
             var allFiles = new List<FileInfo>();
             var subDirs = baseDir.GetDirectories();
