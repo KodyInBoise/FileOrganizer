@@ -1,5 +1,7 @@
 # File Organizer
 
+[Download Installer](https://github.com/KodyInBoise/FileOrganizer/raw/stable/FileOrganizer_Installer.exe "Download File Organizer")
+
 A simple file management desktop app that helps keep your files organized and your directories clean.
 
 ## How it works
