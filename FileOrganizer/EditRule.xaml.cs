@@ -38,9 +38,6 @@ namespace FileOrganizer
             titleLBL.Content = "New Rule";
             actionCB.SelectedIndex = 0;
             deleteBTN.Visibility = Visibility.Collapsed;
-            destDirLBL.Visibility = Visibility.Collapsed;
-            destTB.Visibility = Visibility.Collapsed;
-            destBrowseBTN.Visibility = Visibility.Collapsed;
         }
 
         public EditRule(MainWindow mainWin, Rule r)
@@ -182,7 +179,7 @@ namespace FileOrganizer
                     destTB.Visibility = Visibility.Collapsed;
                     destBrowseBTN.Visibility = Visibility.Collapsed;
                     break;
-                case "Move":
+                default:
                     destDirLBL.Visibility = Visibility.Visible;
                     destTB.Visibility = Visibility.Visible;
                     destBrowseBTN.Visibility = Visibility.Visible;
