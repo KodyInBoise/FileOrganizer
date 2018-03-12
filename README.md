@@ -6,8 +6,8 @@ A simple file management desktop app that helps keep your files organized and yo
 
 ## How it works
 
-Users create "Rules" that watch a source directory and assosciate a "Keyword" that will trigger a "Move" or "Delete" action 
-on a user set interval.
+Users create "Rules" that watch a source directory and assosciate a "Keyword" that will trigger a "Move", "Copy"
+or "Delete" action on a user set interval.
 
 ## Notes
 
