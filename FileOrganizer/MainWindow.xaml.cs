@@ -98,6 +98,7 @@ namespace FileOrganizer
         private void viewFilesBTN_Click(object sender, RoutedEventArgs e)
         {
             var active = GetSelectedRule();
+            
             var files = active.GetFiles();
             string s = "";
 

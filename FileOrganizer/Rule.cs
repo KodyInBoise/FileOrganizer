@@ -77,12 +77,13 @@ namespace FileOrganizer
 
         public List<FileInfo> GetAllFiles()
         {
-            var baseDir = new DirectoryInfo(SourceDir);
             var allFiles = new List<FileInfo>();
-            var subDirs = baseDir.GetDirectories();
 
             try
             {
+            var baseDir = new DirectoryInfo(SourceDir);
+            var subDirs = baseDir.GetDirectories();
+
                 allFiles.AddRange(baseDir.GetFiles());
                 foreach (var dir in subDirs)
                 {
@@ -90,7 +91,8 @@ namespace FileOrganizer
                     allFiles.AddRange(subFiles);
                 }
             }
-            catch { throw; }
+
+            catch { }
 
             return allFiles;
         }
@@ -109,25 +111,27 @@ namespace FileOrganizer
                     case "Move":
                         await Task.Run(MoveFiles);
                         break;
+                    case "Copy":
+                        await Task.Run(CopyFiles);
+                        break;
                 }
 
                 Counter = 0;
             }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
+
+            catch { }
         }
 
         private async Task MoveFiles()
         {
             foreach (FileInfo f in FileList)
             {
-                f.CopyTo($"{DestDir}\\{f.Name}");
-            }
-            foreach (FileInfo f in FileList)
-            {
-                f.Delete();
+                try
+                {
+                    f.CopyTo($"{DestDir}\\{f.Name}", true);
+                    f.Delete();
+                }
+                catch { }
             }
         }
 
@@ -135,7 +139,23 @@ namespace FileOrganizer
         {
             foreach (FileInfo f in FileList)
             {
-                f.Delete();
+                try
+                {
+                    f.Delete();
+                }
+                catch { }
+            }
+        }
+
+        private async Task CopyFiles()
+        {
+            foreach (FileInfo f in FileList)
+            {
+                try
+                {
+                    f.CopyTo($"{DestDir}\\{f.Name}", true);
+                }
+                catch { }
             }
         }
     }
