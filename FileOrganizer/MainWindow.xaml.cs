@@ -27,6 +27,8 @@ namespace FileOrganizer
     /// </summary>
     public partial class MainWindow : Window
     {
+        public static MainWindow Instance { get; set; }
+
         private NotifyIcon ProgramIcon;
         public ScanHelper FileScanner;
         public List<Rule> ExistingRules;
@@ -59,34 +61,39 @@ namespace FileOrganizer
                 editRuleWin.ShowDialog();
                 CreateRuleGrid();
             }
-            catch
+            catch (Exception ex)
             {
-
+                ErrorHelper.Handle(ex);
             }
         }
 
         private Rule GetSelectedRule()
         {
-            DataGridCellInfo cellInfo = rulesDG.SelectedCells[0];
-            if (cellInfo == null) return null;
-
-            DataGridBoundColumn column = cellInfo.Column as DataGridBoundColumn;
-            if (column == null) return null;
-
-            FrameworkElement element = new FrameworkElement() { DataContext = cellInfo.Item };
-            BindingOperations.SetBinding(element, TagProperty, column.Binding);
-            var name = element.Tag.ToString();
-
-            foreach (Rule r in ExistingRules)
+            try
             {
-                if (r.Name == name)
-                {
-                    return r;
-                }
-            }
+                DataGridCellInfo cellInfo = rulesDG.SelectedCells[0];
+                if (cellInfo == null) return null;
 
-            return null;
+                DataGridBoundColumn column = cellInfo.Column as DataGridBoundColumn;
+                if (column == null) return null;
+
+                FrameworkElement element = new FrameworkElement() { DataContext = cellInfo.Item };
+                BindingOperations.SetBinding(element, TagProperty, column.Binding);
+                var name = element.Tag.ToString();
+
+                foreach (Rule r in ExistingRules)
+                {
+                    if (r.Name == name)
+                    {
+                        return r;
+                    }
+                }
+
+                return null;
+            }
+            catch (Exception ex) { LogHelper.LogException(ex); return null; }
         }
+
 
         private void newRuleBTN_Click(object sender, RoutedEventArgs e)
         {
@@ -95,37 +102,20 @@ namespace FileOrganizer
             CreateRuleGrid();
         }
 
-        private void viewFilesBTN_Click(object sender, RoutedEventArgs e)
-        {
-            var active = GetSelectedRule();
-            
-            var files = active.GetFiles();
-            string s = "";
-
-            foreach (FileInfo f in files)
-            {
-                s += f.FullName + Environment.NewLine;
-            }
-
-            System.Windows.MessageBox.Show(s);
-        }
-
         private async void runBTN_Click(object sender, RoutedEventArgs e)
         {
             try
             {
                 var rule = GetSelectedRule();
-                var t = rule.GetAllFiles();
                 var result = await ExecuteRule(rule);
                 if (result == "Success")
                 {
                     AppData.UpdateRule(rule);
                 }
             }
-            catch
+            catch (Exception ex)
             {
-                //Need to handle silently when ready to release
-                throw;
+                ErrorHelper.Handle(ex);
             }
         }
 
@@ -142,17 +132,20 @@ namespace FileOrganizer
 
         private async Task ScanRules()
         {
-            foreach (var rule in ExistingRules)
+            try
             {
-                var threshold = rule.GetThreshold();
-                if (threshold > 0 && rule.Counter >= threshold)
+                foreach (var rule in ExistingRules)
                 {
-                    rule.ExecuteAction();
-                    await LogHelper.LogEntrySuccess(rule.ID);
+                    var threshold = rule.GetThreshold();
+                    if (threshold > 0 && rule.Counter >= threshold)
+                    {
+                        rule.ExecuteAction();
+                    }
+                    rule.Counter++;
+                    AppData.UpdateAllRules(ExistingRules);
                 }
-                rule.Counter++;
-                AppData.UpdateAllRules(ExistingRules);
             }
+            catch (Exception ex) { LogHelper.LogException(ex); }
         }
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
@@ -164,19 +157,24 @@ namespace FileOrganizer
 
         private async void Startup()
         {
-            AppData = new DataHelper();
-            ExistingRules = await AppData.GetAllRules();
-
-            var trayIconPath = $"{Directory.GetCurrentDirectory()}\\main.ico";
-            ProgramIcon = new NotifyIcon
+            try
             {
-                Icon = new Icon(trayIconPath),
-                Visible = true
-            };
-            ProgramIcon.Click += new EventHandler(trayIcon_Clicked);
+                Instance = this;
+                AppData = new DataHelper();
+                ExistingRules = await AppData.GetAllRules();
 
-            CreateRuleGrid();
-            StartTimer();
+                var trayIconPath = $"{Directory.GetCurrentDirectory()}\\main.ico";
+                ProgramIcon = new NotifyIcon
+                {
+                    Icon = new Icon(trayIconPath),
+                    Visible = true
+                };
+                ProgramIcon.Click += new EventHandler(trayIcon_Clicked);
+
+                CreateRuleGrid();
+                StartTimer();
+            }
+            catch (Exception ex) { LogHelper.LogException(ex); }
         }
 
         private void trayIcon_Clicked(object sender, EventArgs e)
@@ -205,21 +203,6 @@ namespace FileOrganizer
             catch
             {
                 return "Failed";
-            }
-        }
-
-        private void DeleteRule()
-        {
-            try
-            {
-                var rule = GetSelectedRule();
-                AppData.DeleteRule(rule);
-                ExistingRules.Remove(rule);
-                rulesDG.Items.Refresh();
-            }
-            catch
-            {
-                throw;
             }
         }
     }

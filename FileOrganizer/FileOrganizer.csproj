@@ -80,6 +80,7 @@
     <Compile Include="EditRule.xaml.cs">
       <DependentUpon>EditRule.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Utilities\ErrorHelper.cs" />
     <Compile Include="Utilities\LogHelper.cs" />
     <Compile Include="Rule.cs" />
     <Compile Include="Utilities\TimerHelper.cs" />

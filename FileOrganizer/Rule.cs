@@ -1,4 +1,5 @@
-﻿using LiteDB;
+﻿using FileOrganizer.Utilities;
+using LiteDB;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -117,9 +118,11 @@ namespace FileOrganizer
                 }
 
                 Counter = 0;
+
+                await Task.Run(() => LogHelper.LogAction(this, true, $"{FileList?.Count} files affected"));
             }
 
-            catch { }
+            catch (Exception ex) { await Task.Run(() => LogHelper.LogAction(this, false, ex.Message)); }
         }
 
         private async Task MoveFiles()
