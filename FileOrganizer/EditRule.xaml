@@ -5,35 +5,39 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FileOrganizer"
         mc:Ignorable="d"
-        Title="EditRule" Height="400" Width="615" WindowStartupLocation="CenterOwner">
+        Title="EditRule" Height="473.651" Width="584.524" WindowStartupLocation="CenterOwner">
     <Grid>
-        <TextBox x:Name="keywordTB" HorizontalAlignment="Left" Height="23" Margin="160,156,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="329" VerticalContentAlignment="Center" FontFamily="Verdana"/>
-        <Label x:Name="keywordLBL" Content="Keyword" FontFamily="Verdana" FontSize="16" HorizontalAlignment="Left" Margin="80,152,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="sourceTB" HorizontalAlignment="Left" Height="23" Margin="160,126,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="329" VerticalContentAlignment="Center" FontFamily="Verdana"/>
-        <Label x:Name="sourceLBL" Content="Source" FontFamily="Verdana" FontSize="15" HorizontalAlignment="Left" Margin="93,123,0,0" VerticalAlignment="Top"/>
-        <Button x:Name="browseBTN" Content="Browse" Style="{StaticResource RoundButtonTemplate}" HorizontalAlignment="Left" Margin="494,124,0,0" VerticalAlignment="Top" Width="60" Height="25" Click="browseBTN_Click_1" FontFamily="Verdana" Background="#FF646464" FontSize="10"/>
-        <ComboBox x:Name="actionCB" HorizontalAlignment="Left" Margin="160,186,0,0" VerticalAlignment="Top" Width="329" Height="23" FontFamily="Verdana" FontSize="14" VerticalContentAlignment="Center" DropDownClosed="actionCB_DropDownClosed">
+        <TextBox x:Name="keywordTB" HorizontalAlignment="Left" Height="25" Margin="165,255,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="329" VerticalContentAlignment="Center" FontFamily="Verdana"/>
+        <Label x:Name="keywordLBL" Content="Keyword" FontFamily="Verdana" FontSize="24" HorizontalAlignment="Left" Margin="46,245,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="sourceTB" HorizontalAlignment="Left" Height="25" Margin="165,295,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="329" VerticalContentAlignment="Center" FontFamily="Verdana"/>
+        <Label x:Name="sourceLBL" Content="Source" FontFamily="Verdana" FontSize="24" HorizontalAlignment="Left" Margin="65,287,0,0" VerticalAlignment="Top"/>
+        <Button x:Name="browseBTN" Content="Browse" Style="{StaticResource RoundButtonTemplate}" HorizontalAlignment="Left" Margin="499,295,0,0" VerticalAlignment="Top" Width="60" Height="25" Click="browseBTN_Click_1" FontFamily="Verdana" Background="#FF646464" FontSize="10"/>
+        <ComboBox x:Name="actionCB" HorizontalAlignment="Left" Margin="165,135,0,0" VerticalAlignment="Top" Width="329" Height="25" FontFamily="Verdana" FontSize="14" VerticalContentAlignment="Center" DropDownClosed="actionCB_DropDownClosed">
             <ComboBoxItem Content="Move" FontSize="14" FontFamily="Verdana"/>
             <ComboBoxItem Content="Copy" FontSize="14" FontFamily="Verdana"/>
             <ComboBoxItem Content="Delete" FontSize="14" FontFamily="Verdana"/>
         </ComboBox>
-        <Label x:Name="actionLBL" Content="Action" FontFamily="Verdana" FontSize="16" HorizontalAlignment="Left" Margin="95,181,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="destTB" HorizontalAlignment="Left" Height="23" Margin="160,246,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="329" VerticalContentAlignment="Center" FontFamily="Verdana"/>
-        <Label x:Name="destDirLBL" Content="Destination" FontFamily="Verdana" FontSize="15" HorizontalAlignment="Left" Margin="60,244,0,0" VerticalAlignment="Top"/>
-        <Button x:Name="destBrowseBTN" Content="Browse" Style="{StaticResource RoundButtonTemplate}" HorizontalAlignment="Left" Margin="494,244,0,0" VerticalAlignment="Top" Width="60" Height="25" Click="browseBTN_Copy_Click" FontFamily="Verdana" Background="#FF646464" FontSize="10"/>
-        <Label x:Name="titleLBL" Content="New Rule" FontSize="32" FontFamily="Verdana" FontWeight="Bold" HorizontalAlignment="Left" Margin="231,10,0,0" VerticalAlignment="Top"/>
-        <ComboBox x:Name="frequencyCB" FontFamily="Verdana" FontSize="14" HorizontalAlignment="Left" Margin="160,216,0,0" VerticalAlignment="Top" Width="329">
-            <ComboBoxItem Content="Hourly" FontSize="14" FontFamily="Tahoma" IsSelected="True"/>
-            <ComboBoxItem Content="Daily" FontSize="14" FontFamily="Tahoma"/>
-            <ComboBoxItem Content="Weekly" FontSize="14" FontFamily="Tahoma"/>
-            <ComboBoxItem Content="Monthly" FontSize="14" FontFamily="Tahoma"/>
+        <Label x:Name="actionLBL" Content="Action" FontFamily="Verdana" FontSize="24" HorizontalAlignment="Left" Margin="75,126,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="destTB" HorizontalAlignment="Left" Height="25" Margin="165,335,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="329" VerticalContentAlignment="Center" FontFamily="Verdana"/>
+        <Label x:Name="destDirLBL" Content="Destination" FontFamily="Verdana" FontSize="24" HorizontalAlignment="Left" Margin="14,328,0,0" VerticalAlignment="Top"/>
+        <Button x:Name="destBrowseBTN" Content="Browse" Style="{StaticResource RoundButtonTemplate}" HorizontalAlignment="Left" Margin="499,335,0,0" VerticalAlignment="Top" Width="60" Height="25" Click="browseBTN_Copy_Click" FontFamily="Verdana" Background="#FF646464" FontSize="10"/>
+        <Label x:Name="titleLBL" Content="New Rule" FontSize="40" FontFamily="Verdana" FontWeight="SemiBold" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
+        <ComboBox x:Name="frequencyCB" FontFamily="Verdana" FontSize="14" HorizontalAlignment="Left" Margin="165,175,0,0" VerticalAlignment="Top" Width="329" Height="25" DropDownClosed="frequencyCB_DropDownClosed">
+            <ComboBoxItem Content="After Days" FontSize="14"/>
+            <ComboBoxItem Content="Hourly" FontSize="14"/>
+            <ComboBoxItem Content="Daily" FontSize="14"/>
+            <ComboBoxItem Content="Weekly" FontSize="14"/>
+            <ComboBoxItem Content="Monthly" FontSize="14"/>
         </ComboBox>
-        <Label x:Name="frequencyLBL" Content="Frequency" FontFamily="Verdana" FontSize="15" HorizontalAlignment="Left" Margin="68,211,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="nameTB" HorizontalAlignment="Left" Height="23" Margin="160,96,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="329" VerticalContentAlignment="Center" FontFamily="Verdana"/>
-        <Label x:Name="nameLBL" Content="Name" FontFamily="Verdana" FontSize="15" HorizontalAlignment="Left" Margin="101,92,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="frequencyLBL" Content="Frequency" FontFamily="Verdana" FontSize="24" HorizontalAlignment="Left" Margin="25,166,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="nameTB" HorizontalAlignment="Left" Height="25" Margin="165,95,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="329" VerticalContentAlignment="Center" FontFamily="Verdana"/>
+        <Label x:Name="nameLBL" Content="Name" FontFamily="Verdana" FontSize="24" HorizontalAlignment="Left" Margin="80,82,0,0" VerticalAlignment="Top"/>
 
-        <Button x:Name="finishBTN" Content="Finish" Style="{StaticResource ResourceKey=RoundButtonTemplate}" HorizontalAlignment="Left" Margin="389,280,0,0" VerticalAlignment="Top" Width="100" Height="40" Click="Finish" FontFamily="Verdana" Background="#FF19B950" FontSize="15"/>
-        <Button x:Name="deleteBTN" Content="Delete" Style="{StaticResource RoundButtonTemplate}" HorizontalAlignment="Left" Height="40" Margin="272,280,0,0" VerticalAlignment="Top" Width="100" Click="deleteBTN_Clicked" FontFamily="Verdana" FontSize="15" Background="#FFC21313"/>
+        <Button x:Name="finishBTN" Content="Finish" Style="{StaticResource ResourceKey=RoundButtonTemplate}" HorizontalAlignment="Left" Margin="459,395,0,0" VerticalAlignment="Top" Width="100" Height="40" Click="Finish" FontFamily="Verdana" Background="#FF19B950" FontSize="15"/>
+        <Button x:Name="deleteBTN" Content="Delete" Style="{StaticResource RoundButtonTemplate}" HorizontalAlignment="Left" Height="40" Margin="336,395,0,0" VerticalAlignment="Top" Width="100" Click="deleteBTN_Clicked" FontFamily="Verdana" FontSize="15" Background="#FFC21313"/>
+
+        <TextBox x:Name="daysTB" HorizontalAlignment="Left" Height="25" Margin="165,215,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="329" VerticalContentAlignment="Center" FontFamily="Verdana" Visibility="Visible"/>
+        <Label x:Name="daysLBL" Content="Days" FontFamily="Verdana" FontSize="24" HorizontalAlignment="Left" Margin="90,205,0,0" VerticalAlignment="Top" Visibility="Visible"/>
 
     </Grid>
 </Window>

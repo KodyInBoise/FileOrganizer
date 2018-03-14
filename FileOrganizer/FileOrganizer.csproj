@@ -80,6 +80,7 @@
     <Compile Include="EditRule.xaml.cs">
       <DependentUpon>EditRule.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Utilities\ErrorHelper.cs" />
     <Compile Include="Utilities\LogHelper.cs" />
     <Compile Include="Rule.cs" />
     <Compile Include="Utilities\TimerHelper.cs" />
@@ -146,6 +147,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="main.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Windows\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
