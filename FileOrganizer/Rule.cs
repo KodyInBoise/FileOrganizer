@@ -21,6 +21,7 @@ namespace FileOrganizer
         public string Keyword { get; set; }
         public string Frequency { get; set; }
         public int Counter { get; set; }
+        public int DayLimit { get; set; }
 
         [BsonIgnore]
         public List<FileInfo> FileList { get; set; }
@@ -31,6 +32,9 @@ namespace FileOrganizer
             var threshold = 0;
             switch (Frequency)
             {
+                case "After Days":
+                    threshold = 1440;
+                    break;
                 case "Hourly":
                     threshold = 60;
                     break;
@@ -102,7 +106,7 @@ namespace FileOrganizer
         {
             try
             {
-                FileList = GetFiles();
+                FileList = GetAllFiles();
 
                 switch (Action)
                 {
@@ -156,10 +160,25 @@ namespace FileOrganizer
             {
                 try
                 {
+                    if (Frequency == "After Days")
+                    {
+                        if (!FileOldEnough(f)) break;
+                    }
                     f.CopyTo($"{DestDir}\\{f.Name}", true);
                 }
                 catch { }
             }
+        }
+
+        private bool FileOldEnough(FileInfo file)
+        {
+            try
+            {
+                var threshold = file.CreationTime.AddDays(DayLimit);
+                if (DateTime.Now > threshold) return true;
+                else return false;
+            }
+            catch { return false; }
         }
     }
 }

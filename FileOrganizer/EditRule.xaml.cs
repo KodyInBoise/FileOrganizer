@@ -25,7 +25,6 @@ namespace FileOrganizer
         MainWindow MainWin;
         string ActiveDir;
         string Keyword;
-        List<FileInfo> FileList;
         DataHelper AppData;
 
         private Rule ActiveRule;
@@ -37,6 +36,7 @@ namespace FileOrganizer
             AppData = new DataHelper();
             titleLBL.Content = "New Rule";
             actionCB.SelectedIndex = 0;
+            frequencyCB.SelectedIndex = 0;
             deleteBTN.Visibility = Visibility.Collapsed;
         }
 
@@ -53,6 +53,8 @@ namespace FileOrganizer
             keywordTB.Text = r.Keyword;
             actionCB.Text = r.Action;
             frequencyCB.Text = r.Frequency;
+            FrequencyComboBoxChanged();
+            daysTB.Text = r.DayLimit.ToString();
         }
 
         public string GetDownloadsDir()
@@ -91,6 +93,10 @@ namespace FileOrganizer
                 Keyword = keywordTB.Text, 
                 Frequency = frequencyCB.Text
             };
+            if (newRule.Frequency == "After Days")
+            {
+                newRule.DayLimit = Convert.ToInt32(daysTB.Text);
+            }
 
             if (newRule.Action == "Delete")
             {
@@ -160,6 +166,10 @@ namespace FileOrganizer
                 ActiveRule.DestDir = destTB.Text;
                 ActiveRule.Keyword = keywordTB.Text;
                 ActiveRule.Frequency = frequencyCB.Text;
+                if (ActiveRule.Frequency == "After Days")
+                {
+                    ActiveRule.DayLimit = Convert.ToInt32(daysTB.Text);
+                }
 
                 UpdateRule();
             }
@@ -168,6 +178,39 @@ namespace FileOrganizer
         private void deleteBTN_Clicked(object sender, RoutedEventArgs e)
         {
             DeleteRule();
+        }
+
+        private void FrequencyComboBoxChanged()
+        {
+            switch (frequencyCB.Text)
+            {
+                case "After Days":
+                    daysLBL.Visibility = Visibility.Visible;
+                    daysTB.Visibility = Visibility.Visible;
+
+                    keywordLBL.Margin = new Thickness(46, 245, 0, 0);
+                    keywordTB.Margin = new Thickness(165, 255, 0, 0);
+                    sourceLBL.Margin = new Thickness(65, 287, 0, 0);
+                    sourceTB.Margin = new Thickness(165, 295, 0, 0);
+                    browseBTN.Margin = new Thickness(499, 295, 0, 0);
+                    destDirLBL.Margin = new Thickness(14, 328, 0, 0);
+                    destTB.Margin = new Thickness(165, 335, 0, 0);
+                    destBrowseBTN.Margin = new Thickness(499, 335, 0, 0);
+                    break;
+                default:
+                    daysLBL.Visibility = Visibility.Collapsed;
+                    daysTB.Visibility = Visibility.Collapsed;
+
+                    keywordLBL.Margin = new Thickness(46, 205, 0, 0);
+                    keywordTB.Margin = new Thickness(165, 215, 0, 0);
+                    sourceLBL.Margin = new Thickness(65, 247, 0, 0);
+                    sourceTB.Margin = new Thickness(165, 255, 0, 0);
+                    browseBTN.Margin = new Thickness(499, 255, 0, 0);
+                    destDirLBL.Margin = new Thickness(14, 288, 0, 0);
+                    destTB.Margin = new Thickness(165, 295, 0, 0);
+                    destBrowseBTN.Margin = new Thickness(499, 295, 0, 0);
+                    break;
+            }
         }
 
         private void actionCB_DropDownClosed(object sender, EventArgs e)
@@ -185,6 +228,11 @@ namespace FileOrganizer
                     destBrowseBTN.Visibility = Visibility.Visible;
                     break;
             }
+        }
+
+        private void frequencyCB_DropDownClosed(object sender, EventArgs e)
+        {
+            FrequencyComboBoxChanged();
         }
     }
 }

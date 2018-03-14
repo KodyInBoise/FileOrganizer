@@ -67,7 +67,7 @@ namespace FileOrganizer
                     {
                         try
                         {
-                            exceptions.Delete(entry);
+                            //exceptions.Delete(ex);
                         }
                         catch { }
                     }
