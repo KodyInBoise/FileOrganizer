@@ -53,6 +53,7 @@ namespace FileOrganizer
             keywordTB.Text = r.Keyword;
             actionCB.Text = r.Action;
             frequencyCB.Text = r.Frequency;
+            
             FrequencyComboBoxChanged();
             daysTB.Text = r.DayLimit.ToString();
         }
