@@ -239,7 +239,7 @@ namespace FileOrganizer
                     destBrowseBTN.Visibility = Visibility.Collapsed;
                     break;
                 default:
-                    if (actionCB.Text == "Dropbox Cleanup") sourceTB.Text = ScanHelper.GetDropboxPath();
+                    if (actionCB.Text == "Dropbox Cleanup") sourceTB.Text = ScanHelper.DefaultDropboxPath();
                     destDirLBL.Visibility = Visibility.Visible;
                     destTB.Visibility = Visibility.Visible;
                     destBrowseBTN.Visibility = Visibility.Visible;

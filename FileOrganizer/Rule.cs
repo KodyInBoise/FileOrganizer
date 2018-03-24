@@ -188,7 +188,7 @@ namespace FileOrganizer
         {
             if (!Directory.Exists(DestDir)) throw new Exception("Destination directory not available");
 
-            var dropboxDirs = ScanHelper.GetDropboxDirectories(keyword: Keyword, excludeEmpty: true);
+            var dropboxDirs = ScanHelper.GetDropboxDirectories(path: SourceDir, keyword: Keyword, excludeEmpty: true);
 
             foreach (var dir in dropboxDirs)
             {

@@ -12,7 +12,7 @@ namespace FileOrganizer.Utilities
         public bool IsActive { get; set; }
         public List<Rule> RuleList { get; set; }
 
-        public static string GetDropboxPath()
+        public static string DefaultDropboxPath()
         {
             var path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), "Dropbox");
 
@@ -20,9 +20,9 @@ namespace FileOrganizer.Utilities
             else return string.Empty;
         }
 
-        public static List<DirectoryInfo> GetDropboxDirectories(string keyword = "", bool excludeEmpty = false)
+        public static List<DirectoryInfo> GetDropboxDirectories(string path = "", string keyword = "", bool excludeEmpty = false)
         {
-            var dropboxDir = new DirectoryInfo(GetDropboxPath());
+            var dropboxDir = new DirectoryInfo(!String.IsNullOrEmpty(path) ? path : DefaultDropboxPath());
             var subDirs = dropboxDir.GetDirectories().ToList();
 
             var dirCache = subDirs.Find(x => x.Name.Contains("dropbox.cache"));
