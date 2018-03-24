@@ -22,6 +22,15 @@ namespace FileOrganizer
         public string Frequency { get; set; }
         public int Counter { get; set; }
         public int DayLimit { get; set; }
+        public RuleType Type { get; set; }
+
+        public enum RuleType
+        {
+            Move,
+            Copy,
+            Delete,
+            Dropbox
+        }
 
         [BsonIgnore]
         public List<FileInfo> FileList { get; set; }
