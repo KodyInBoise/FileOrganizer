@@ -29,7 +29,7 @@ namespace FileOrganizer
             Move,
             Copy,
             Delete,
-            Dropbox
+            DropboxCleanup
         }
 
         [BsonIgnore]

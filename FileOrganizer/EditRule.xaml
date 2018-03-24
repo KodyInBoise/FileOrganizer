@@ -16,6 +16,7 @@
             <ComboBoxItem Content="Move" FontSize="14" FontFamily="Verdana"/>
             <ComboBoxItem Content="Copy" FontSize="14" FontFamily="Verdana"/>
             <ComboBoxItem Content="Delete" FontSize="14" FontFamily="Verdana"/>
+            <ComboBoxItem Content="Dropbox Cleanup"/>
         </ComboBox>
         <Label x:Name="actionLBL" Content="Action" FontFamily="Verdana" FontSize="24" HorizontalAlignment="Left" Margin="75,126,0,0" VerticalAlignment="Top"/>
         <TextBox x:Name="destTB" HorizontalAlignment="Left" Height="25" Margin="165,335,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="329" VerticalContentAlignment="Center" FontFamily="Verdana"/>

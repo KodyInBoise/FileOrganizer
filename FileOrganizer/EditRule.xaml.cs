@@ -93,6 +93,22 @@ namespace FileOrganizer
                 Keyword = keywordTB.Text, 
                 Frequency = frequencyCB.Text
             };
+            
+            switch (actionCB.Text)
+            {
+                case "Move":
+                    newRule.Type = Rule.RuleType.Move;
+                    break;
+                case "Copy":
+                    newRule.Type = Rule.RuleType.Copy;
+                    break;
+                case "Delete":
+                    newRule.Type = Rule.RuleType.Delete;
+                    break;
+                case "Dropbox Cleanup":
+                    newRule.Type = Rule.RuleType.DropboxCleanup;
+                    break;
+            }
             if (newRule.Frequency == "After Days")
             {
                 newRule.DayLimit = Convert.ToInt32(daysTB.Text);
@@ -223,6 +239,7 @@ namespace FileOrganizer
                     destBrowseBTN.Visibility = Visibility.Collapsed;
                     break;
                 default:
+                    if (actionCB.Text == "Dropbox Cleanup") sourceTB.Text = ScanHelper.GetDropboxPath();
                     destDirLBL.Visibility = Visibility.Visible;
                     destTB.Visibility = Visibility.Visible;
                     destBrowseBTN.Visibility = Visibility.Visible;

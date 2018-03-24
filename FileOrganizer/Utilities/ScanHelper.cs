@@ -20,7 +20,7 @@ namespace FileOrganizer.Utilities
             else return string.Empty;
         }
 
-        public static List<DirectoryInfo> GetDropboxDirectories(bool excludeEmpty = false)
+        public static List<DirectoryInfo> GetDropboxDirectories(string keyword = "", bool excludeEmpty = false)
         {
             var dropboxDir = new DirectoryInfo(GetDropboxPath());
             var subDirs = dropboxDir.GetDirectories().ToList();
