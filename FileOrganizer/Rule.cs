@@ -186,11 +186,15 @@ namespace FileOrganizer
 
         private async Task CleanupDropbox()
         {
+            if (!Directory.Exists(DestDir)) throw new Exception("Destination directory not available");
+
             var dropboxDirs = ScanHelper.GetDropboxDirectories(keyword: Keyword, excludeEmpty: true);
 
             foreach (var dir in dropboxDirs)
             {
                 ScanHelper.CopyDirectory(dir.FullName, Path.Combine(DestDir, dir.Name), true);
+                dir.Attributes = FileAttributes.Normal;
+                dir.Delete(true);
             }
         }
 
