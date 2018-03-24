@@ -117,16 +117,21 @@ namespace FileOrganizer
             {
                 FileList = GetAllFiles();
 
-                switch (Action)
+                switch (Type)
                 {
-                    case "Delete":
-                        await Task.Run(DeleteFiles);
-                        break;
-                    case "Move":
+                    case RuleType.Move:
                         await Task.Run(MoveFiles);
                         break;
-                    case "Copy":
+                    case RuleType.Copy:
                         await Task.Run(CopyFiles);
+                        break;
+                    case RuleType.Delete:
+                        await Task.Run(DeleteFiles);
+                        break;
+                    case RuleType.DropboxCleanup:
+                        await Task.Run(CleanupDropbox);
+                        break;
+                    default:
                         break;
                 }
 
@@ -176,6 +181,16 @@ namespace FileOrganizer
                     f.CopyTo($"{DestDir}\\{f.Name}", true);
                 }
                 catch { }
+            }
+        }
+
+        private async Task CleanupDropbox()
+        {
+            var dropboxDirs = ScanHelper.GetDropboxDirectories(keyword: Keyword, excludeEmpty: true);
+
+            foreach (var dir in dropboxDirs)
+            {
+                ScanHelper.CopyDirectory(dir.FullName, Path.Combine(DestDir, dir.Name), true);
             }
         }
 

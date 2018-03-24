@@ -34,8 +34,8 @@
         <TextBox x:Name="nameTB" HorizontalAlignment="Left" Height="25" Margin="165,95,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="329" VerticalContentAlignment="Center" FontFamily="Verdana"/>
         <Label x:Name="nameLBL" Content="Name" FontFamily="Verdana" FontSize="24" HorizontalAlignment="Left" Margin="80,82,0,0" VerticalAlignment="Top"/>
 
-        <Button x:Name="finishBTN" Content="Finish" Style="{StaticResource ResourceKey=RoundButtonTemplate}" HorizontalAlignment="Left" Margin="459,395,0,0" VerticalAlignment="Top" Width="100" Height="40" Click="Finish" FontFamily="Verdana" Background="#FF19B950" FontSize="15"/>
-        <Button x:Name="deleteBTN" Content="Delete" Style="{StaticResource RoundButtonTemplate}" HorizontalAlignment="Left" Height="40" Margin="336,395,0,0" VerticalAlignment="Top" Width="100" Click="deleteBTN_Clicked" FontFamily="Verdana" FontSize="15" Background="#FFC21313"/>
+        <Button x:Name="finishBTN" Content="Finish" Style="{StaticResource ResourceKey=RoundButtonTemplate}" HorizontalAlignment="Left" Margin="459,389,0,0" VerticalAlignment="Top" Width="100" Height="40" Click="Finish" FontFamily="Verdana" Background="#FF19B950" FontSize="15"/>
+        <Button x:Name="deleteBTN" Content="Delete" Style="{StaticResource RoundButtonTemplate}" HorizontalAlignment="Left" Height="40" Margin="336,389,0,0" VerticalAlignment="Top" Width="100" Click="deleteBTN_Clicked" FontFamily="Verdana" FontSize="15" Background="#FFC21313"/>
 
         <TextBox x:Name="daysTB" HorizontalAlignment="Left" Height="25" Margin="165,215,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="329" VerticalContentAlignment="Center" FontFamily="Verdana" Visibility="Visible"/>
         <Label x:Name="daysLBL" Content="Days" FontFamily="Verdana" FontSize="24" HorizontalAlignment="Left" Margin="90,205,0,0" VerticalAlignment="Top" Visibility="Visible"/>
