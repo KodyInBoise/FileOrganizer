@@ -44,6 +44,7 @@ namespace FileOrganizer.Windows
             {
                 Content = ElementHelper.HelpToolTipText(),
                 FontWeight = FontWeights.Bold,
+                
             };
             helpLabel.ToolTip = HelpToolTip;
 
@@ -154,6 +155,9 @@ namespace FileOrganizer.Windows
                 option.IsChecked = GetCheckBoxValue(option.Name);
                 MainGrid.Children.Add(option);
             }
+
+            var purgatoryCheckBox = CurrentConfigOptions.Find(x => x.Name == ElementHelper.DeletePurgatoryCheckBox);
+            if (purgatoryCheckBox != null) purgatoryCheckBox.ToolTip = ElementHelper.PurgatoryToolTip();
         }
 
         List<CheckBox> MoveConfigOptions()

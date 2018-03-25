@@ -24,6 +24,16 @@ namespace FileOrganizer.Windows
             return toolTipText;
         }
 
+        public static System.Windows.Controls.ToolTip PurgatoryToolTip()
+        {
+            var toolTip = new System.Windows.Controls.ToolTip();
+            toolTip.Content = "Items sent to Purgatory will be sent to"  +
+                "a temp directory for 30 days located at:" + Environment.NewLine +
+                Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "File Organizer", "Purgatory");
+
+            return toolTip;
+        }
+
         public static FolderBrowserDialog DirectoryBrowser(string path = "")
         {
             var dialog = new FolderBrowserDialog();

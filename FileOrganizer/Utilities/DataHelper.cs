@@ -133,5 +133,6 @@ namespace FileOrganizer.Utilities
                 return data.GetCollection<LogHelper.LogEntry>("errors").FindAll().ToList();
             }
         }
+
     }
 }
