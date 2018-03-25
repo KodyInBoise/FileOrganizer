@@ -19,6 +19,7 @@ using System.Drawing;
 using System.Net;
 using System.Threading;
 using FileOrganizer.Utilities;
+using FileOrganizer.Windows;
 
 namespace FileOrganizer
 {
@@ -204,6 +205,11 @@ namespace FileOrganizer
             {
                 return "Failed";
             }
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            var t = new RuleWindow();
         }
     }
 }

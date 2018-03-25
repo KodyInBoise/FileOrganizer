@@ -1,0 +1,61 @@
+﻿<Window x:Class="FileOrganizer.Windows.RuleWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:FileOrganizer.Windows"
+        mc:Ignorable="d"
+        Title="RuleWindow" Height="580" Width="650">
+    <Grid x:Name="MainGrid">
+        <TabControl x:Name="actionTabControl" HorizontalAlignment="Left" Height="297" Margin="23,170,0,0" VerticalAlignment="Top" Width="600">
+            <TabItem x:Name="Move" Visibility="Collapsed">
+                <Grid Background="#FFE5E5E5"/>
+            </TabItem>
+            <TabItem x:Name="Copy" Visibility="Collapsed">
+                <Grid/>
+            </TabItem>
+            <TabItem x:Name="Delete" Visibility="Collapsed">
+                <Grid Background="#FFE5E5E5"/>
+            </TabItem>
+            <TabItem x:Name="Dropbox" Visibility="Collapsed">
+                <Grid Background="#FFE5E5E5"/>
+            </TabItem>
+        </TabControl>
+        <Label Content="Create Rule" Margin="10,10,0,0" VerticalAlignment="Top" FontFamily="Verdana" FontSize="34" HorizontalAlignment="Left" Width="209"/>
+
+        <Label Content="Rule" HorizontalAlignment="Left" Margin="134,82,0,0" VerticalAlignment="Top" FontFamily="Verdana" FontSize="16"/>
+        <ComboBox x:Name="ruleComboBox" HorizontalAlignment="Left" Margin="185,85,0,0" VerticalAlignment="Top" Width="280" Height="25" FontFamily="Verdana" FontSize="14">
+            <ComboBoxItem Content="New Rule"/>
+        </ComboBox>
+
+        <Label Content="Name" HorizontalAlignment="Left" Margin="38,197,0,0" VerticalAlignment="Top" FontFamily="Verdana" FontSize="16"/>
+        <TextBox x:Name="nameTextBox" HorizontalAlignment="Left" Height="26" Margin="100,200,0,0" TextWrapping="Wrap" Text="New Rule" VerticalAlignment="Top" Width="189" FontFamily="Verdana" FontSize="14" VerticalContentAlignment="Center"/>
+        <Label Content="Action" HorizontalAlignment="Left" Margin="119,117,0,0" VerticalAlignment="Top" FontFamily="Verdana" FontSize="16"/>
+        <ComboBox x:Name="actionComboBox" HorizontalAlignment="Left" Margin="185,120,0,0" VerticalAlignment="Top" Width="280" Height="25" FontFamily="Verdana" FontSize="14" DropDownClosed="actionComboBox_DropDownClosed">
+            <ComboBoxItem Content="Move"/>
+            <ComboBoxItem Content="Copy"/>
+            <ComboBoxItem Content="Delete"/>
+            <ComboBoxItem Content="Dropbox Cleanup"/>
+        </ComboBox>
+        <Label x:Name="frequencyLabel" Content="When" HorizontalAlignment="Left" Margin="39,237,0,0" VerticalAlignment="Top" FontFamily="Verdana" FontSize="16"/>
+        <ComboBox x:Name="frequencyComboBox" HorizontalAlignment="Left" Margin="100,240,0,0" VerticalAlignment="Top" Width="189" Height="26" FontFamily="Verdana" FontSize="14" DropDownClosed="frequencyComboBox_DropDownClosed">
+            <ComboBoxItem Content="After Days"/>
+            <ComboBoxItem Content="Hourly"/>
+            <ComboBoxItem Content="Daily"/>
+            <ComboBoxItem Content="Weekly"/>
+            <ComboBoxItem Content="Monthly"/>
+        </ComboBox>
+        <Label x:Name="sourceLabel" Content="Source" HorizontalAlignment="Left" Margin="29,277,0,0" VerticalAlignment="Top" FontFamily="Verdana" FontSize="16"/>
+        <TextBox x:Name="sourceTextBox" HorizontalAlignment="Left" Height="26" Margin="100,280,0,0" TextWrapping="Wrap" Text="source directory" VerticalAlignment="Top" Width="189" FontFamily="Verdana" FontSize="14" VerticalContentAlignment="Center"/>
+        <Label x:Name="destLabel" Content="Dest" HorizontalAlignment="Left" Margin="48,317,0,0" VerticalAlignment="Top" FontFamily="Verdana" FontSize="16"/>
+        <TextBox x:Name="destTextBox" HorizontalAlignment="Left" Height="26" Margin="100,320,0,0" TextWrapping="Wrap" Text="dest directory" VerticalAlignment="Top" Width="189" FontFamily="Verdana" FontSize="14" VerticalContentAlignment="Center"/>
+        <Button Content=". . ." HorizontalAlignment="Left" Margin="294,284,0,0" VerticalAlignment="Top" Width="31" FontWeight="Bold"/>
+        <Button Content=". . ." HorizontalAlignment="Left" Margin="294,324,0,0" VerticalAlignment="Top" Width="31" FontWeight="Bold"/>
+
+        <GroupBox x:Name="configGroupBox" Header="Config" HorizontalAlignment="Left" Height="265" Margin="355,180,0,0" VerticalAlignment="Top" Width="249" BorderBrush="White" FontFamily="Verdana" FontSize="16"/>
+        <Button Content="Button" HorizontalAlignment="Left" Margin="511,36,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click"/>
+        <CheckBox Content="CheckBox" HorizontalAlignment="Left" Margin="511,94,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="daysLabel" Content="Days" HorizontalAlignment="Left" Margin="45,398,0,0" VerticalAlignment="Top" FontFamily="Verdana" FontSize="16"/>
+        <TextBox x:Name="daysTextBox" HorizontalAlignment="Left" Height="26" Margin="100,398,0,0" TextWrapping="Wrap" Text="7" VerticalAlignment="Top" Width="189" FontFamily="Verdana" FontSize="14" VerticalContentAlignment="Center"/>
+    </Grid>
+</Window>
