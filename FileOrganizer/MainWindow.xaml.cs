@@ -58,9 +58,7 @@ namespace FileOrganizer
             {
                 var selectedRule = GetSelectedRule();
 
-                EditRule editRuleWin = new EditRule(this, selectedRule) { Owner = this };
-                editRuleWin.ShowDialog();
-                CreateRuleGrid();
+                var ruleWindow = new RuleWindow(selectedRule);
             }
             catch (Exception ex)
             {

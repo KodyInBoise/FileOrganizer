@@ -273,7 +273,7 @@ namespace FileOrganizer
             var keywords = keywordsText.Split(',').ToList();
             foreach (var keyword in keywords)
             {
-                if (!String.IsNullOrEmpty(keyword)) Keywords.Add(keyword);
+                if (!String.IsNullOrWhiteSpace(keyword)) Keywords.Add(keyword);
             }
         }
 

@@ -38,7 +38,7 @@ namespace FileOrganizer.Windows
             {
                 ShowNewRule();
             }
-            else ActiveRule = rule;
+            else DisplayExistingRule(rule);
 
             HelpToolTip = new ToolTip
             {
@@ -48,6 +48,9 @@ namespace FileOrganizer.Windows
             helpLabel.ToolTip = HelpToolTip;
 
             MainWindow.Instance.ExistingRules.ForEach(x => ruleComboBox.Items.Add(x));
+         
+            Top = MainWindow.Instance.Top;
+            Left = MainWindow.Instance.Left;
 
             Instance.Show();
         }
@@ -275,7 +278,7 @@ namespace FileOrganizer.Windows
 
         private void finishButton_Clicked(object sender, RoutedEventArgs e)
         {
-            SaveActiveRule(true);
+            SaveActiveRule(false);
         }
 
         private void SaveActiveRule(bool isClosing = false)
@@ -303,8 +306,9 @@ namespace FileOrganizer.Windows
             }
 
             MainWindow.Instance.RulesDataGrid.Items.Refresh();
-            
+
             if (isClosing) CloseWindow();
+            else saveButton.Visibility = Visibility.Collapsed;
         }
 
         private void sourceBrowseButton_Click(object sender, RoutedEventArgs e)
@@ -357,6 +361,7 @@ namespace FileOrganizer.Windows
             FrequencyToggled();
 
             deleteButton.Visibility = Visibility.Collapsed;
+            saveButton.Visibility = Visibility.Visible;
         }
 
         private void DisplayExistingRule(Rule rule)
@@ -364,6 +369,7 @@ namespace FileOrganizer.Windows
             titleLabel.Content = "Edit Rule";
             ActiveRule = rule;
 
+            ruleComboBox.SelectedItem = ActiveRule;
             nameTextBox.Text = ActiveRule.Name;
             sourceTextBox.Text = ActiveRule.SourceDir;
             destTextBox.Text = ActiveRule.DestDir;
@@ -414,9 +420,11 @@ namespace FileOrganizer.Windows
             {
                 if (!String.IsNullOrEmpty(keyword)) keywords += $"{keyword}, ";
             }
+            keywords.TrimEnd(' ');
             keywordsTextBox.Text = keywords;
 
             deleteButton.Visibility = Visibility.Visible;
+            saveButton.Visibility = Visibility.Visible;
         }
 
         private void deleteButton_Click(object sender, RoutedEventArgs e)
