@@ -14,17 +14,18 @@ namespace FileOrganizer
     {
         public int ID { get; set; }
         public string Name { get; set; }
-        public string ModifiedTimestamp { get; set; }
+        public DateTime ModifiedTimestamp { get; set; }
         public string SourceDir { get; set; }
         public string DestDir { get; set; }
-        public string Action { get; set; }
         public string Keyword { get; set; }
-        public string Frequency { get; set; }
         public int Counter { get; set; }
         public int DayLimit { get; set; }
-        public RuleType Type { get; set; }
+        public ActionEnum Action { get; set; }
+        public FrequencyEnum Frequency { get; set; }
+        public List<string> Keywords { get; set; }
+        public bool IncludeSubDirectories { get; set; }
 
-        public enum RuleType
+        public enum ActionEnum
         {
             Move,
             Copy,
@@ -32,14 +33,28 @@ namespace FileOrganizer
             DropboxCleanup
         }
 
+        public enum FrequencyEnum
+        {
+            AfterDays,
+            Hourly,
+            Daily,
+            Weekly,
+            Monthly
+        }
+
         [BsonIgnore]
         public List<FileInfo> FileList { get; set; }
+        [BsonIgnore]
         public DispatcherTimer Timer { get; set; }
+        [BsonIgnore]
+        public string FrequencyString { get; set; }
+        [BsonIgnore]
+        public string ActionString { get; set; }
 
         public int GetThreshold()
         {
             var threshold = 0;
-            switch (Frequency)
+            switch (FrequencyString)
             {
                 case "After Days":
                     threshold = 1440;
@@ -117,18 +132,18 @@ namespace FileOrganizer
             {
                 FileList = GetAllFiles();
 
-                switch (Type)
+                switch (Action)
                 {
-                    case RuleType.Move:
+                    case ActionEnum.Move:
                         await Task.Run(MoveFiles);
                         break;
-                    case RuleType.Copy:
+                    case ActionEnum.Copy:
                         await Task.Run(CopyFiles);
                         break;
-                    case RuleType.Delete:
+                    case ActionEnum.Delete:
                         await Task.Run(DeleteFiles);
                         break;
-                    case RuleType.DropboxCleanup:
+                    case ActionEnum.DropboxCleanup:
                         await Task.Run(CleanupDropbox);
                         break;
                     default:
@@ -174,7 +189,7 @@ namespace FileOrganizer
             {
                 try
                 {
-                    if (Frequency == "After Days")
+                    if (FrequencyString == "After Days")
                     {
                         if (!FileOldEnough(f)) break;
                     }
@@ -207,6 +222,77 @@ namespace FileOrganizer
                 else return false;
             }
             catch { return false; }
+        }
+
+        public void SetFrequency(string frequency)
+        {
+            switch (frequency)
+            {
+                case "After Days":
+                    Frequency = FrequencyEnum.AfterDays;
+                    break;
+                case "Hourly":
+                    Frequency = FrequencyEnum.Hourly;
+                    break;
+                case "Daily":
+                    Frequency = FrequencyEnum.Daily;
+                    break;
+                case "Weekly":
+                    Frequency = FrequencyEnum.Weekly;
+                    break;
+                case "Monthly":
+                    Frequency = FrequencyEnum.Monthly;
+                    break;
+            }
+        }
+
+        public void SetAction(string action)
+        {
+            switch (action)
+            {
+                case "Move":
+                    Action = ActionEnum.Move;
+                    break;
+                case "Copy":
+                    Action = ActionEnum.Copy;
+                    break;
+                case "Delete":
+                    Action = ActionEnum.Delete;
+                    break;
+                case "Dropbox Cleanup":
+                    Action = ActionEnum.DropboxCleanup;
+                    break;
+            }
+            Counter = 0;
+        }
+
+        public void SetKeywords(string keywordsText)
+        {
+            Keywords = new List<string>();
+
+            var keywords = keywordsText.Split(',').ToList();
+            foreach (var keyword in keywords)
+            {
+                if (!String.IsNullOrEmpty(keyword)) Keywords.Add(keyword);
+            }
+        }
+
+        public Rule SaveFormat()
+        {
+            return new Rule
+            {
+                ID = this.ID,
+                Name = this.Name,
+                Action = this.Action,
+                Frequency = this.Frequency,
+                DayLimit = this.DayLimit,
+                Counter = this.Counter,
+                SourceDir = this.SourceDir,
+                DestDir = this.DestDir,
+                Keywords = this.Keywords,
+                IncludeSubDirectories = this.IncludeSubDirectories,
+                ModifiedTimestamp = this.ModifiedTimestamp, 
+            };
         }
     }
 }

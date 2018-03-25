@@ -51,8 +51,8 @@ namespace FileOrganizer
             sourceTB.Text = r.SourceDir;
             destTB.Text = r.DestDir;
             keywordTB.Text = r.Keyword;
-            actionCB.Text = r.Action;
-            frequencyCB.Text = r.Frequency;
+            actionCB.Text = r.ActionString;
+            frequencyCB.Text = r.FrequencyString;
             FrequencyComboBoxChanged();
             daysTB.Text = r.DayLimit.ToString();
         }
@@ -86,35 +86,35 @@ namespace FileOrganizer
             Rule newRule = new Rule
             {
                 Name = nameTB.Text,
-                ModifiedTimestamp = DateTime.Now.ToString(), 
+                ModifiedTimestamp = DateTime.Now, 
                 SourceDir = sourceTB.Text, 
                 DestDir = destTB.Text, 
-                Action = actionCB.Text,
+                ActionString = actionCB.Text,
                 Keyword = keywordTB.Text, 
-                Frequency = frequencyCB.Text
+                FrequencyString = frequencyCB.Text
             };
             
             switch (actionCB.Text)
             {
                 case "Move":
-                    newRule.Type = Rule.RuleType.Move;
+                    newRule.Action = Rule.ActionEnum.Move;
                     break;
                 case "Copy":
-                    newRule.Type = Rule.RuleType.Copy;
+                    newRule.Action = Rule.ActionEnum.Copy;
                     break;
                 case "Delete":
-                    newRule.Type = Rule.RuleType.Delete;
+                    newRule.Action = Rule.ActionEnum.Delete;
                     break;
                 case "Dropbox Cleanup":
-                    newRule.Type = Rule.RuleType.DropboxCleanup;
+                    newRule.Action = Rule.ActionEnum.DropboxCleanup;
                     break;
             }
-            if (newRule.Frequency == "After Days")
+            if (newRule.FrequencyString == "After Days")
             {
                 newRule.DayLimit = Convert.ToInt32(daysTB.Text);
             }
 
-            if (newRule.Action == "Delete")
+            if (newRule.ActionString == "Delete")
             {
                 newRule.DestDir = "Trash";
             }
@@ -178,11 +178,11 @@ namespace FileOrganizer
             {
                 ActiveRule.Name = nameTB.Text; 
                 ActiveRule.SourceDir = sourceTB.Text;
-                ActiveRule.Action = actionCB.Text;
+                ActiveRule.ActionString = actionCB.Text;
                 ActiveRule.DestDir = destTB.Text;
                 ActiveRule.Keyword = keywordTB.Text;
-                ActiveRule.Frequency = frequencyCB.Text;
-                if (ActiveRule.Frequency == "After Days")
+                ActiveRule.FrequencyString = frequencyCB.Text;
+                if (ActiveRule.FrequencyString == "After Days")
                 {
                     ActiveRule.DayLimit = Convert.ToInt32(daysTB.Text);
                 }
@@ -250,6 +250,16 @@ namespace FileOrganizer
         private void frequencyCB_DropDownClosed(object sender, EventArgs e)
         {
             FrequencyComboBoxChanged();
+        }
+
+        FolderBrowserDialog GetDirectoryBrowser(string path)
+        {
+            var dialog = new FolderBrowserDialog();
+
+            var defaultDirectory = new DirectoryInfo(path);
+            dialog.SelectedPath = defaultDirectory.Exists ? defaultDirectory.FullName : Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+
+            return dialog;
         }
     }
 }

@@ -1,5 +1,7 @@
-﻿using System;
+﻿using FileOrganizer.Utilities;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,6 +24,7 @@ namespace FileOrganizer.Windows
         public RuleWindow Instance;
         Rule ActiveRule;
         List<CheckBox> CurrentConfigOptions;
+        ToolTip HelpToolTip;
 
         private const double CONFIG_PADDING_TOP = 10;
         private const double CONFIG_PADDING_LEFT = 10;
@@ -30,14 +33,20 @@ namespace FileOrganizer.Windows
         {
             InitializeComponent();
             Instance = this;
-            ActiveRule = rule ?? new Rule();
+
             if (rule == null)
             {
-                ActiveRule = new Rule();
                 ruleComboBox.SelectedIndex = 0;
-                actionComboBox.SelectedIndex = 0;
-                ShowMove();
+                ActiveRule = ShowNewRule();
             }
+            else ActiveRule = rule;
+
+            HelpToolTip = new ToolTip
+            {
+                Content = ElementHelper.HelpToolTip(),
+                FontWeight = FontWeights.SemiBold,
+            };
+            helpLabel.ToolTip = HelpToolTip;
 
             Instance.Show();
         }
@@ -45,25 +54,25 @@ namespace FileOrganizer.Windows
         private void ShowMove()
         {
             nameTextBox.Text = "Move";
-            ShowConfig(Rule.RuleType.Move);
+            ShowConfig(Rule.ActionEnum.Move);
         }
 
         private void ShowCopy()
         {
             nameTextBox.Text = "Copy";
-            ShowConfig(Rule.RuleType.Copy);
+            ShowConfig(Rule.ActionEnum.Copy);
         }
 
         private void ShowDelete()
         {
             nameTextBox.Text = "Delete";
-            ShowConfig(Rule.RuleType.Delete);
+            ShowConfig(Rule.ActionEnum.Delete);
         }
 
         private void ShowDropbox()
         {
             nameTextBox.Text = "Dropbox";
-            ShowConfig(Rule.RuleType.DropboxCleanup);
+            ShowConfig(Rule.ActionEnum.DropboxCleanup);
         }
 
         private void actionComboBox_DropDownClosed(object sender, EventArgs e)
@@ -87,23 +96,23 @@ namespace FileOrganizer.Windows
             }
         }
 
-        private void ShowConfig(Rule.RuleType ruleType)
+        private void ShowConfig(Rule.ActionEnum ruleType)
         {
             CurrentConfigOptions?.ForEach(x => MainGrid.Children.Remove(x));
             CurrentConfigOptions = new List<CheckBox>();
 
             switch (ruleType)
             {
-                case Rule.RuleType.Move:
+                case Rule.ActionEnum.Move:
                     CurrentConfigOptions = MoveConfigOptions();
                     break;
-                case Rule.RuleType.Copy:
+                case Rule.ActionEnum.Copy:
                     CurrentConfigOptions = CopyConfigOptions();
                     break;
-                case Rule.RuleType.Delete:
+                case Rule.ActionEnum.Delete:
                     CurrentConfigOptions = DeleteConfigOptions();
                     break;
-                case Rule.RuleType.DropboxCleanup:
+                case Rule.ActionEnum.DropboxCleanup:
                     CurrentConfigOptions = DropboxConfigOptions();
                     break;
                 default:
@@ -129,7 +138,7 @@ namespace FileOrganizer.Windows
                     break;
             }
 
-            double nextY = -100;//configGroupBox.Margin.Top + CONFIG_PADDING_TOP;
+            double nextY = -115;
             var left = configGroupBox.Margin.Left + CONFIG_PADDING_LEFT;
             foreach (var option in CurrentConfigOptions)
             {
@@ -143,7 +152,7 @@ namespace FileOrganizer.Windows
         {
             return new List<CheckBox>()
             {
-                CheckBoxTemplate(ElementNames.SubDirCheckBox, "Include Subdirectories"),
+                CheckBoxTemplate(ElementHelper.SubDirCheckBox, "Include Subdirectories", isChecked: true),
             };
         }
 
@@ -151,7 +160,7 @@ namespace FileOrganizer.Windows
         {
             return new List<CheckBox>()
             {
-                CheckBoxTemplate(ElementNames.SubDirCheckBox, "Include Subdirectories"),
+                CheckBoxTemplate(ElementHelper.SubDirCheckBox, "Include Subdirectories", isChecked: true),
             };
         }
 
@@ -159,8 +168,8 @@ namespace FileOrganizer.Windows
         {
             return new List<CheckBox>()
             {
-                CheckBoxTemplate(ElementNames.SubDirCheckBox, "Include Subdirectories"),
-                CheckBoxTemplate(ElementNames.DeletePurgatoryCheckBox, "Send to purgatory"),
+                CheckBoxTemplate(ElementHelper.SubDirCheckBox, "Include Subdirectories", isChecked: true),
+                CheckBoxTemplate(ElementHelper.DeletePurgatoryCheckBox, "Send to purgatory"),
             };
         }
 
@@ -168,32 +177,28 @@ namespace FileOrganizer.Windows
         {
             return new List<CheckBox>()
             {
-                CheckBoxTemplate(ElementNames.SubDirCheckBox, "Include subdirectories"),
-                CheckBoxTemplate(ElementNames.ExcludeEmptyDirs, "Exclude empty directories"),
+                CheckBoxTemplate(ElementHelper.SubDirCheckBox, "Include subdirectories"),
+                CheckBoxTemplate(ElementHelper.ExcludeEmptyCheckBox, "Exclude empty directories"),
             };
         }
 
-        CheckBox CheckBoxTemplate(string name, string optionText)
+        CheckBox CheckBoxTemplate(string name, string optionText, bool isChecked = false)
         {          
             return new CheckBox
             {
                 Name = name,
                 Content = optionText,
-                Height = 15,
+                Height = 20,
                 FontSize = 14,
-                FontFamily = new FontFamily("Verdana")
+                FontFamily = new FontFamily("Verdana"),
+                IsChecked = isChecked
             };
-        }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            //ShowConfig();
         }
 
         private void FrequencyToggled ()
         {
             const double PADDING_TOP = 40;
-            double nextY = 280;
+            double nextY = 240;
             double textBoxX = 100;
 
             switch (frequencyComboBox.Text)
@@ -218,12 +223,16 @@ namespace FileOrganizer.Windows
                     29, nextY - 3, 0, 0);
                 sourceTextBox.Margin = new Thickness(
                     textBoxX, nextY, 0, 0);
+                sourceBrowseButton.Margin = new Thickness(
+                    295, nextY + 4, 0, 0);
                 nextY += PADDING_TOP;
 
                 destLabel.Margin = new Thickness(
                     48, nextY-3, 0, 0);
                 destTextBox.Margin = new Thickness(
                     textBoxX, nextY, 0, 0);
+                destBrowseButton.Margin = new Thickness(
+                    295, nextY + 4, 0, 0);
                 nextY += PADDING_TOP;
                     
 
@@ -233,27 +242,98 @@ namespace FileOrganizer.Windows
 
             void HideAfterDays()
             {
+                daysLabel.Visibility = Visibility.Collapsed;
+                daysTextBox.Visibility = Visibility.Collapsed;
+
                 sourceLabel.Margin = new Thickness(
                 29, nextY - 3, 0, 0);
                 sourceTextBox.Margin = new Thickness(
                     textBoxX, nextY, 0, 0);
+                sourceBrowseButton.Margin = new Thickness(
+                    295, nextY + 4, 0, 0);
                 nextY += PADDING_TOP;
 
                 destLabel.Margin = new Thickness(
                     48, nextY - 3, 0, 0);
                 destTextBox.Margin = new Thickness(
                     textBoxX, nextY, 0, 0);
+                destBrowseButton.Margin = new Thickness(
+                    295, nextY + 4, 0, 0);
                 nextY += PADDING_TOP;
-
-
-                daysLabel.Visibility = Visibility.Collapsed;
-                daysTextBox.Visibility = Visibility.Collapsed;
             }
         }
 
         private void frequencyComboBox_DropDownClosed(object sender, EventArgs e)
         {
             FrequencyToggled();
+        }
+
+        private Rule ShowNewRule()
+        {
+            actionComboBox.SelectedIndex = 0;
+            ShowMove();
+
+            frequencyComboBox.SelectedIndex = 0;
+            FrequencyToggled();
+
+            return new Rule();
+        }
+
+        private bool GetCheckBoxValue(string checkBoxName)
+        {
+            var configOption = CurrentConfigOptions.Find(x => x.Name == checkBoxName);
+            return configOption.IsChecked.HasValue && configOption.IsChecked.Value == true;
+        }
+
+        private void finishButton_Clicked(object sender, RoutedEventArgs e)
+        {
+            CreateNewRule();
+        }
+
+        private void CreateNewRule()
+        {
+            
+            ActiveRule.Name = nameTextBox.Text;
+            ActiveRule.SetAction(actionComboBox.Text);
+            ActiveRule.SetFrequency(frequencyComboBox.Text);
+            ActiveRule.SourceDir = sourceTextBox.Text;
+            ActiveRule.DestDir = destTextBox.Text;
+            ActiveRule.SetKeywords(keywordsTextBox.Text);
+
+            if (ActiveRule.Frequency == Rule.FrequencyEnum.AfterDays)
+            {
+                ActiveRule.DayLimit = Convert.ToInt32(daysTextBox.Text);
+            }
+
+            ActiveRule.IncludeSubDirectories = GetCheckBoxValue(ElementHelper.SubDirCheckBox);
+
+            MainWindow.Instance.AppData.CreateRule(ActiveRule);
+            MainWindow.Instance.ExistingRules.Add(ActiveRule);
+            
+            CloseWindow();
+        }
+
+        private void sourceBrowseButton_Click(object sender, RoutedEventArgs e)
+        {
+            var sourceBrowser = ElementHelper.DirectoryBrowser(sourceTextBox.Text);
+            sourceBrowser.ShowDialog();
+
+            sourceTextBox.Text = sourceBrowser.SelectedPath;         
+        }
+
+        private void destBrowseButton_Click(object sender, RoutedEventArgs e)
+        {
+            var destBrowser = ElementHelper.DirectoryBrowser(sourceTextBox.Text);
+            destBrowser.ShowDialog();
+
+            destTextBox.Text = destBrowser.SelectedPath;
+        }
+
+        private void CloseWindow()
+        {
+            MainWindow.Instance.rulesDG.Items.Refresh();
+
+            this.Close();
         }
     }
 }

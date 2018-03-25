@@ -98,8 +98,7 @@ namespace FileOrganizer
 
         private void newRuleBTN_Click(object sender, RoutedEventArgs e)
         {
-            EditRule newRuleWin = new EditRule(this) { Owner = this };
-            newRuleWin.ShowDialog();
+            var ruleWindow = new RuleWindow();
             CreateRuleGrid();
         }
 
@@ -209,7 +208,8 @@ namespace FileOrganizer
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            var t = new RuleWindow();
+            var t = new EditRule(this);
+            t.ShowDialog();
         }
     }
 }

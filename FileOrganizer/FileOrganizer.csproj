@@ -87,7 +87,7 @@
     <Compile Include="Utilities\DataHelper.cs" />
     <Compile Include="Utilities\FileHelper.cs" />
     <Compile Include="Utilities\ScanHelper.cs" />
-    <Compile Include="Windows\ElementNames.cs" />
+    <Compile Include="Windows\ElementHelper.cs" />
     <Compile Include="Windows\RuleWindow.xaml.cs">
       <DependentUpon>RuleWindow.xaml</DependentUpon>
     </Compile>

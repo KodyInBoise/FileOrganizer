@@ -41,6 +41,9 @@ namespace FileOrganizer.Utilities
         {
             try
             {
+                rule.ModifiedTimestamp = DateTime.Now;
+                _data = new LiteDatabase(GetDataPath());
+
                 using (_data)
                 {
                     var rules = _data.GetCollection<Rule>("rules");
