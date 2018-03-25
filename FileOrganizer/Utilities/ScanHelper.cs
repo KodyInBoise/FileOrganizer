@@ -88,7 +88,7 @@ namespace FileOrganizer.Utilities
             }
         }
 
-        public async void MoveToPurgatory(string sourceDir)
+        public async void CopyToPurgatory(string sourceDir)
         {
             try
             {
@@ -96,9 +96,6 @@ namespace FileOrganizer.Utilities
                 if (directory.Exists && Directory.Exists(GetPurgatoryPath()))
                 {
                     await Task.Run(() => CopyDirectory(sourceDir, GetPurgatoryPath(), true));
-
-                    directory.Attributes = FileAttributes.Normal;
-                    directory.Delete(true);
 
                     MainWindow.Instance.LogActivity(success: true, message: $"Directory moved to Purgatory: {sourceDir}");
                 }

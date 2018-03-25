@@ -208,7 +208,7 @@ namespace FileOrganizer
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             var selectedRule = GetSelectedRule();
-            Scanner.MoveToPurgatory(selectedRule.SourceDir);
+            Scanner.CopyToPurgatory(selectedRule.SourceDir);
         }
 
         public void HandleError(Exception exception = null, Rule rule = null)

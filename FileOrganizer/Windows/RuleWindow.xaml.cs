@@ -67,6 +67,7 @@ namespace FileOrganizer.Windows
 
         private void ShowDelete()
         {
+            destTextBox.Text = "Trash";
             ShowConfig(Rule.ActionEnum.Delete);
         }
 
@@ -76,6 +77,11 @@ namespace FileOrganizer.Windows
         }
 
         private void actionComboBox_DropDownClosed(object sender, EventArgs e)
+        {
+            ActionDropDown_Closed();
+        }
+
+        void ActionDropDown_Closed()
         {
             switch (actionComboBox.Text)
             {
