@@ -31,7 +31,7 @@ namespace FileOrganizer
         public static MainWindow Instance { get; set; }
 
         private NotifyIcon ProgramIcon;
-        public ScanHelper FileScanner;
+        public ScanHelper Scanner;
         public List<Rule> ExistingRules;
 
         CollectionViewSource itemCollectionViewSource;
@@ -159,6 +159,7 @@ namespace FileOrganizer
             {
                 Instance = this;
                 AppData = new DataHelper();
+                Scanner = new ScanHelper();
                 ExistingRules = await AppData.GetAllRules();
 
                 var trayIconPath = $"{Directory.GetCurrentDirectory()}\\main.ico";
@@ -206,13 +207,13 @@ namespace FileOrganizer
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            var selected = GetSelectedRule();
-            HandleError(new Exception("Hello exception"), selected);
+            var selectedRule = GetSelectedRule();
+            Scanner.MoveToPurgatory(selectedRule.SourceDir);
         }
 
         public void HandleError(Exception exception = null, Rule rule = null)
         {
-            Task.Run(() => LogHelper.LogError(exception: exception, ruleName: rule.Name));
+            Task.Run(() => LogHelper.LogError(exception: exception, ruleName: rule?.Name));
         }
 
         public void LogActivity(Rule rule = null, bool success = true, string message = "")

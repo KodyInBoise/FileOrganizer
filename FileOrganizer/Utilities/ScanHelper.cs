@@ -12,6 +12,14 @@ namespace FileOrganizer.Utilities
         public bool IsActive { get; set; }
         public List<Rule> RuleList { get; set; }
 
+        public static string GetPurgatoryPath()
+        {
+            var purgatoryPath = Path.Combine(DataHelper.GetRootPath(), "Purgatory");
+            if (!Directory.Exists(purgatoryPath)) Directory.CreateDirectory(purgatoryPath);
+
+            return purgatoryPath;
+        }
+
         public static string DefaultDropboxPath()
         {
             var path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), "Dropbox");
@@ -66,7 +74,7 @@ namespace FileOrganizer.Utilities
             foreach (FileInfo file in files)
             {
                 string temppath = Path.Combine(destDirName, file.Name);
-                file.CopyTo(temppath, false);
+                file.CopyTo(temppath, true);
             }
 
             // If copying subdirectories, copy them and their contents to new location.
@@ -77,6 +85,85 @@ namespace FileOrganizer.Utilities
                     string temppath = Path.Combine(destDirName, subdir.Name);
                     CopyDirectory(subdir.FullName, temppath, copySubDirs);
                 }
+            }
+        }
+
+        public async void MoveToPurgatory(string sourceDir)
+        {
+            try
+            {
+                var directory = new DirectoryInfo(sourceDir);
+                if (directory.Exists && Directory.Exists(GetPurgatoryPath()))
+                {
+                    await Task.Run(() => CopyDirectory(sourceDir, GetPurgatoryPath(), true));
+
+                    directory.Attributes = FileAttributes.Normal;
+                    directory.Delete(true);
+
+                    MainWindow.Instance.LogActivity(success: true, message: $"Directory moved to Purgatory: {sourceDir}");
+                }
+            }
+            catch (Exception ex)
+            {
+                var message = $"An error occurred moving directory to purgatory: {ex.Message}";
+                MainWindow.Instance.HandleError(exception: new Exception(message));
+            }
+        }
+
+        public List<DirectoryInfo> GetSubDirectories(string source)
+        {
+            try
+            {
+                var directory = new DirectoryInfo(source);
+
+                if (directory.Exists) return directory.GetDirectories().ToList();
+                else return new List<DirectoryInfo>();
+            }
+            catch (Exception ex)
+            {
+                MainWindow.Instance.HandleError(exception: ex);
+
+                return new List<DirectoryInfo>();
+            }
+        }
+
+        public List<FileInfo> GetDirectoryFiles(string source, List<string> keywords = null)
+        {
+            try
+            {
+                var directory = new DirectoryInfo(source);
+                if (!directory.Exists) return new List<FileInfo>();
+
+                if (keywords == null)
+                {
+                    return directory.GetFiles().ToList();
+                }
+                else
+                {
+                    var allFiles = directory.GetFiles().ToList();
+                    var matchingFiles = new List<FileInfo>();
+
+                    foreach (var file in allFiles)
+                    {
+                        var matches = 0;
+                        foreach (var keyword in keywords)
+                        {
+                            if (file.Name.Contains(keyword))
+                            {
+                                matches++;
+                                if (matches == keywords.Count) matchingFiles.Add(file);
+                            }
+                        }
+                    }
+
+                    return matchingFiles;
+                }
+            }
+            catch (Exception ex)
+            {
+                MainWindow.Instance.HandleError(exception: ex);
+
+                return new List<FileInfo>();
             }
         }
     }

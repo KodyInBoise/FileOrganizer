@@ -13,15 +13,17 @@ namespace FileOrganizer.Utilities
         private LiteDatabase _data { get; set; }
         private List<Rule> _rules { get; set; }
 
+        public static string GetRootPath()
+        {
+            var path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "File Organizer");
+            if (!Directory.Exists(path)) Directory.CreateDirectory(path);
+
+            return path;
+        }
+
         private static string GetDataPath()
         {
-            var dataDir = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "File Organizer");
-            if (!Directory.Exists(dataDir))
-            {
-                Directory.CreateDirectory(dataDir);
-            }
-
-            return Path.Combine(dataDir, "data.fo");
+            return Path.Combine(GetRootPath(), "data.fo");
         }
 
         public DataHelper()
