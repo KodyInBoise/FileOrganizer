@@ -115,5 +115,23 @@ namespace FileOrganizer.Utilities
                 logEntries.Insert(entry);
             }
         }
+
+        public static List<LogHelper.LogEntry> GetActivityEntries()
+        {
+            var data = new LiteDatabase(GetDataPath());
+            using (data)
+            {
+                return data.GetCollection<LogHelper.LogEntry>("activity").FindAll().ToList();
+            }
+        }
+
+        public static List<LogHelper.LogEntry> GetErrorEntries()
+        {
+            var data = new LiteDatabase(GetDataPath());
+            using (data)
+            {
+                return data.GetCollection<LogHelper.LogEntry>("errors").FindAll().ToList();
+            }
+        }
     }
 }

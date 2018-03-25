@@ -36,6 +36,5 @@ namespace FileOrganizer.Windows
 
             return dialog;
         }
-
     }
 }

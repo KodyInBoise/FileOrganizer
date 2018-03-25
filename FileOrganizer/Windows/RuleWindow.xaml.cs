@@ -314,7 +314,7 @@ namespace FileOrganizer.Windows
             MainWindow.Instance.RulesDataGrid.Items.Refresh();
 
             if (isClosing) CloseWindow();
-            else saveButton.Visibility = Visibility.Collapsed;
+            else DisplayExistingRule(ActiveRule);
         }
 
         private void sourceBrowseButton_Click(object sender, RoutedEventArgs e)
@@ -351,6 +351,8 @@ namespace FileOrganizer.Windows
                     DisplayExistingRule((Rule) ruleComboBox.SelectedItem);
                     break;
             }
+
+            FrequencyToggled();
         }
 
         private void ShowNewRule()
@@ -363,11 +365,19 @@ namespace FileOrganizer.Windows
             actionComboBox.SelectedIndex = 0;
             ShowMove();
 
-            frequencyComboBox.SelectedIndex = 0;
+            frequencyComboBox.SelectedIndex = 3;
             FrequencyToggled();
 
             deleteButton.Visibility = Visibility.Collapsed;
             saveButton.Visibility = Visibility.Visible;
+
+            nameTextBox.Text = $"New {actionComboBox.Text} Rule";
+            sourceTextBox.Text = "";
+            destTextBox.Text = "";
+            keywordsTextBox.Text = "";
+
+            nameTextBox.Focus();
+            nameTextBox.SelectAll();
         }
 
         private void DisplayExistingRule(Rule rule)

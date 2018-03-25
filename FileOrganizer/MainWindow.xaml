@@ -15,7 +15,7 @@
                 <DataGridTextColumn Width="100" Header="Source" Binding="{Binding SourceDir}"/>
                 <DataGridTextColumn Width="100" Header="Destination" Binding="{Binding DestDir}"/>
                 <DataGridTextColumn Width="50" Header="Action" Binding="{Binding Action}"/>
-                <DataGridTextColumn Width="75" Header="Keyword" Binding="{Binding Keyword}"/>
+                <DataGridTextColumn Width="75" Header="Keyword" Binding="{Binding Keywords}"/>
                 <DataGridTextColumn Width="75" Header="Frequency" Binding="{Binding Frequency}"/>
             </DataGrid.Columns>
         </DataGrid>

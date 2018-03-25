@@ -113,7 +113,7 @@ namespace FileOrganizer
             }
             catch (Exception ex)
             {
-                ErrorHelper.Handle(ex);
+                HandleError(exception: ex);
             }
         }
 
@@ -207,8 +207,7 @@ namespace FileOrganizer
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            var selectedRule = GetSelectedRule();
-            Scanner.CopyToPurgatory(selectedRule.SourceDir);
+            var logs = new LogWindow();
         }
 
         public void HandleError(Exception exception = null, Rule rule = null)
