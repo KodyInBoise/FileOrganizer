@@ -19,6 +19,7 @@ using System.Drawing;
 using System.Net;
 using System.Threading;
 using FileOrganizer.Utilities;
+using FileOrganizer.Windows;
 
 namespace FileOrganizer
 {
@@ -57,9 +58,7 @@ namespace FileOrganizer
             {
                 var selectedRule = GetSelectedRule();
 
-                EditRule editRuleWin = new EditRule(this, selectedRule) { Owner = this };
-                editRuleWin.ShowDialog();
-                CreateRuleGrid();
+                var ruleWindow = new RuleWindow(selectedRule);
             }
             catch (Exception ex)
             {
@@ -71,7 +70,7 @@ namespace FileOrganizer
         {
             try
             {
-                DataGridCellInfo cellInfo = rulesDG.SelectedCells[0];
+                DataGridCellInfo cellInfo = RulesDataGrid.SelectedCells[0];
                 if (cellInfo == null) return null;
 
                 DataGridBoundColumn column = cellInfo.Column as DataGridBoundColumn;
@@ -97,8 +96,7 @@ namespace FileOrganizer
 
         private void newRuleBTN_Click(object sender, RoutedEventArgs e)
         {
-            EditRule newRuleWin = new EditRule(this) { Owner = this };
-            newRuleWin.ShowDialog();
+            var ruleWindow = new RuleWindow();
             CreateRuleGrid();
         }
 
@@ -204,6 +202,12 @@ namespace FileOrganizer
             {
                 return "Failed";
             }
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            var t = new EditRule(this);
+            t.ShowDialog();
         }
     }
 }
