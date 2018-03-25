@@ -36,8 +36,7 @@ namespace FileOrganizer.Windows
 
             if (rule == null)
             {
-                ruleComboBox.SelectedIndex = 0;
-                ActiveRule = ShowNewRule();
+                ShowNewRule();
             }
             else ActiveRule = rule;
 
@@ -48,30 +47,28 @@ namespace FileOrganizer.Windows
             };
             helpLabel.ToolTip = HelpToolTip;
 
+            MainWindow.Instance.ExistingRules.ForEach(x => ruleComboBox.Items.Add(x));
+
             Instance.Show();
         }
 
         private void ShowMove()
         {
-            nameTextBox.Text = "Move";
             ShowConfig(Rule.ActionEnum.Move);
         }
 
         private void ShowCopy()
         {
-            nameTextBox.Text = "Copy";
             ShowConfig(Rule.ActionEnum.Copy);
         }
 
         private void ShowDelete()
         {
-            nameTextBox.Text = "Delete";
             ShowConfig(Rule.ActionEnum.Delete);
         }
 
         private void ShowDropbox()
         {
-            nameTextBox.Text = "Dropbox";
             ShowConfig(Rule.ActionEnum.DropboxCleanup);
         }
 
@@ -144,6 +141,8 @@ namespace FileOrganizer.Windows
             {
                 option.Margin = new Thickness(left, nextY, 0, 0);
                 nextY = option.Margin.Top + option.Height + CONFIG_PADDING_TOP * 3;
+
+                option.IsChecked = GetCheckBoxValue(option.Name);
                 MainGrid.Children.Add(option);
             }
         }
@@ -152,7 +151,7 @@ namespace FileOrganizer.Windows
         {
             return new List<CheckBox>()
             {
-                CheckBoxTemplate(ElementHelper.SubDirCheckBox, "Include Subdirectories", isChecked: true),
+                CheckBoxTemplate(ElementHelper.SubDirCheckBox, "Include Subdirectories", isChecked: ActiveRule.IncludeSubDirectories),
             };
         }
 
@@ -160,7 +159,7 @@ namespace FileOrganizer.Windows
         {
             return new List<CheckBox>()
             {
-                CheckBoxTemplate(ElementHelper.SubDirCheckBox, "Include Subdirectories", isChecked: true),
+                CheckBoxTemplate(ElementHelper.SubDirCheckBox, "Include Subdirectories", isChecked: ActiveRule.IncludeSubDirectories),
             };
         }
 
@@ -168,7 +167,7 @@ namespace FileOrganizer.Windows
         {
             return new List<CheckBox>()
             {
-                CheckBoxTemplate(ElementHelper.SubDirCheckBox, "Include Subdirectories", isChecked: true),
+                CheckBoxTemplate(ElementHelper.SubDirCheckBox, "Include Subdirectories", isChecked: ActiveRule.IncludeSubDirectories),
                 CheckBoxTemplate(ElementHelper.DeletePurgatoryCheckBox, "Send to purgatory"),
             };
         }
@@ -177,7 +176,7 @@ namespace FileOrganizer.Windows
         {
             return new List<CheckBox>()
             {
-                CheckBoxTemplate(ElementHelper.SubDirCheckBox, "Include subdirectories"),
+                CheckBoxTemplate(ElementHelper.SubDirCheckBox, "Include subdirectories", isChecked: ActiveRule.IncludeSubDirectories),
                 CheckBoxTemplate(ElementHelper.ExcludeEmptyCheckBox, "Exclude empty directories"),
             };
         }
@@ -268,17 +267,6 @@ namespace FileOrganizer.Windows
             FrequencyToggled();
         }
 
-        private Rule ShowNewRule()
-        {
-            actionComboBox.SelectedIndex = 0;
-            ShowMove();
-
-            frequencyComboBox.SelectedIndex = 0;
-            FrequencyToggled();
-
-            return new Rule();
-        }
-
         private bool GetCheckBoxValue(string checkBoxName)
         {
             var configOption = CurrentConfigOptions.Find(x => x.Name == checkBoxName);
@@ -287,12 +275,11 @@ namespace FileOrganizer.Windows
 
         private void finishButton_Clicked(object sender, RoutedEventArgs e)
         {
-            CreateNewRule();
+            SaveActiveRule(true);
         }
 
-        private void CreateNewRule()
-        {
-            
+        private void SaveActiveRule(bool isClosing = false)
+        {           
             ActiveRule.Name = nameTextBox.Text;
             ActiveRule.SetAction(actionComboBox.Text);
             ActiveRule.SetFrequency(frequencyComboBox.Text);
@@ -307,10 +294,17 @@ namespace FileOrganizer.Windows
 
             ActiveRule.IncludeSubDirectories = GetCheckBoxValue(ElementHelper.SubDirCheckBox);
 
-            MainWindow.Instance.AppData.CreateRule(ActiveRule);
-            MainWindow.Instance.ExistingRules.Add(ActiveRule);
+            if (ActiveRule.ID > 0) MainWindow.Instance.AppData.UpdateRule(ActiveRule);
+            else
+            {
+                MainWindow.Instance.AppData.CreateRule(ActiveRule);
+                MainWindow.Instance.ExistingRules.Add(ActiveRule);
+                ruleComboBox.Items.Add(ActiveRule);
+            }
+
+            MainWindow.Instance.RulesDataGrid.Items.Refresh();
             
-            CloseWindow();
+            if (isClosing) CloseWindow();
         }
 
         private void sourceBrowseButton_Click(object sender, RoutedEventArgs e)
@@ -331,9 +325,117 @@ namespace FileOrganizer.Windows
 
         private void CloseWindow()
         {
-            MainWindow.Instance.rulesDG.Items.Refresh();
+            MainWindow.Instance.RulesDataGrid.Items.Refresh();
 
             this.Close();
+        }
+
+        private void ruleComboBox_DropDownClosed(object sender, EventArgs e)
+        {
+            switch (ruleComboBox.Text)
+            {
+                case "New Rule":
+                    ShowNewRule();
+                    break;
+                default:
+                    DisplayExistingRule((Rule) ruleComboBox.SelectedItem);
+                    break;
+            }
+        }
+
+        private void ShowNewRule()
+        {
+            ruleComboBox.SelectedIndex = 0;
+
+            titleLabel.Content = "Create Rule";
+            ActiveRule = new Rule();
+
+            actionComboBox.SelectedIndex = 0;
+            ShowMove();
+
+            frequencyComboBox.SelectedIndex = 0;
+            FrequencyToggled();
+
+            deleteButton.Visibility = Visibility.Collapsed;
+        }
+
+        private void DisplayExistingRule(Rule rule)
+        {
+            titleLabel.Content = "Edit Rule";
+            ActiveRule = rule;
+
+            nameTextBox.Text = ActiveRule.Name;
+            sourceTextBox.Text = ActiveRule.SourceDir;
+            destTextBox.Text = ActiveRule.DestDir;
+
+            switch (ActiveRule.Action)
+            {
+                case Rule.ActionEnum.Move:
+                    actionComboBox.SelectedIndex = 0;
+                    ShowMove();
+                    break;
+                case Rule.ActionEnum.Copy:
+                    actionComboBox.SelectedIndex = 1;
+                    ShowCopy();
+                    break;
+                case Rule.ActionEnum.Delete:
+                    actionComboBox.SelectedIndex = 2;
+                    ShowDelete();
+                    break;
+                case Rule.ActionEnum.DropboxCleanup:
+                    actionComboBox.SelectedIndex = 3;
+                    ShowDropbox();
+                    break;
+            }
+
+            switch (ActiveRule.Frequency)
+            {
+                case Rule.FrequencyEnum.AfterDays:
+                    frequencyComboBox.SelectedIndex = 0;
+                    daysTextBox.Text = ActiveRule.DayLimit.ToString();
+                    break;
+                case Rule.FrequencyEnum.Hourly:
+                    frequencyComboBox.SelectedIndex = 1;
+                    break;
+                case Rule.FrequencyEnum.Daily:
+                    frequencyComboBox.SelectedIndex = 2;
+                    break;
+                case Rule.FrequencyEnum.Weekly:
+                    frequencyComboBox.SelectedIndex = 3;
+                    break;
+                case Rule.FrequencyEnum.Monthly:
+                    frequencyComboBox.SelectedIndex = 4;
+                    break;
+            }
+            FrequencyToggled();
+
+            var keywords = string.Empty;
+            foreach (var keyword in ActiveRule.Keywords)
+            {
+                if (!String.IsNullOrEmpty(keyword)) keywords += $"{keyword}, ";
+            }
+            keywordsTextBox.Text = keywords;
+
+            deleteButton.Visibility = Visibility.Visible;
+        }
+
+        private void deleteButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (ActiveRule != null)
+            {
+                if (ActiveRule.ID > 0) DeleteActiveRule();
+                else ShowNewRule();
+            }
+        }
+
+        private void DeleteActiveRule()
+        {
+            MainWindow.Instance.AppData.DeleteRule(ActiveRule);
+            MainWindow.Instance.ExistingRules.Remove(ActiveRule);
+            MainWindow.Instance.RulesDataGrid.Items.Refresh();
+            ruleComboBox.Items.Remove(ActiveRule);
+
+            ShowNewRule();
         }
     }
 }

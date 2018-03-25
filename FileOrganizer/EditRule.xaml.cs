@@ -121,14 +121,14 @@ namespace FileOrganizer
 
             AppData.CreateRule(newRule);
             MainWin.ExistingRules.Add(newRule);
-            MainWin.rulesDG.Items.Refresh();
+            MainWin.RulesDataGrid.Items.Refresh();
             this.Close();
         }
 
         private void UpdateRule()
         {
             AppData.UpdateRule(ActiveRule);
-            MainWin.rulesDG.Items.Refresh();
+            MainWin.RulesDataGrid.Items.Refresh();
             this.Close();
         }
 
@@ -139,7 +139,7 @@ namespace FileOrganizer
             {
                 AppData.DeleteRule(ActiveRule);
                 MainWin.ExistingRules.Remove(ActiveRule);
-                MainWin.rulesDG.Items.Refresh();
+                MainWin.RulesDataGrid.Items.Refresh();
                 this.Close();
             }
         }

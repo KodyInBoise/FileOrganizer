@@ -294,5 +294,10 @@ namespace FileOrganizer
                 ModifiedTimestamp = this.ModifiedTimestamp, 
             };
         }
+
+        public override string ToString()
+        {
+            return Name;
+        }
     }
 }

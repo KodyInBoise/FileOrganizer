@@ -9,7 +9,7 @@
         <CollectionViewSource x:Key="ItemCollectionViewSource" CollectionViewType="ListCollectionView"/>
     </Window.Resources>
     <Grid>
-        <DataGrid x:Name="rulesDG"  HorizontalAlignment="Left" Width="575" DataContext="{StaticResource ItemCollectionViewSource}" ItemsSource="{Binding}" AutoGenerateColumns="False" Margin="0,47,0,0">
+        <DataGrid x:Name="RulesDataGrid"  HorizontalAlignment="Left" Width="575" DataContext="{StaticResource ItemCollectionViewSource}" ItemsSource="{Binding}" AutoGenerateColumns="False" Margin="0,47,0,0">
             <DataGrid.Columns>
                 <DataGridTextColumn Width="75" Header="Name" Binding="{Binding Name}"/>
                 <DataGridTextColumn Width="100" Header="Source" Binding="{Binding SourceDir}"/>

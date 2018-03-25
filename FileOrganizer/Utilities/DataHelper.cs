@@ -78,6 +78,7 @@ namespace FileOrganizer.Utilities
         {
             try
             {
+                _data = new LiteDatabase(GetDataPath());
                 using (_data)
                 {
                     var rules = _data.GetCollection<Rule>("rules");

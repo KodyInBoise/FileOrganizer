@@ -72,7 +72,7 @@ namespace FileOrganizer
         {
             try
             {
-                DataGridCellInfo cellInfo = rulesDG.SelectedCells[0];
+                DataGridCellInfo cellInfo = RulesDataGrid.SelectedCells[0];
                 if (cellInfo == null) return null;
 
                 DataGridBoundColumn column = cellInfo.Column as DataGridBoundColumn;
