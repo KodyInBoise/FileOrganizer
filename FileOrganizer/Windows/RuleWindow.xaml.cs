@@ -42,8 +42,8 @@ namespace FileOrganizer.Windows
 
             HelpToolTip = new ToolTip
             {
-                Content = ElementHelper.HelpToolTip(),
-                FontWeight = FontWeights.SemiBold,
+                Content = ElementHelper.HelpToolTipText(),
+                FontWeight = FontWeights.Bold,
             };
             helpLabel.ToolTip = HelpToolTip;
 

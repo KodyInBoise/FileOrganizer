@@ -152,10 +152,10 @@ namespace FileOrganizer
 
                 Counter = 0;
 
-                await Task.Run(() => LogHelper.LogAction(this, true, $"{FileList?.Count} files affected"));
+                MainWindow.Instance.LogActivity(rule: this, success: true, message: "Rule executed successfully");
             }
 
-            catch (Exception ex) { await Task.Run(() => LogHelper.LogAction(this, false, ex.Message)); }
+            catch (Exception ex) { MainWindow.Instance.HandleError(exception: ex, rule: this); }
         }
 
         private async Task MoveFiles()

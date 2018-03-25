@@ -14,7 +14,7 @@ namespace FileOrganizer.Windows
         public static string DeletePurgatoryCheckBox = "purgatoryCheckBox";
         public static string ExcludeEmptyCheckBox = "excludeEmptyCheckBox";
 
-        public static string HelpToolTip()
+        public static string HelpToolTipText()
         {
             var toolTipText = string.Empty;
 

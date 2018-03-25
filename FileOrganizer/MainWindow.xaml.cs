@@ -90,7 +90,7 @@ namespace FileOrganizer
 
                 return null;
             }
-            catch (Exception ex) { LogHelper.LogException(ex); return null; }
+            catch (Exception ex) { LogHelper.LogError(ex); return null; }
         }
 
 
@@ -143,7 +143,7 @@ namespace FileOrganizer
                     AppData.UpdateAllRules(ExistingRules);
                 }
             }
-            catch (Exception ex) { LogHelper.LogException(ex); }
+            catch (Exception ex) { LogHelper.LogError(ex); }
         }
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
@@ -172,7 +172,7 @@ namespace FileOrganizer
                 CreateRuleGrid();
                 StartTimer();
             }
-            catch (Exception ex) { LogHelper.LogException(ex); }
+            catch (Exception ex) { LogHelper.LogError(ex); }
         }
 
         private void trayIcon_Clicked(object sender, EventArgs e)
@@ -187,7 +187,7 @@ namespace FileOrganizer
 
         private void Shutdown()
         {
-            ProgramIcon.Dispose();     
+            ProgramIcon.Dispose();
             Environment.Exit(0);
         }
 
@@ -206,8 +206,18 @@ namespace FileOrganizer
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            var t = new EditRule(this);
-            t.ShowDialog();
+            var selected = GetSelectedRule();
+            HandleError(new Exception("Hello exception"), selected);
+        }
+
+        public void HandleError(Exception exception = null, Rule rule = null)
+        {
+            Task.Run(() => LogHelper.LogError(exception: exception, ruleName: rule.Name));
+        }
+
+        public void LogActivity(Rule rule = null, bool success = true, string message = "")
+        {
+            Task.Run(() => LogHelper.LogActivity(rule: rule, success: success, message: message));
         }
     }
 }

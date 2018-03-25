@@ -26,7 +26,7 @@ namespace FileOrganizer
             return new LiteDatabase(path);
         }
 
-        public static async Task LogAction(Rule rule, bool success = true, string message = "")
+        public static async Task LogActivity(Rule rule, bool success = true, string message = "")
         {
             var data = GetDatabase();
             var newEntry = new LogEntry
@@ -39,7 +39,7 @@ namespace FileOrganizer
 
             using (data)
             {
-                var actionEntries = data.GetCollection<LogEntry>("actionlogs");
+                var actionEntries = data.GetCollection<LogEntry>("activity");
                 var entryCount = actionEntries.Count();
                 actionEntries.Insert(newEntry);
 
@@ -54,29 +54,52 @@ namespace FileOrganizer
             }
         }
 
-        public static void LogException(Exception ex)
+        public static void LogError(Exception exception = null, string ruleName = "")
         {
             try
             {
-                using (var data = GetDatabase())
+                var entry = new LogEntry
                 {
-                    var exceptions = data.GetCollection<Exception>("exceptions");
-                    exceptions.Insert(ex);
+                    TimeStamp = DateTime.Now,
+                    RuleName = ruleName,
+                    Success = false,
+                    Message = exception.Message ?? ""
+                };
 
-                    if (exceptions.Count() > 100)
-                    {
-                        try
-                        {
-                            //exceptions.Delete(ex);
-                        }
-                        catch { }
-                    }
+                var data = GetDatabase();
+                using (data)
+                {
+                    var errorEntries = data.GetCollection<LogEntry>("errors");
+                    errorEntries.Insert(entry);
+
+                    if (errorEntries.Count() == 101) errorEntries.Delete(100);
                 }
             }
-            catch
-            {
+            catch { }
+        }
 
+        public static void LogActivity(string message = "", bool success = true, string ruleName = "")
+        {
+            try
+            {
+                var entry = new LogEntry
+                {
+                    TimeStamp = DateTime.Now,
+                    RuleName = ruleName,
+                    Success = success,
+                    Message = message
+                };
+
+                var data = GetDatabase();
+                using (data)
+                {
+                    var activityEntries = data.GetCollection<LogEntry>("activity");
+                    activityEntries.Insert(entry);
+
+                    if (activityEntries.Count() >= 101) activityEntries.Delete(100);
+                }
             }
+            catch { }
         }
     }
 }
