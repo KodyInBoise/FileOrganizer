@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO.Compression;
 
 namespace FileOrganizer.Utilities
 {
@@ -162,6 +163,11 @@ namespace FileOrganizer.Utilities
 
                 return new List<FileInfo>();
             }
+        }
+
+        public static void CompressDirectory(string source, string dest)
+        {
+            ZipFile.CreateFromDirectory(source, dest);
         }
     }
 }

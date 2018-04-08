@@ -30,7 +30,8 @@ namespace FileOrganizer
             Move,
             Copy,
             Delete,
-            DropboxCleanup
+            DropboxCleanup,
+            CompressFiles
         }
 
         public enum FrequencyEnum
@@ -146,6 +147,9 @@ namespace FileOrganizer
                     case ActionEnum.DropboxCleanup:
                         await Task.Run(CleanupDropbox);
                         break;
+                    case ActionEnum.CompressFiles:
+                        await Task.Run(CompressContents);
+                        break;
                     default:
                         break;
                 }
@@ -213,6 +217,11 @@ namespace FileOrganizer
             }
         }
 
+        private async Task CompressContents()
+        {
+            ScanHelper.CompressDirectory(SourceDir, DestDir + "\\test.zip");
+        }
+
         private bool FileOldEnough(FileInfo file)
         {
             try
@@ -261,6 +270,9 @@ namespace FileOrganizer
                     break;
                 case "Dropbox Cleanup":
                     Action = ActionEnum.DropboxCleanup;
+                    break;
+                case "Compress Contents":
+                    Action = ActionEnum.CompressFiles;
                     break;
             }
             Counter = 0;

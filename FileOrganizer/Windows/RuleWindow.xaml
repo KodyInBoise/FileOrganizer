@@ -36,6 +36,7 @@
             <ComboBoxItem Content="Copy"/>
             <ComboBoxItem Content="Delete"/>
             <ComboBoxItem Content="Dropbox Cleanup"/>
+            <ComboBoxItem Content="Compress Contents"/>
         </ComboBox>
         <Label x:Name="frequencyLabel" Content="When" HorizontalAlignment="Left" Margin="39,197,0,0" VerticalAlignment="Top" FontFamily="Verdana" FontSize="16"/>
         <ComboBox x:Name="frequencyComboBox" HorizontalAlignment="Left" Margin="100,200,0,0" VerticalAlignment="Top" Width="189" Height="26" FontFamily="Verdana" FontSize="14" DropDownClosed="frequencyComboBox_DropDownClosed">

@@ -77,6 +77,11 @@ namespace FileOrganizer.Windows
             ShowConfig(Rule.ActionEnum.DropboxCleanup);
         }
 
+        private void ShowCompress()
+        {
+            ShowConfig(Rule.ActionEnum.CompressFiles);
+        }
+
         private void actionComboBox_DropDownClosed(object sender, EventArgs e)
         {
             ActionDropDown_Closed();
@@ -97,6 +102,9 @@ namespace FileOrganizer.Windows
                     break;
                 case "Dropbox Cleanup":
                     ShowDropbox();
+                    break;
+                case "Compress Contents":
+                    ShowCompress();
                     break;
                 default:
                     break;
@@ -122,6 +130,9 @@ namespace FileOrganizer.Windows
                 case Rule.ActionEnum.DropboxCleanup:
                     CurrentConfigOptions = DropboxConfigOptions();
                     break;
+                case Rule.ActionEnum.CompressFiles:
+                    CurrentConfigOptions = CompressConfigOptions();
+                    break;
                 default:
                     //If not called with a rule type but selection is not empty, try using text
                     if (!String.IsNullOrEmpty(actionComboBox.Text))
@@ -138,6 +149,9 @@ namespace FileOrganizer.Windows
                                 break;
                             case "Dropbox Cleanup":
                                 CurrentConfigOptions = DropboxConfigOptions();
+                                break;
+                            case "Compress Contents":
+                                CurrentConfigOptions = CompressConfigOptions();
                                 break;
                             default:
                                 break;
@@ -186,6 +200,15 @@ namespace FileOrganizer.Windows
         }
 
         List<CheckBox> DropboxConfigOptions()
+        {
+            return new List<CheckBox>()
+            {
+                CheckBoxTemplate(ElementHelper.SubDirCheckBox, "Include subdirectories", isChecked: ActiveRule.IncludeSubDirectories),
+                CheckBoxTemplate(ElementHelper.ExcludeEmptyCheckBox, "Exclude empty directories"),
+            };
+        }
+
+        List<CheckBox> CompressConfigOptions()
         {
             return new List<CheckBox>()
             {
@@ -411,6 +434,8 @@ namespace FileOrganizer.Windows
                 case Rule.ActionEnum.DropboxCleanup:
                     actionComboBox.SelectedIndex = 3;
                     ShowDropbox();
+                    break;
+                case Rule.ActionEnum.CompressFiles:
                     break;
             }
 
