@@ -12,10 +12,10 @@
         <DataGrid x:Name="RulesDataGrid"  HorizontalAlignment="Left" Width="575" DataContext="{StaticResource ItemCollectionViewSource}" ItemsSource="{Binding}" AutoGenerateColumns="False" Margin="0,47,0,0">
             <DataGrid.Columns>
                 <DataGridTextColumn Width="75" Header="Name" Binding="{Binding Name}"/>
-                <DataGridTextColumn Width="100" Header="Source" Binding="{Binding SourceDir}"/>
-                <DataGridTextColumn Width="100" Header="Destination" Binding="{Binding DestDir}"/>
-                <DataGridTextColumn Width="50" Header="Action" Binding="{Binding Action}"/>
-                <DataGridTextColumn Width="75" Header="Keyword" Binding="{Binding Keywords}"/>
+                <DataGridTextColumn Width="125" Header="Source" Binding="{Binding SourceDir}"/>
+                <DataGridTextColumn Width="125" Header="Destination" Binding="{Binding DestDir}"/>
+                <DataGridTextColumn Width="75" Header="Action" Binding="{Binding Action}"/>
+                <DataGridTextColumn Width="75" Header="Keyword" Binding="{Binding KeywordString}"/>
                 <DataGridTextColumn Width="75" Header="Frequency" Binding="{Binding Frequency}"/>
             </DataGrid.Columns>
         </DataGrid>
@@ -24,6 +24,6 @@
         <Button x:Name="runBTN" Content="Run Now" Style="{StaticResource RoundButtonTemplate}" HorizontalAlignment="Left" Height="43" Margin="587,180,0,0" VerticalAlignment="Top" Width="86" Click="runBTN_Click" Background="#FF3992D5" FontFamily="Verdana" FontSize="15"/>
         <Label x:Name="titleLBL" Content="File Organizer" FontFamily="Tahoma" FontSize="28" FontWeight="SemiBold" HorizontalAlignment="Left" VerticalAlignment="Top"/>
         <Button x:Name="quitBTN" Content="Quit" Style="{StaticResource RoundButtonTemplate}" HorizontalAlignment="Left" Height="43" Margin="587,466,0,0" VerticalAlignment="Top" Width="86" Click="quitBTN_Click" FontFamily="Verdana" FontSize="15" Background="#FFC21313"/>
-        <Button Content="Button" HorizontalAlignment="Left" Margin="598,312,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click"/>
+        <Button x:Name="logsButton" Content="View Logs" Style="{StaticResource RoundButtonTemplate}" HorizontalAlignment="Left" Height="43" Margin="587,408,0,0" VerticalAlignment="Top" Width="86" Click="logsButton_Click" FontFamily="Verdana" FontSize="15" Background="#FFAFBD1F"/>
     </Grid>
 </Window>

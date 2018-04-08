@@ -23,10 +23,18 @@ namespace FileOrganizer
         public ActionEnum Action { get; set; }
         public FrequencyEnum Frequency { get; set; }
         public List<string> Keywords { get; set; }
+        public string KeywordString { get; set; }
 
         public bool IncludeSubDirectories { get; set; } = false;
         public bool ExcludeEmptyDirectories { get; set; } = false;
         public bool DeleteIfSuccessful { get; set; } = false;
+
+        public void SetKeywordString()
+        {
+            KeywordString = "";
+            Keywords.ForEach(x => KeywordString += $"{x}, ");
+            KeywordString.TrimEnd(new[] { ' ', ',' });
+        }
 
         public enum ActionEnum
         {
@@ -318,6 +326,8 @@ namespace FileOrganizer
             {
                 if (!String.IsNullOrWhiteSpace(keyword)) Keywords.Add(keyword);
             }
+
+            SetKeywordString();
         }
 
         public Rule SaveFormat()

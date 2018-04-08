@@ -306,13 +306,17 @@ namespace FileOrganizer.Windows
 
         private bool GetCheckBoxValue(string checkBoxName)
         {
-            var configOption = CurrentConfigOptions.Find(x => x.Name == checkBoxName);
-            return configOption.IsChecked.HasValue && configOption.IsChecked.Value == true;
+            try
+            {
+                var configOption = CurrentConfigOptions.Find(x => x.Name == checkBoxName);
+                return configOption.IsChecked.HasValue && configOption.IsChecked.Value == true;
+            }
+            catch { return false; }
         }
 
         private void finishButton_Clicked(object sender, RoutedEventArgs e)
         {
-            SaveActiveRule(false);
+            SaveActiveRule(true);
         }
 
         private void SaveActiveRule(bool isClosing = false)
