@@ -167,7 +167,7 @@ namespace FileOrganizer.Utilities
 
         public static void CompressDirectory(string source, string dest)
         {
-            ZipFile.CreateFromDirectory(source, dest);
+            ZipFile.CreateFromDirectory(source, dest, CompressionLevel.Optimal, false);
         }
     }
 }

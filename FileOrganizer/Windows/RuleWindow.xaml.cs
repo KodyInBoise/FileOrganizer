@@ -79,7 +79,7 @@ namespace FileOrganizer.Windows
 
         private void ShowCompress()
         {
-            ShowConfig(Rule.ActionEnum.CompressFiles);
+            ShowConfig(Rule.ActionEnum.CompressContents);
         }
 
         private void actionComboBox_DropDownClosed(object sender, EventArgs e)
@@ -130,7 +130,7 @@ namespace FileOrganizer.Windows
                 case Rule.ActionEnum.DropboxCleanup:
                     CurrentConfigOptions = DropboxConfigOptions();
                     break;
-                case Rule.ActionEnum.CompressFiles:
+                case Rule.ActionEnum.CompressContents:
                     CurrentConfigOptions = CompressConfigOptions();
                     break;
                 default:
@@ -213,7 +213,8 @@ namespace FileOrganizer.Windows
             return new List<CheckBox>()
             {
                 CheckBoxTemplate(ElementHelper.SubDirCheckBox, "Include subdirectories", isChecked: ActiveRule.IncludeSubDirectories),
-                CheckBoxTemplate(ElementHelper.ExcludeEmptyCheckBox, "Exclude empty directories"),
+                CheckBoxTemplate(ElementHelper.ExcludeEmptyCheckBox, "Exclude empty directories", isChecked: ActiveRule.ExcludeEmptyDirectories),
+                CheckBoxTemplate(ElementHelper.DeleteIfSuccessfulCheckbox, "Delete contents if successful", isChecked: ActiveRule.DeleteIfSuccessful)
             };
         }
 
@@ -328,7 +329,10 @@ namespace FileOrganizer.Windows
                 ActiveRule.DayLimit = Convert.ToInt32(daysTextBox.Text);
             }
 
+            //Set config options by checking active check box values
             ActiveRule.IncludeSubDirectories = GetCheckBoxValue(ElementHelper.SubDirCheckBox);
+            ActiveRule.ExcludeEmptyDirectories = GetCheckBoxValue(ElementHelper.ExcludeEmptyCheckBox);
+            ActiveRule.DeleteIfSuccessful = GetCheckBoxValue(ElementHelper.DeleteIfSuccessfulCheckbox);
 
             if (ActiveRule.ID > 0) MainWindow.Instance.AppData.UpdateRule(ActiveRule);
             else
@@ -435,7 +439,9 @@ namespace FileOrganizer.Windows
                     actionComboBox.SelectedIndex = 3;
                     ShowDropbox();
                     break;
-                case Rule.ActionEnum.CompressFiles:
+                case Rule.ActionEnum.CompressContents:
+                    actionComboBox.SelectedIndex = 4;
+                    ShowCompress();
                     break;
             }
 

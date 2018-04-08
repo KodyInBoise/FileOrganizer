@@ -13,6 +13,7 @@ namespace FileOrganizer.Windows
         public static string SubDirCheckBox = "subDirCheckBox";
         public static string DeletePurgatoryCheckBox = "purgatoryCheckBox";
         public static string ExcludeEmptyCheckBox = "excludeEmptyCheckBox";
+        public static string DeleteIfSuccessfulCheckbox = "deleteIfSuccessfulCheckBox";
 
         public static string HelpToolTipText()
         {
