@@ -66,7 +66,7 @@ namespace FileOrganizer.Utilities
                 using (_data)
                 {
                     var rules = _data.GetCollection<Rule>("rules");
-                    rules.Update(rule);
+                    rules.Update(rule.ID, rule);
                 }
             }
             catch (Exception ex) 

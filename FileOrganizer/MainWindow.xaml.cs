@@ -205,11 +205,6 @@ namespace FileOrganizer
             }
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            var logs = new LogWindow();
-        }
-
         public void HandleError(Exception exception = null, Rule rule = null)
         {
             Task.Run(() => LogHelper.LogError(exception: exception, ruleName: rule?.Name));
@@ -218,6 +213,11 @@ namespace FileOrganizer
         public void LogActivity(Rule rule = null, bool success = true, string message = "")
         {
             Task.Run(() => LogHelper.LogActivity(rule: rule, success: success, message: message));
+        }
+
+        private void logsButton_Click(object sender, RoutedEventArgs e)
+        {
+            var logsWindow = new LogWindow();
         }
     }
 }
