@@ -13,15 +13,17 @@ namespace FileOrganizer.Utilities
         private LiteDatabase _data { get; set; }
         private List<Rule> _rules { get; set; }
 
+        public static string GetRootPath()
+        {
+            var path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "File Organizer");
+            if (!Directory.Exists(path)) Directory.CreateDirectory(path);
+
+            return path;
+        }
+
         private static string GetDataPath()
         {
-            var dataDir = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "File Organizer");
-            if (!Directory.Exists(dataDir))
-            {
-                Directory.CreateDirectory(dataDir);
-            }
-
-            return Path.Combine(dataDir, "data.fo");
+            return Path.Combine(GetRootPath(), "data.fo");
         }
 
         public DataHelper()
@@ -41,6 +43,9 @@ namespace FileOrganizer.Utilities
         {
             try
             {
+                rule.ModifiedTimestamp = DateTime.Now;
+                _data = new LiteDatabase(GetDataPath());
+
                 using (_data)
                 {
                     var rules = _data.GetCollection<Rule>("rules");
@@ -75,6 +80,7 @@ namespace FileOrganizer.Utilities
         {
             try
             {
+                _data = new LiteDatabase(GetDataPath());
                 using (_data)
                 {
                     var rules = _data.GetCollection<Rule>("rules");
@@ -109,5 +115,24 @@ namespace FileOrganizer.Utilities
                 logEntries.Insert(entry);
             }
         }
+
+        public static List<LogHelper.LogEntry> GetActivityEntries()
+        {
+            var data = new LiteDatabase(GetDataPath());
+            using (data)
+            {
+                return data.GetCollection<LogHelper.LogEntry>("activity").FindAll().ToList();
+            }
+        }
+
+        public static List<LogHelper.LogEntry> GetErrorEntries()
+        {
+            var data = new LiteDatabase(GetDataPath());
+            using (data)
+            {
+                return data.GetCollection<LogHelper.LogEntry>("errors").FindAll().ToList();
+            }
+        }
+
     }
 }
