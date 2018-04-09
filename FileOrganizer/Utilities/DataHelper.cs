@@ -31,11 +31,12 @@ namespace FileOrganizer.Utilities
             _data = new LiteDatabase(GetDataPath());
         }
 
-        public async Task<List<Rule>> GetAllRules()
+        public static async Task<List<Rule>> GetAllRules()
         {
-            using (_data)
+            var data = new LiteDatabase(GetDataPath());
+            using (data)
             {
-                return _data.GetCollection<Rule>("rules").FindAll().ToList();
+                return data.GetCollection<Rule>("rules").FindAll().ToList();
             }
         }
 

@@ -160,7 +160,7 @@ namespace FileOrganizer
                 Instance = this;
                 AppData = new DataHelper();
                 Scanner = new ScanHelper();
-                ExistingRules = await AppData.GetAllRules();
+                ExistingRules = await DataHelper.GetAllRules();
 
                 var trayIconPath = $"{Directory.GetCurrentDirectory()}\\main.ico";
                 ProgramIcon = new NotifyIcon
@@ -218,6 +218,11 @@ namespace FileOrganizer
         private void logsButton_Click(object sender, RoutedEventArgs e)
         {
             var logsWindow = new LogWindow();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            var home = new HomeWindow();
         }
     }
 }

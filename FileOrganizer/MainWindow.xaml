@@ -25,5 +25,6 @@
         <Label x:Name="titleLBL" Content="File Organizer" FontFamily="Tahoma" FontSize="28" FontWeight="SemiBold" HorizontalAlignment="Left" VerticalAlignment="Top"/>
         <Button x:Name="quitBTN" Content="Quit" Style="{StaticResource RoundButtonTemplate}" HorizontalAlignment="Left" Height="43" Margin="587,466,0,0" VerticalAlignment="Top" Width="86" Click="quitBTN_Click" FontFamily="Verdana" FontSize="15" Background="#FFC21313"/>
         <Button x:Name="logsButton" Content="View Logs" Style="{StaticResource RoundButtonTemplate}" HorizontalAlignment="Left" Height="43" Margin="587,408,0,0" VerticalAlignment="Top" Width="86" Click="logsButton_Click" FontFamily="Verdana" FontSize="15" Background="#FFAFBD1F"/>
+        <Button Content="Button" HorizontalAlignment="Left" Margin="598,276,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click"/>
     </Grid>
 </Window>
