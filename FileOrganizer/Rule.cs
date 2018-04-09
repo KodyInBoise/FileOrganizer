@@ -1,4 +1,5 @@
 ﻿using FileOrganizer.Utilities;
+using FileOrganizer.Windows;
 using LiteDB;
 using System;
 using System.Collections.Generic;
@@ -42,7 +43,8 @@ namespace FileOrganizer
             Copy,
             Delete,
             DropboxCleanup,
-            CompressContents
+            CompressContents,
+            PromptAction
         }
 
         public enum FrequencyEnum
@@ -161,6 +163,9 @@ namespace FileOrganizer
                     case ActionEnum.CompressContents:
                         await Task.Run(CompressContents);
                         break;
+                    case ActionEnum.PromptAction:
+                        PromptAction();
+                        break;
                     default:
                         break;
                 }
@@ -261,6 +266,11 @@ namespace FileOrganizer
             }
         }
 
+        private async void PromptAction()
+        {
+            var actionPromptWindow = new FilePromptWindow(SourceDir);
+        }
+
         private bool FileOldEnough(FileInfo file)
         {
             try
@@ -312,6 +322,9 @@ namespace FileOrganizer
                     break;
                 case "Compress Contents":
                     Action = ActionEnum.CompressContents;
+                    break;
+                case "Prompt Action":
+                    Action = ActionEnum.PromptAction;
                     break;
             }
             Counter = 0;

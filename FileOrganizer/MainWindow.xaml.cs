@@ -220,9 +220,16 @@ namespace FileOrganizer
             var logsWindow = new LogWindow();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private string TrimPath(string path)
         {
-            var home = new HomeWindow();
+            var pathLength = path.Length;
+            if (pathLength > 17)
+            {
+                path = path.Remove(0, (pathLength - 17));
+                path = "..." + path;
+            }
+
+            return path;
         }
     }
 }

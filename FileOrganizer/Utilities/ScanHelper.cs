@@ -169,5 +169,29 @@ namespace FileOrganizer.Utilities
         {
             ZipFile.CreateFromDirectory(source, dest, CompressionLevel.Optimal, false);
         }
+
+        public static void DeleteFiles(List<FileInfo> files)
+        {
+            foreach (var file in files.ToList())
+            {
+                try
+                {
+                    file.Delete();
+                }
+                catch (Exception ex) { LogHelper.LogError(ex); }
+            }
+        }
+
+        public static void DeleteDirectories(List<DirectoryInfo> directories)
+        {
+            foreach (var dir in directories.ToList())
+            {
+                try
+                {
+                    dir.Delete(true);
+                }
+                catch (Exception ex) { LogHelper.LogError(ex); }
+            }
+        }
     }
 }

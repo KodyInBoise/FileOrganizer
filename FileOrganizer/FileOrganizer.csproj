@@ -89,6 +89,9 @@
     <Compile Include="Utilities\FileHelper.cs" />
     <Compile Include="Utilities\ScanHelper.cs" />
     <Compile Include="Windows\ElementHelper.cs" />
+    <Compile Include="Windows\FilePromptWindow.xaml.cs">
+      <DependentUpon>FilePromptWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Windows\HomeWindow.xaml.cs">
       <DependentUpon>HomeWindow.xaml</DependentUpon>
     </Compile>
@@ -114,6 +117,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Windows\FilePromptWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Windows\HomeWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

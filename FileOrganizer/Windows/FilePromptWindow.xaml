@@ -1,0 +1,22 @@
+﻿<Window x:Class="FileOrganizer.Windows.FilePromptWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:FileOrganizer.Windows"
+        mc:Ignorable="d"
+        Title="FilePromptWindow" Height="500" Width="700">
+    <Grid>
+        <ListBox x:Name="newFilesListBox" HorizontalAlignment="Left" Height="295" Margin="15,90,0,0" VerticalAlignment="Top" Width="285" FontFamily="Verdana"/>
+        <ListBox x:Name="selectedFilesListBox" HorizontalAlignment="Left" Height="295" Margin="382,90,0,0" VerticalAlignment="Top" Width="285" FontFamily="Verdana"/>
+        <Button x:Name="addButton" Content=">>" Style="{StaticResource RoundButtonTemplate}" HorizontalAlignment="Left" Margin="312,159,0,0" VerticalAlignment="Top" Width="55" FontFamily="Verdana" Height="30" FontWeight="Bold" Background="#FF737373"/>
+        <Button x:Name="removeButton" Content="&lt;&lt;" Style="{StaticResource RoundButtonTemplate}" HorizontalAlignment="Left" Margin="312,256,0,0" VerticalAlignment="Top" Width="55" FontFamily="Verdana" Height="30" FontWeight="Bold" Background="#FF737373"/>
+        <Label x:Name="titleLabel" Content="File Action" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" FontFamily="Verdana" FontSize="30"/>
+        <Label x:Name="newFilesLabel" Content="New Files" HorizontalAlignment="Left" Margin="78,56,0,0" VerticalAlignment="Top" FontFamily="Verdana" FontSize="16"/>
+        <Label x:Name="selectedFilesLabel" Content="Selected Files" HorizontalAlignment="Left" Margin="470,56,0,0" VerticalAlignment="Top" FontFamily="Verdana" FontSize="16"/>
+
+        <Button x:Name="deleteButton" Content="Delete" Style="{StaticResource RoundButtonTemplate}" HorizontalAlignment="Left" Margin="332,409,0,0" VerticalAlignment="Top" Width="85" FontFamily="Verdana" Height="35" FontWeight="Bold" Background="#FFC33714" Click="deleteButton_Click"/>
+        <Button x:Name="moveButton" Content="Move" Style="{StaticResource RoundButtonTemplate}" HorizontalAlignment="Left" Margin="427,409,0,0" VerticalAlignment="Top" Width="85" FontFamily="Verdana" Height="35" FontWeight="Bold" Background="#FF3791D7" Click="moveButton_Click"/>
+        <Button x:Name="closeButton" Content="Close" Style="{StaticResource RoundButtonTemplate}" HorizontalAlignment="Left" Margin="582,409,0,0" VerticalAlignment="Top" Width="85" FontFamily="Verdana" Height="35" FontWeight="Bold" Background="#FF28B419" Click="closeButton_Click"/>
+    </Grid>
+</Window>

@@ -82,6 +82,11 @@ namespace FileOrganizer.Windows
             ShowConfig(Rule.ActionEnum.CompressContents);
         }
 
+        private void ShowPromptAction()
+        {
+
+        }
+
         private void actionComboBox_DropDownClosed(object sender, EventArgs e)
         {
             ActionDropDown_Closed();
@@ -105,6 +110,9 @@ namespace FileOrganizer.Windows
                     break;
                 case "Compress Contents":
                     ShowCompress();
+                    break;
+                case "Prompt Action":
+                    ShowPromptAction();
                     break;
                 default:
                     break;
@@ -133,6 +141,9 @@ namespace FileOrganizer.Windows
                 case Rule.ActionEnum.CompressContents:
                     CurrentConfigOptions = CompressConfigOptions();
                     break;
+                case Rule.ActionEnum.PromptAction:
+                    CurrentConfigOptions = PromptActionOptions();
+                    break;
                 default:
                     //If not called with a rule type but selection is not empty, try using text
                     if (!String.IsNullOrEmpty(actionComboBox.Text))
@@ -152,6 +163,9 @@ namespace FileOrganizer.Windows
                                 break;
                             case "Compress Contents":
                                 CurrentConfigOptions = CompressConfigOptions();
+                                break;
+                            case "Prompt Action":
+                                CurrentConfigOptions = PromptActionOptions();
                                 break;
                             default:
                                 break;
@@ -215,6 +229,14 @@ namespace FileOrganizer.Windows
                 CheckBoxTemplate(ElementHelper.SubDirCheckBox, "Include subdirectories", isChecked: ActiveRule.IncludeSubDirectories),
                 CheckBoxTemplate(ElementHelper.ExcludeEmptyCheckBox, "Exclude empty directories", isChecked: ActiveRule.ExcludeEmptyDirectories),
                 CheckBoxTemplate(ElementHelper.DeleteIfSuccessfulCheckbox, "Delete contents if successful", isChecked: ActiveRule.DeleteIfSuccessful)
+            };
+        }
+
+        List<CheckBox> PromptActionOptions()
+        {
+            return new List<CheckBox>()
+            {
+
             };
         }
 
@@ -446,6 +468,10 @@ namespace FileOrganizer.Windows
                 case Rule.ActionEnum.CompressContents:
                     actionComboBox.SelectedIndex = 4;
                     ShowCompress();
+                    break;
+                case Rule.ActionEnum.PromptAction:
+                    actionComboBox.SelectedIndex = 5;
+                    ShowPromptAction();
                     break;
             }
 
