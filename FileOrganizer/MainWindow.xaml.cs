@@ -158,6 +158,11 @@ namespace FileOrganizer
             try
             {
                 Instance = this;
+
+                var settings = SettingsHelper.LoadSettings();
+                Instance.Left = settings.MainWindowLeft;
+                Instance.Top = settings.MainWindowTop;
+
                 AppData = new DataHelper();
                 Scanner = new ScanHelper();
                 ExistingRules = await DataHelper.GetAllRules();
@@ -188,6 +193,8 @@ namespace FileOrganizer
 
         private void Shutdown()
         {
+            SettingsHelper.SaveMainWindowLocation(Instance.Left, Instance.Top);
+
             ProgramIcon.Dispose();
             Environment.Exit(0);
         }

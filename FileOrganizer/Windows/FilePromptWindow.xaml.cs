@@ -40,6 +40,10 @@ namespace FileOrganizer.Windows
             {
                 Instance = this;
 
+                var settings = SettingsHelper.LoadSettings();
+                Instance.Left = settings.PromptWindowLeft;
+                Instance.Top = settings.PromptWindowTop;
+
                 SourceDirectory = new DirectoryInfo(source);
                 SubDirectories = SourceDirectory.GetDirectories().ToList();
                 NewFileList = SourceDirectory.GetFiles().ToList();
@@ -185,7 +189,18 @@ namespace FileOrganizer.Windows
 
         private void CloseWindow()
         {
-            Instance.Close();
+            try
+            {
+                SettingsHelper.SavePromptWindowLocation(Instance.Left, Instance.Top);
+
+                Instance.Close();
+            }
+            catch (Exception ex)
+            {
+                LogHelper.LogError(ex);
+
+                Instance.Close();
+            }
         }
     }
 }
