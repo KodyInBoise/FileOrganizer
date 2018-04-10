@@ -268,7 +268,7 @@ namespace FileOrganizer
 
         private async void PromptAction()
         {
-            var actionPromptWindow = new FilePromptWindow(SourceDir);
+            var actionPromptWindow = new FilePromptWindow(this);
         }
 
         private bool FileOldEnough(FileInfo file)

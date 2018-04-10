@@ -228,7 +228,7 @@ namespace FileOrganizer.Utilities
             return filteredFiles;
         }
 
-        public List<DirectoryInfo> GetSubDirectories(string source, bool excludeEmpty = false)
+        public static List<DirectoryInfo> GetSubDirectories(string source, bool excludeEmpty = false)
         {
             try
             {
@@ -247,7 +247,7 @@ namespace FileOrganizer.Utilities
             }
         }
 
-        public List<DirectoryInfo> FilterEmptyDirectories(List<DirectoryInfo> directories)
+        public static List<DirectoryInfo> FilterEmptyDirectories(List<DirectoryInfo> directories)
         {
             var filteredDirectories = new List<DirectoryInfo>();
 

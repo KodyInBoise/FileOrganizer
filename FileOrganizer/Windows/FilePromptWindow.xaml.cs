@@ -23,18 +23,20 @@ namespace FileOrganizer.Windows
     {
         public FilePromptWindow Instance;
 
+        Rule ActiveRule;
         DirectoryInfo SourceDirectory;
         List<FileInfo> NewFileList;
         List<DirectoryInfo> SubDirectories;
 
-        public FilePromptWindow(string source)
+        public FilePromptWindow(Rule rule)
         {
             InitializeComponent();
-            
-            ShowWindow(source);
+
+            ActiveRule = rule;
+            ShowWindow();
         }
 
-        private void ShowWindow(string source)
+        private void ShowWindow()
         {
             try
             {
@@ -44,8 +46,8 @@ namespace FileOrganizer.Windows
                 Instance.Left = settings.PromptWindowLeft;
                 Instance.Top = settings.PromptWindowTop;
 
-                SourceDirectory = new DirectoryInfo(source);
-                SubDirectories = SourceDirectory.GetDirectories().ToList();
+                SourceDirectory = new DirectoryInfo(ActiveRule.SourceDir);
+                SubDirectories = ScanHelper.GetSubDirectories(ActiveRule.SourceDir, ActiveRule.ExcludeEmptyDirectories);
                 NewFileList = SourceDirectory.GetFiles().ToList();
 
                 SubDirectories.ForEach(d => newFilesListBox.Items.Add($"{d.Name} (Dir)"));

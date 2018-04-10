@@ -84,7 +84,7 @@ namespace FileOrganizer.Windows
 
         private void ShowPromptAction()
         {
-
+            ShowConfig(Rule.ActionEnum.PromptAction);
         }
 
         private void actionComboBox_DropDownClosed(object sender, EventArgs e)
@@ -236,7 +236,8 @@ namespace FileOrganizer.Windows
         {
             return new List<CheckBox>()
             {
-
+                CheckBoxTemplate(ElementHelper.SubDirCheckBox, "Include subdirectories", isChecked: ActiveRule.IncludeSubDirectories),
+                CheckBoxTemplate(ElementHelper.ExcludeEmptyCheckBox, "Exclude empty directories", isChecked: ActiveRule.ExcludeEmptyDirectories),
             };
         }
 
