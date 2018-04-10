@@ -167,6 +167,7 @@ namespace FileOrganizer.Utilities
 
         public static void CompressDirectory(string source, string dest)
         {
+            if (File.Exists(dest)) File.Delete(dest);
             ZipFile.CreateFromDirectory(source, dest, CompressionLevel.Optimal, false);
         }
 
@@ -201,7 +202,7 @@ namespace FileOrganizer.Utilities
                 var sourceDirectory = new DirectoryInfo(source);
                 var allFiles = sourceDirectory.GetFiles().ToList();
 
-                if (keywords != null) allFiles = FilterFilesByKeywords(keywords, allFiles);
+                if (keywords != null && keywords.Count > 0) allFiles = FilterFilesByKeywords(keywords, allFiles);
                 if (daysThreshold > 0) allFiles = FilterFilesByAge(daysThreshold, allFiles);
 
                 return allFiles;

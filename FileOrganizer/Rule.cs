@@ -144,7 +144,7 @@ namespace FileOrganizer
         {
             try
             {
-                FileList = GetAllFiles();
+                FileList = ScanHelper.GetFiles(SourceDir, keywords: Keywords, daysThreshold: DayLimit);
 
                 switch (Action)
                 {
