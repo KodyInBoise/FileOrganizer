@@ -108,23 +108,7 @@ namespace FileOrganizer.Utilities
             }
         }
 
-        public List<DirectoryInfo> GetSubDirectories(string source)
-        {
-            try
-            {
-                var directory = new DirectoryInfo(source);
-
-                if (directory.Exists) return directory.GetDirectories().ToList();
-                else return new List<DirectoryInfo>();
-            }
-            catch (Exception ex)
-            {
-                MainWindow.Instance.HandleError(exception: ex);
-
-                return new List<DirectoryInfo>();
-            }
-        }
-
+        /*
         public List<FileInfo> GetDirectoryFiles(string source, List<string> keywords = null)
         {
             try
@@ -164,10 +148,12 @@ namespace FileOrganizer.Utilities
                 return new List<FileInfo>();
             }
         }
+        */
 
         public static void CompressDirectory(string source, string dest)
         {
             if (File.Exists(dest)) File.Delete(dest);
+
             ZipFile.CreateFromDirectory(source, dest, CompressionLevel.Optimal, false);
         }
 
@@ -240,6 +226,37 @@ namespace FileOrganizer.Utilities
             }
 
             return filteredFiles;
+        }
+
+        public List<DirectoryInfo> GetSubDirectories(string source, bool excludeEmpty = false)
+        {
+            try
+            {
+                var directory = new DirectoryInfo(source);
+                var subDirectories = directory.GetDirectories().ToList();
+
+                if (excludeEmpty) subDirectories = FilterEmptyDirectories(subDirectories);
+
+                return subDirectories;
+            }
+            catch (Exception ex)
+            {
+                LogHelper.LogError(ex);
+
+                return new List<DirectoryInfo>();
+            }
+        }
+
+        public List<DirectoryInfo> FilterEmptyDirectories(List<DirectoryInfo> directories)
+        {
+            var filteredDirectories = new List<DirectoryInfo>();
+
+            foreach (var directory in directories)
+            {
+                if (directory.GetFileSystemInfos().Count() > 0) filteredDirectories.Add(directory);
+            }
+
+            return filteredDirectories;
         }
     }
 }
