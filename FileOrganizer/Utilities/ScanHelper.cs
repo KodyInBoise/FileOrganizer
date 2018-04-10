@@ -193,5 +193,52 @@ namespace FileOrganizer.Utilities
                 catch (Exception ex) { LogHelper.LogError(ex); }
             }
         }
+
+        public static List<FileInfo> GetFiles(string source, List<string> keywords = null, int daysThreshold = -1)
+        {
+            try
+            {
+                var sourceDirectory = new DirectoryInfo(source);
+                var allFiles = sourceDirectory.GetFiles().ToList();
+
+                if (keywords != null) allFiles = FilterFilesByKeywords(keywords, allFiles);
+                if (daysThreshold > 0) allFiles = FilterFilesByAge(daysThreshold, allFiles);
+
+                return allFiles;
+            }
+            catch (Exception ex)
+            {
+                LogHelper.LogError(ex);
+
+                return null;
+            }
+        }
+
+        private static List<FileInfo> FilterFilesByKeywords(List<string> keywords, List<FileInfo> files)
+        {
+            var filteredFiles = new List<FileInfo>();
+
+            foreach (var file in files)
+            {
+                foreach (var keyword in keywords)
+                {
+                    if (file.Name.ToLower().Contains(keyword.ToLower())) filteredFiles.Add(file);
+                }
+            }
+
+            return filteredFiles;
+        }
+
+        private static List<FileInfo>FilterFilesByAge(int days, List<FileInfo> files)
+        {
+            var filteredFiles = new List<FileInfo>();
+
+            foreach (var file in files)
+            {
+                if (DateTime.Now > file.CreationTime.AddDays(days)) filteredFiles.Add(file);
+            }
+
+            return filteredFiles;
+        }
     }
 }
