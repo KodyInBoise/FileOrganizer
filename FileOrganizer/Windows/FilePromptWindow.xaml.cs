@@ -47,8 +47,13 @@ namespace FileOrganizer.Windows
                 Instance.Top = settings.PromptWindowTop;
 
                 SourceDirectory = new DirectoryInfo(ActiveRule.SourceDir);
-                SubDirectories = ScanHelper.GetSubDirectories(ActiveRule.SourceDir, ActiveRule.ExcludeEmptyDirectories);
                 NewFileList = SourceDirectory.GetFiles().ToList();
+
+                if (ActiveRule.IncludeSubDirectories)
+                {
+                    SubDirectories = ScanHelper.GetSubDirectories(ActiveRule.SourceDir, excludeEmpty: ActiveRule.ExcludeEmptyDirectories);
+                }
+                else SubDirectories = new List<DirectoryInfo>();
 
                 SubDirectories.ForEach(d => newFilesListBox.Items.Add($"{d.Name} (Dir)"));
                 NewFileList.ForEach(f => newFilesListBox.Items.Add($"{f.Name}"));
