@@ -18,5 +18,7 @@
         <Button x:Name="deleteButton" Content="Delete" Style="{StaticResource RoundButtonTemplate}" HorizontalAlignment="Left" Margin="332,409,0,0" VerticalAlignment="Top" Width="85" FontFamily="Verdana" Height="35" FontWeight="Bold" Background="#FFC33714" Click="deleteButton_Click"/>
         <Button x:Name="moveButton" Content="Move" Style="{StaticResource RoundButtonTemplate}" HorizontalAlignment="Left" Margin="427,409,0,0" VerticalAlignment="Top" Width="85" FontFamily="Verdana" Height="35" FontWeight="Bold" Background="#FF3791D7" Click="moveButton_Click"/>
         <Button x:Name="closeButton" Content="Close" Style="{StaticResource RoundButtonTemplate}" HorizontalAlignment="Left" Margin="582,409,0,0" VerticalAlignment="Top" Width="85" FontFamily="Verdana" Height="35" FontWeight="Bold" Background="#FF28B419" Click="closeButton_Click"/>
+        <Label x:Name="sourceLabel" Content="Source: " HorizontalAlignment="Left" Margin="15,390,0,0" VerticalAlignment="Top" FontFamily="Verdana" FontSize="14"/>
+        <Label x:Name="contentsLabel" Content="Contents: " HorizontalAlignment="Left" Margin="15,417,0,0" VerticalAlignment="Top" FontFamily="Verdana" FontSize="14"/>
     </Grid>
 </Window>

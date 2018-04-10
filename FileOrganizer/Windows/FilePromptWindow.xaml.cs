@@ -51,6 +51,9 @@ namespace FileOrganizer.Windows
                 SubDirectories.ForEach(d => newFilesListBox.Items.Add($"{d.Name} (Dir)"));
                 NewFileList.ForEach(f => newFilesListBox.Items.Add($"{f.Name}"));
 
+                sourceLabel.Content = SourceDirectory.FullName.Length > 20 ? $"Source: ...{SourceDirectory.FullName.Substring(3, 17)}" : $"Source: {SourceDirectory.FullName}";
+                contentsLabel.Content = $"Contents: {newFilesListBox.Items.Count}";
+
                 addButton.Click += (s, e) => SelectFile();
                 removeButton.Click += (s, e) => UnselectFile();
 
@@ -139,6 +142,8 @@ namespace FileOrganizer.Windows
             ScanHelper.DeleteDirectories(GetSelectedDirectories());
             ScanHelper.DeleteFiles(GetSelectedFiles());
 
+            contentsLabel.Content = $"Count: {newFilesListBox.Items.Count}";
+
             selectedFilesListBox.Items.Clear();
         }
 
@@ -172,6 +177,8 @@ namespace FileOrganizer.Windows
                     }
                     catch (Exception ex) { LogHelper.LogError(ex); }
                 }
+
+                contentsLabel.Content = $"Count: {newFilesListBox.Items.Count}";
 
                 selectedFilesListBox.Items.Clear();
             }
