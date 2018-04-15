@@ -155,7 +155,7 @@ namespace FileOrganizer
                         await Task.Run(CopyFiles);
                         break;
                     case ActionEnum.Delete:
-                        await Task.Run(DeleteFiles);
+                        await Task.Run(DeleteContents);
                         break;
                     case ActionEnum.DropboxCleanup:
                         await Task.Run(CleanupDropbox);
@@ -191,16 +191,19 @@ namespace FileOrganizer
             }
         }
 
-        private async Task DeleteFiles()
+        private async Task DeleteContents()
         {
-            foreach (FileInfo f in FileList)
+            var files = ScanHelper.GetFiles(SourceDir, keywords: Keywords);
+            var subDirectories = ScanHelper.GetSubDirectories(SourceDir, excludeEmpty: ExcludeEmptyDirectories);
+
+            if (Frequency == FrequencyEnum.AfterDays)
             {
-                try
-                {
-                    f.Delete();
-                }
-                catch { }
+                files = ScanHelper.FilterFilesByAge(DayLimit, files);
+                subDirectories = ScanHelper.FilterDirectoriesByAge(DayLimit, subDirectories);
             }
+
+            ScanHelper.DeleteFiles(files);
+            ScanHelper.DeleteDirectories(subDirectories);
         }
 
         private async Task CopyFiles()

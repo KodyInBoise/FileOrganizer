@@ -201,7 +201,7 @@ namespace FileOrganizer.Utilities
             }
         }
 
-        private static List<FileInfo> FilterFilesByKeywords(List<string> keywords, List<FileInfo> files)
+        public static List<FileInfo> FilterFilesByKeywords(List<string> keywords, List<FileInfo> files)
         {
             var filteredFiles = new List<FileInfo>();
 
@@ -216,16 +216,9 @@ namespace FileOrganizer.Utilities
             return filteredFiles;
         }
 
-        private static List<FileInfo>FilterFilesByAge(int days, List<FileInfo> files)
+        public static List<FileInfo>FilterFilesByAge(int days, List<FileInfo> files)
         {
-            var filteredFiles = new List<FileInfo>();
-
-            foreach (var file in files)
-            {
-                if (DateTime.Now > file.CreationTime.AddDays(days)) filteredFiles.Add(file);
-            }
-
-            return filteredFiles;
+            return files.FindAll(x => DateTime.Now > x.CreationTime.AddDays(days));
         }
 
         public static List<DirectoryInfo> GetSubDirectories(string source, bool excludeEmpty = false)
@@ -257,6 +250,11 @@ namespace FileOrganizer.Utilities
             }
 
             return filteredDirectories;
+        }
+
+        public static List<DirectoryInfo> FilterDirectoriesByAge(int days, List<DirectoryInfo> directories)
+        {
+            return directories.FindAll(x => DateTime.Now > x.CreationTime.AddDays(days));
         }
     }
 }
