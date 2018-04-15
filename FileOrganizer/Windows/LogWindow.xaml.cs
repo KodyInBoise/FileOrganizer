@@ -38,6 +38,8 @@ namespace FileOrganizer.Windows
         public void DisplayActivityLog()
         {
             _activityEntries = DataHelper.GetActivityEntries();
+            _activityEntries.Reverse();
+
             logDataGrid.ItemsSource = _activityEntries;
             logDataGrid.Items.Refresh();
         }
@@ -46,6 +48,8 @@ namespace FileOrganizer.Windows
         public void DisplayErrorLog()
         {
             _errorEntries = DataHelper.GetErrorEntries();
+            _errorEntries.Reverse();
+
             logDataGrid.ItemsSource = _errorEntries;
             logDataGrid.Items.Refresh();
         }
