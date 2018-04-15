@@ -224,7 +224,9 @@ namespace FileOrganizer
 
         private void logsButton_Click(object sender, RoutedEventArgs e)
         {
-            var logsWindow = new LogWindow();
+            //var logsWindow = new LogWindow();
+
+            var alert = new AlertWindow("Test message alert and stuff", owner: this);
         }
 
         private string TrimPath(string path)
