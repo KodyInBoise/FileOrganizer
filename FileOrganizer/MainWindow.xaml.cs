@@ -158,9 +158,14 @@ namespace FileOrganizer
             try
             {
                 Instance = this;
+
+                var settings = SettingsHelper.LoadSettings();
+                Instance.Left = settings.MainWindowLeft;
+                Instance.Top = settings.MainWindowTop;
+
                 AppData = new DataHelper();
                 Scanner = new ScanHelper();
-                ExistingRules = await AppData.GetAllRules();
+                ExistingRules = await DataHelper.GetAllRules();
 
                 var trayIconPath = $"{Directory.GetCurrentDirectory()}\\main.ico";
                 ProgramIcon = new NotifyIcon
@@ -188,6 +193,8 @@ namespace FileOrganizer
 
         private void Shutdown()
         {
+            SettingsHelper.SaveMainWindowLocation(Instance.Left, Instance.Top);
+
             ProgramIcon.Dispose();
             Environment.Exit(0);
         }
@@ -218,6 +225,18 @@ namespace FileOrganizer
         private void logsButton_Click(object sender, RoutedEventArgs e)
         {
             var logsWindow = new LogWindow();
+        }
+
+        private string TrimPath(string path)
+        {
+            var pathLength = path.Length;
+            if (pathLength > 17)
+            {
+                path = path.Remove(0, (pathLength - 17));
+                path = "..." + path;
+            }
+
+            return path;
         }
     }
 }

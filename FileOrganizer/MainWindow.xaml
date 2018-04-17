@@ -4,26 +4,24 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FileOrganizer"
-        mc:Ignorable="d" Height="555" Width="700" Closing="Window_Closing" Icon="Images/filecabinet.png">
+        mc:Ignorable="d" Height="555" Width="800" Closing="Window_Closing" Icon="Images/filecabinet.png">
     <Window.Resources>
         <CollectionViewSource x:Key="ItemCollectionViewSource" CollectionViewType="ListCollectionView"/>
     </Window.Resources>
     <Grid>
-        <DataGrid x:Name="RulesDataGrid"  HorizontalAlignment="Left" Width="575" DataContext="{StaticResource ItemCollectionViewSource}" ItemsSource="{Binding}" AutoGenerateColumns="False" Margin="0,47,0,0">
+        <DataGrid x:Name="RulesDataGrid"  HorizontalAlignment="Left" Width="686" DataContext="{StaticResource ItemCollectionViewSource}" ItemsSource="{Binding}" AutoGenerateColumns="False" Margin="0,51,0,0" FontFamily="Verdana" FontSize="14">
             <DataGrid.Columns>
-                <DataGridTextColumn Width="75" Header="Name" Binding="{Binding Name}"/>
-                <DataGridTextColumn Width="125" Header="Source" Binding="{Binding SourceDir}"/>
-                <DataGridTextColumn Width="125" Header="Destination" Binding="{Binding DestDir}"/>
-                <DataGridTextColumn Width="75" Header="Action" Binding="{Binding Action}"/>
-                <DataGridTextColumn Width="75" Header="Keyword" Binding="{Binding KeywordString}"/>
-                <DataGridTextColumn Width="75" Header="Frequency" Binding="{Binding Frequency}"/>
+                <DataGridTextColumn Width="100" Header="Name" Binding="{Binding Name}"/>
+                <DataGridTextColumn Width="175" Header="Source" Binding="{Binding SourceDir}"/>
+                <DataGridTextColumn Width="175" Header="Destination" Binding="{Binding DestDir}"/>
+                <DataGridTextColumn Width="100" Header="Action" Binding="{Binding Action}"/>
             </DataGrid.Columns>
         </DataGrid>
-        <Button x:Name="newRuleBTN" Content="New Rule" Style="{StaticResource RoundButtonTemplate}" HorizontalAlignment="Left" Height="43" Margin="587,50,0,0" VerticalAlignment="Top" Width="86" Click="newRuleBTN_Click" Background="#FF19B950" FontFamily="Verdana" FontSize="15"/>
-        <Button x:Name="editBTN" Content="Edit Rule" Style="{StaticResource RoundButtonTemplate}" HorizontalAlignment="Left" Height="43" Margin="587,115,0,0" VerticalAlignment="Top" Width="86" Click="editBTN_Click" FontFamily="Verdana" FontSize="15" Background="#FF716C6C"/>
-        <Button x:Name="runBTN" Content="Run Now" Style="{StaticResource RoundButtonTemplate}" HorizontalAlignment="Left" Height="43" Margin="587,180,0,0" VerticalAlignment="Top" Width="86" Click="runBTN_Click" Background="#FF3992D5" FontFamily="Verdana" FontSize="15"/>
-        <Label x:Name="titleLBL" Content="File Organizer" FontFamily="Tahoma" FontSize="28" FontWeight="SemiBold" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-        <Button x:Name="quitBTN" Content="Quit" Style="{StaticResource RoundButtonTemplate}" HorizontalAlignment="Left" Height="43" Margin="587,466,0,0" VerticalAlignment="Top" Width="86" Click="quitBTN_Click" FontFamily="Verdana" FontSize="15" Background="#FFC21313"/>
-        <Button x:Name="logsButton" Content="View Logs" Style="{StaticResource RoundButtonTemplate}" HorizontalAlignment="Left" Height="43" Margin="587,408,0,0" VerticalAlignment="Top" Width="86" Click="logsButton_Click" FontFamily="Verdana" FontSize="15" Background="#FFAFBD1F"/>
+        <Button x:Name="newRuleBTN" Content="New Rule" Style="{StaticResource RoundButtonTemplate}" HorizontalAlignment="Left" Height="43" Margin="691,49,0,0" VerticalAlignment="Top" Width="86" Click="newRuleBTN_Click" Background="#FF19B950" FontFamily="Verdana" FontSize="15"/>
+        <Button x:Name="editBTN" Content="Edit Rule" Style="{StaticResource RoundButtonTemplate}" HorizontalAlignment="Left" Height="43" Margin="691,114,0,0" VerticalAlignment="Top" Width="86" Click="editBTN_Click" FontFamily="Verdana" FontSize="15" Background="#FF716C6C"/>
+        <Button x:Name="runBTN" Content="Run Now" Style="{StaticResource RoundButtonTemplate}" HorizontalAlignment="Left" Height="43" Margin="691,179,0,0" VerticalAlignment="Top" Width="86" Click="runBTN_Click" Background="#FF3791D7" FontFamily="Verdana" FontSize="15"/>
+        <Label x:Name="titleLBL" Content="File Organizer" FontFamily="Verdana" FontSize="30" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+        <Button x:Name="quitBTN" Content="Quit" Style="{StaticResource RoundButtonTemplate}" HorizontalAlignment="Left" Height="43" Margin="691,465,0,0" VerticalAlignment="Top" Width="86" Click="quitBTN_Click" FontFamily="Verdana" FontSize="15" Background="#FFC21313"/>
+        <Button x:Name="logsButton" Content="View Logs" Style="{StaticResource RoundButtonTemplate}" HorizontalAlignment="Left" Height="43" Margin="691,407,0,0" VerticalAlignment="Top" Width="86" Click="logsButton_Click" FontFamily="Verdana" FontSize="15" Background="#FFAFBD1F"/>
     </Grid>
 </Window>

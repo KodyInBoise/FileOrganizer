@@ -1,4 +1,5 @@
 ﻿using FileOrganizer.Utilities;
+using FileOrganizer.Windows;
 using LiteDB;
 using System;
 using System.Collections.Generic;
@@ -42,7 +43,8 @@ namespace FileOrganizer
             Copy,
             Delete,
             DropboxCleanup,
-            CompressContents
+            CompressContents,
+            PromptAction
         }
 
         public enum FrequencyEnum
@@ -142,7 +144,7 @@ namespace FileOrganizer
         {
             try
             {
-                FileList = GetAllFiles();
+                FileList = ScanHelper.GetFiles(SourceDir, keywords: Keywords, daysThreshold: DayLimit);
 
                 switch (Action)
                 {
@@ -153,13 +155,16 @@ namespace FileOrganizer
                         await Task.Run(CopyFiles);
                         break;
                     case ActionEnum.Delete:
-                        await Task.Run(DeleteFiles);
+                        await Task.Run(DeleteContents);
                         break;
                     case ActionEnum.DropboxCleanup:
                         await Task.Run(CleanupDropbox);
                         break;
                     case ActionEnum.CompressContents:
                         await Task.Run(CompressContents);
+                        break;
+                    case ActionEnum.PromptAction:
+                        PromptAction();
                         break;
                     default:
                         break;
@@ -186,16 +191,19 @@ namespace FileOrganizer
             }
         }
 
-        private async Task DeleteFiles()
+        private async Task DeleteContents()
         {
-            foreach (FileInfo f in FileList)
+            var files = ScanHelper.GetFiles(SourceDir, keywords: Keywords);
+            var subDirectories = ScanHelper.GetSubDirectories(SourceDir, excludeEmpty: ExcludeEmptyDirectories);
+
+            if (Frequency == FrequencyEnum.AfterDays)
             {
-                try
-                {
-                    f.Delete();
-                }
-                catch { }
+                files = ScanHelper.FilterFilesByAge(DayLimit, files);
+                subDirectories = ScanHelper.FilterDirectoriesByAge(DayLimit, subDirectories);
             }
+
+            ScanHelper.DeleteFiles(files);
+            ScanHelper.DeleteDirectories(subDirectories);
         }
 
         private async Task CopyFiles()
@@ -261,6 +269,11 @@ namespace FileOrganizer
             }
         }
 
+        private async void PromptAction()
+        {
+            var actionPromptWindow = new FilePromptWindow(this);
+        }
+
         private bool FileOldEnough(FileInfo file)
         {
             try
@@ -312,6 +325,9 @@ namespace FileOrganizer
                     break;
                 case "Compress Contents":
                     Action = ActionEnum.CompressContents;
+                    break;
+                case "Prompt Action":
+                    Action = ActionEnum.PromptAction;
                     break;
             }
             Counter = 0;

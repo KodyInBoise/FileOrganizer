@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FileOrganizer.Windows"
         mc:Ignorable="d"
-        Title="LogWindow" Height="450" Width="725.556">
+        Title="File Organizer Logs" Height="450" Width="725.556">
     <Grid>
         <TabControl HorizontalAlignment="Left" Height="422" VerticalAlignment="Top" Width="720">
             <TabItem x:Name="activityTabItem" Header="Activity" GotFocus="activity_Focused">

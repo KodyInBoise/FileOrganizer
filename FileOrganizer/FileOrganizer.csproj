@@ -51,8 +51,14 @@
     <ManifestKeyFile>FileOrganizer_TemporaryKey.pfx</ManifestKeyFile>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Json, Version=1.0.0.0, Culture=neutral, PublicKeyToken=c6752e45808247c2, processorArchitecture=MSIL">
+      <HintPath>..\packages\JSON.1.0.1\lib\net40\Json.dll</HintPath>
+    </Reference>
     <Reference Include="LiteDB, Version=4.1.1.0, Culture=neutral, PublicKeyToken=4ee40123013c9f27, processorArchitecture=MSIL">
       <HintPath>..\packages\LiteDB.4.1.1\lib\net40\LiteDB.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
@@ -84,11 +90,21 @@
     <Compile Include="Utilities\ErrorHelper.cs" />
     <Compile Include="Utilities\LogHelper.cs" />
     <Compile Include="Rule.cs" />
+    <Compile Include="Utilities\SettingsHelper.cs" />
     <Compile Include="Utilities\TimerHelper.cs" />
     <Compile Include="Utilities\DataHelper.cs" />
     <Compile Include="Utilities\FileHelper.cs" />
     <Compile Include="Utilities\ScanHelper.cs" />
+    <Compile Include="Windows\AlertWindow.xaml.cs">
+      <DependentUpon>AlertWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Windows\ElementHelper.cs" />
+    <Compile Include="Windows\FilePromptWindow.xaml.cs">
+      <DependentUpon>FilePromptWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\HomeWindow.xaml.cs">
+      <DependentUpon>HomeWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Windows\LogWindow.xaml.cs">
       <DependentUpon>LogWindow.xaml</DependentUpon>
     </Compile>
@@ -111,6 +127,18 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Windows\AlertWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\FilePromptWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\HomeWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Windows\LogWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

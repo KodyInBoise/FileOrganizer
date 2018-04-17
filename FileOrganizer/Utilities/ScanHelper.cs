@@ -108,23 +108,7 @@ namespace FileOrganizer.Utilities
             }
         }
 
-        public List<DirectoryInfo> GetSubDirectories(string source)
-        {
-            try
-            {
-                var directory = new DirectoryInfo(source);
-
-                if (directory.Exists) return directory.GetDirectories().ToList();
-                else return new List<DirectoryInfo>();
-            }
-            catch (Exception ex)
-            {
-                MainWindow.Instance.HandleError(exception: ex);
-
-                return new List<DirectoryInfo>();
-            }
-        }
-
+        /*
         public List<FileInfo> GetDirectoryFiles(string source, List<string> keywords = null)
         {
             try
@@ -164,10 +148,113 @@ namespace FileOrganizer.Utilities
                 return new List<FileInfo>();
             }
         }
+        */
 
         public static void CompressDirectory(string source, string dest)
         {
+            if (File.Exists(dest)) File.Delete(dest);
+
             ZipFile.CreateFromDirectory(source, dest, CompressionLevel.Optimal, false);
+        }
+
+        public static void DeleteFiles(List<FileInfo> files)
+        {
+            foreach (var file in files.ToList())
+            {
+                try
+                {
+                    file.Delete();
+                }
+                catch (Exception ex) { LogHelper.LogError(ex); }
+            }
+        }
+
+        public static void DeleteDirectories(List<DirectoryInfo> directories)
+        {
+            foreach (var dir in directories.ToList())
+            {
+                try
+                {
+                    dir.Delete(true);
+                }
+                catch (Exception ex) { LogHelper.LogError(ex); }
+            }
+        }
+
+        public static List<FileInfo> GetFiles(string source, List<string> keywords = null, int daysThreshold = -1)
+        {
+            try
+            {
+                var sourceDirectory = new DirectoryInfo(source);
+                var allFiles = sourceDirectory.GetFiles().ToList();
+
+                if (keywords != null && keywords.Count > 0) allFiles = FilterFilesByKeywords(keywords, allFiles);
+                if (daysThreshold > 0) allFiles = FilterFilesByAge(daysThreshold, allFiles);
+
+                return allFiles;
+            }
+            catch (Exception ex)
+            {
+                LogHelper.LogError(ex);
+
+                return null;
+            }
+        }
+
+        public static List<FileInfo> FilterFilesByKeywords(List<string> keywords, List<FileInfo> files)
+        {
+            var filteredFiles = new List<FileInfo>();
+
+            foreach (var file in files)
+            {
+                foreach (var keyword in keywords)
+                {
+                    if (file.Name.ToLower().Contains(keyword.ToLower())) filteredFiles.Add(file);
+                }
+            }
+
+            return filteredFiles;
+        }
+
+        public static List<FileInfo>FilterFilesByAge(int days, List<FileInfo> files)
+        {
+            return files.FindAll(x => DateTime.Now > x.CreationTime.AddDays(days));
+        }
+
+        public static List<DirectoryInfo> GetSubDirectories(string source, bool excludeEmpty = false)
+        {
+            try
+            {
+                var directory = new DirectoryInfo(source);
+                var subDirectories = directory.GetDirectories().ToList();
+
+                if (excludeEmpty) subDirectories = FilterEmptyDirectories(subDirectories);
+
+                return subDirectories;
+            }
+            catch (Exception ex)
+            {
+                LogHelper.LogError(ex);
+
+                return new List<DirectoryInfo>();
+            }
+        }
+
+        public static List<DirectoryInfo> FilterEmptyDirectories(List<DirectoryInfo> directories)
+        {
+            var filteredDirectories = new List<DirectoryInfo>();
+
+            foreach (var directory in directories)
+            {
+                if (directory.GetFileSystemInfos().Count() > 0) filteredDirectories.Add(directory);
+            }
+
+            return filteredDirectories;
+        }
+
+        public static List<DirectoryInfo> FilterDirectoriesByAge(int days, List<DirectoryInfo> directories)
+        {
+            return directories.FindAll(x => DateTime.Now > x.CreationTime.AddDays(days));
         }
     }
 }
