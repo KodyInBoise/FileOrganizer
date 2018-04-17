@@ -58,7 +58,7 @@ namespace FileOrganizer.Windows
                 SubDirectories.ForEach(d => newFilesListBox.Items.Add($"{d.Name} (Dir)"));
                 NewFileList.ForEach(f => newFilesListBox.Items.Add($"{f.Name}"));
 
-                sourceLabel.Content = SourceDirectory.FullName.Length > 20 ? $"Source: ...{SourceDirectory.FullName.Substring(3, 17)}" : $"Source: {SourceDirectory.FullName}";
+                sourceLabel.Content = SourceDirectory.FullName.Length > 20 ? $"Source: ...\\{SourceDirectory.FullName.Substring(3, 17)}" : $"Source: {SourceDirectory.FullName}";
                 contentsLabel.Content = $"Contents: {newFilesListBox.Items.Count}";
 
                 addButton.Click += (s, e) => SelectFile();
